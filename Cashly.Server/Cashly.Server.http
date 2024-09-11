@@ -1,0 +1,6 @@
+@Cashly.Server_HostAddress = http://localhost:5017
+
+GET {{Cashly.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
