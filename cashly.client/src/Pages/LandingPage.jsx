@@ -66,8 +66,11 @@ const LandingPage = () => {
                     }}>
                         Cashly
                     </Typography>
-                    <Button variant="outlined" color="primary" sx={{ fontWeight: "600", ml: 4 }} onClick={() => { }}>
-                        Features
+                    <Button variant="outlined"
+                        color="primary"
+                        sx={{ fontWeight: "600", ml: 4 }}
+                        onClick={() => { }}>
+                        About
                     </Button>
                     <Button variant="contained"
                         color="primary"
@@ -80,10 +83,17 @@ const LandingPage = () => {
             </AppBar>
 
 
-            <Container maxWidth="lg" sx={{ flexGrow: 1, mt: 15 }}>
+            <Container maxWidth="lg" sx={{
+                flexGrow: 1,
+                mt: 15,
+                animation: 'slideIn 1s ease-out',
+                '@keyframes slideIn': {
+                    '0%': { transform: 'translateY(20px)', opacity: 0 },
+                    '100%': { transform: 'translateY(0)', opacity: 1 }, }}       
+                }>
                 <Grid container spacing={4} alignItems="center">
                     {/* Left side - Text */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} >
                         <Typography variant="h1" gutterBottom sx={{ letterSpacing: '0.10em', textAlign: 'left' }}>
                             Welcome to Cashly!
                         </Typography>
