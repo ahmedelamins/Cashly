@@ -1,12 +1,12 @@
 import { useRouteError } from "react-router-dom";
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 export default function ErrorPage() {
     const error = useRouteError();
     console.error(error);
 
     return (
-        <Box sx={{ textAlign: 'center', py: 5 }}>
+        <Box sx={{ textAlign: 'center', py: 6 }}>
             <h1>
                 Oops!
             </h1>
