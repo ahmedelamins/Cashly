@@ -1,3 +1,4 @@
+global using Cashly.Server.Models;
 global using Microsoft.EntityFrameworkCore;
 using Cashly.Server.Data;
 
