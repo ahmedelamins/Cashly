@@ -199,7 +199,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
               <MenuItem value="income">Income</MenuItem>
             </TextField>
             <DialogActions>
-              <Button onClick={handleClose} variant="outlined" color="secondary">
+              <Button onClick={handleClose} variant="outlined" color="primary">
                 Cancel
               </Button>
               <Button variant="contained" type="submit" color="primary">
