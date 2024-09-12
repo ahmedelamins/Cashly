@@ -111,7 +111,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           onClick={handleClickOpen}
           sx={{ mx: 2, mt: "4rem", p: "12px", fontWeight: 550 }}
         >
-          New Transaction
+          New Expense
         </Button>
       </List>
     </div>
