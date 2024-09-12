@@ -75,7 +75,7 @@ const LandingPage = () => {
                         sx={{ fontWeight: "600", ml: 4 }}
                         onClick={() => setAboutOpen(true)}>
                         <span style={{ marginRight: '8px' }}>About</span>
-                        <InfoIcon />
+                        
                     </Button>
                     <Button variant="contained"
                         color="primary"
