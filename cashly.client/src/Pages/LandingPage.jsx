@@ -13,6 +13,8 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
+import StartIcon from '@mui/icons-material/Start';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';  // Import the SVG file
 
@@ -74,10 +76,11 @@ const LandingPage = () => {
                     </Button>
                     <Button variant="contained"
                         color="primary"
-                        sx={{ fontWeight: "600", mr: 3, ml: 3 }}
+                        sx={{  mr: 3, ml: 3 }}
                         onClick={() => setLoginOpen(true)}
                     >
-                        Login
+                        <span style={{ marginRight: '8px' }}>Login</span>
+                        <LoginIcon />
                     </Button>
                 </Toolbar>
             </AppBar>
@@ -85,7 +88,7 @@ const LandingPage = () => {
 
             <Container maxWidth="lg" sx={{
                 flexGrow: 1,
-                mt: 15,
+                mt: 16,
                 animation: 'slideIn 1s ease-out',
                 '@keyframes slideIn': {
                     '0%': { transform: 'translateY(20px)', opacity: 0 },
@@ -108,6 +111,7 @@ const LandingPage = () => {
                             onClick={() => setJoinOpen(true)}
                             sx={{
                                 mt: 4,
+                                fontWeight: "500",
                                 px: 4,
                                 transition: 'transform 0.3s ease',
                                 '&:hover': {
@@ -115,7 +119,8 @@ const LandingPage = () => {
                                 },
                             }}
                         >
-                            Get Started
+                            <span style={{ marginRight: '8px' }}>Get Started</span>
+                            <StartIcon />
                         </Button>
                     </Grid>
 
