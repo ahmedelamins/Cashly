@@ -15,14 +15,16 @@ import {
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import StartIcon from '@mui/icons-material/Start';
+import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
-import vector from '../assets/vector.svg';  // Import the SVG file
+import vector from '../assets/vector.svg';  
 
 const LandingPage = () => {
     const nav = useNavigate();
 
     const [loginOpen, setLoginOpen] = useState(false);
     const [joinOpen, setJoinOpen] = useState(false);
+    const [aboutOpen, setAboutOpen] = useState(false);
     const [formData, setFormData] = useState({ username: '', password: '' });
 
     const handleInputChange = (e) => {
@@ -71,8 +73,9 @@ const LandingPage = () => {
                     <Button variant="outlined"
                         color="primary"
                         sx={{ fontWeight: "600", ml: 4 }}
-                        onClick={() => { }}>
-                        About
+                        onClick={() => setAboutOpen(true)}>
+                        <span style={{ marginRight: '8px' }}>About</span>
+                        <InfoIcon />
                     </Button>
                     <Button variant="contained"
                         color="primary"
@@ -149,6 +152,24 @@ const LandingPage = () => {
                     </Typography>
                 </Container>
             </Box>
+
+            {/* Aboud Modal */}
+            <Dialog open={aboutOpen} onClose={() => setAboutOpen(false)}>
+                <DialogTitle>About</DialogTitle>
+                <DialogContent>
+                    <Box component="form" onSubmit={handleLoginSubmit} sx={{ mt: 2 }}>
+                        <Typography>
+                            Track your expenses with ease and stay on top of your finances.
+                            Manage your budget effortlessly, gain full control over your spending habits.
+                        </Typography>
+                        <DialogActions>
+                            <Button variant="outlined" onClick={() => setAboutOpen(false)} color="primary">
+                                Cool
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
 
             {/* Login Modal */}
             <Dialog open={loginOpen} onClose={() => setLoginOpen(false)}>
