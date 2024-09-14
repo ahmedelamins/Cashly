@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import StartIcon from '@mui/icons-material/Start';
-import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';  
 
@@ -40,7 +39,6 @@ const LandingPage = () => {
             await handleLogin(formData.username, formData.password);
             setLoginOpen(false);
             console.log("successfull login")
-            nav("/dashboard");
         } catch (error) {
             console.error("Login failed", error);
         }
@@ -51,7 +49,6 @@ const LandingPage = () => {
         try {
             await handleRegister(formData.username, formData.password);
             setJoinOpen(false);
-            //nav("/dashboard");
         } catch (error) {
             console.error("Registration failed", error);
         }
@@ -163,7 +160,7 @@ const LandingPage = () => {
                             Manage your budget effortlessly, gain full control over your spending habits.
                         </Typography>
                         <DialogActions>
-                            <Button variant="outlined" onClick={() => setAboutOpen(false)} color="primary">
+                            <Button variant="contained" onClick={() => setAboutOpen(false)} color="primary">
                                 Cool
                             </Button>
                         </DialogActions>
