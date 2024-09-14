@@ -8,6 +8,9 @@ const theme = createTheme({
         secondary: {
             main: '#f7fcfc' // off-White for secondary
         },
+        error: {
+            main: "#ff0e0a"
+        },
         background: {
             default: '#fff', // White background
         },
