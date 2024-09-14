@@ -51,10 +51,14 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Data:", formData);
-    handleClose();
+      e.preventDefault();
+        handleClose();
   };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        console.log("Logging out...")
+    }
 
   const drawer = (
     <div>
@@ -110,8 +114,15 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           color="secondary"
           onClick={handleClickOpen}
           sx={{ mx: 2, mt: "4rem", p: "12px", fontWeight: 550 }}
-        >
+             >
           New Expense
+        </Button>
+
+         <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleLogout} sx={{ mx: 2, mt: "4rem", p: "12px", fontWeight: 550 }}>
+          Log out
         </Button>
       </List>
     </div>
