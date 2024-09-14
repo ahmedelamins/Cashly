@@ -24,25 +24,18 @@ const MainLayout = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [mobileOpen, setMobileOpen] = useState(false);
-   // const [anchorEl, setAnchorEl] = useState(null);
+   
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    //const handleMenuOpen = (e) => {
-    //    setAnchorEl(e.currentTarget);
-    //};
-
-    //const handleMenuClose = () => {
-    //    setAnchorEl(null);
-    //};
 
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
             {/* AppBar - Top Navbar */}
-            <AppBar position="fixed" color="secondary" sx={{ py: 1, borderBottom: '2px solid #f4f6f7', zIndex: theme.zIndex.drawer + 1 }}>
+            <AppBar position="fixed" color="secondary" sx={{ py: 1, borderBottom: '2px solid #f4f6f7', zIndex: theme.zIndex.drawer + 3 }}>
                 <Toolbar>
                     {/* Hamburger Menu Icon */}
                     
@@ -62,27 +55,7 @@ const MainLayout = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    {/* User Profile Menu */}
-                    {/*<Tooltip title="Account settings">*/}
-                    {/*    <IconButton*/}
-                    {/*        color="inherit"*/}
-                    {/*        edge="end"*/}
-                    {/*        onClick={handleMenuOpen}*/}
-                    {/*        sx={{ ml: 2 }}*/}
-                    {/*    >*/}
-                    {/*        <Avatar>*/}
-                    {/*            <AccountCircleIcon />*/}
-                    {/*        </Avatar>*/}
-                    {/*    </IconButton>*/}
-                    {/*</Tooltip>*/}
-                    {/*<Menu*/}
-                    {/*    anchorEl={anchorEl}*/}
-                    {/*    open={Boolean(anchorEl)}*/}
-                    {/*    onClose={handleMenuClose}*/}
-                    {/*>*/}
-                    {/*    <MenuItem onClick={handleMenuClose}>Profile</MenuItem>*/}
-                    {/*    <MenuItem onClick={handleMenuClose}>Logout</MenuItem>*/}
-                    {/*</Menu>*/}
+                    
                 </Toolbar>
             </AppBar>
 
