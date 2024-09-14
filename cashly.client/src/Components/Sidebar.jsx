@@ -118,9 +118,9 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           New Expense
         </Button>
 
-         <Button
+        <Button
           variant="contained"
-          color="secondary"
+          color="error"
           onClick={handleLogout} sx={{ mx: 2, mt: "4rem", p: "12px", fontWeight: 550 }}>
           Log out
         </Button>
