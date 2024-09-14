@@ -113,15 +113,32 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           variant="contained"
           color="secondary"
           onClick={handleClickOpen}
-          sx={{ mx: 2, mt: "4rem", p: "12px", fontWeight: 550 }}
+                  sx={{
+                      mx: 2,
+                      mt: "4rem",
+                      p: "12px",
+                      fontWeight: 550,
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                          transform: 'scale(1.1)',
+                      }, }}
              >
           New Expense
         </Button>
 
         <Button
           variant="contained"
-          color="error"
-          onClick={handleLogout} sx={{ mx: 2, mt: "4rem", p: "12px", fontWeight: 550 }}>
+                  color="error"
+                  onClick={handleLogout} sx={{
+                      mx: 2,
+                      mt: "5rem",
+                      p: "13px",
+                      fontWeight: 550,
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                          transform: 'scale(1.1)',
+                      },
+                  }}>
           Log out
         </Button>
       </List>

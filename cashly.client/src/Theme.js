@@ -8,7 +8,7 @@ const theme = createTheme({
         secondary: {
             main: '#f7fcfc' // off-White for secondary
         },
-        danger: {
+        error: {
             main: "#d32f2f"
         },
         background: {
