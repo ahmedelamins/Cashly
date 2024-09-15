@@ -16,7 +16,7 @@ const theme = createTheme({
         },
         text: {
             primary: '#000', // Black text
-            secondary: '#44444', // Greyish secondary text
+            secondary: '#4a7766', // Greyish secondary text
         },
     },
 
