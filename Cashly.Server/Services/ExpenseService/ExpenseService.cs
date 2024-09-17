@@ -80,13 +80,30 @@ public class ExpenseService : IExpenseService
         return response;
     }
 
-    public Task<ServiceResponse<Expense>> UpdateExpense(int userId, int expenseId, Expense updatedExpense)
+    public async Task<ServiceResponse<Expense>> UpdateExpense(int userId, int expenseId, Expense updatedExpense)
     {
         var response = new ServiceResponse<Expense>();
         try
         {
+            //fetch expense
+            var expense = await _context.Expenses
+                .FirstOrDefaultAsync(e => e.UserId == userId && e.Id == expenseId);
 
+            if (expense == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found!";
 
+                return response;
+            }
+
+            expense.Title = updatedExpense.Title;
+            expense.Amount = updatedExpense.Amount;
+            expense.CreatedAt = updatedExpense.CreatedAt;
+
+            await _context.SaveChangesAsync();
+
+            response.Data = expense;
         }
         catch (Exception ex)
         {
@@ -97,13 +114,26 @@ public class ExpenseService : IExpenseService
         return response;
     }
 
-    public Task<ServiceResponse<bool>> DeleteExpense(int userId, int expenseId)
+    public async Task<ServiceResponse<bool>> DeleteExpense(int userId, int expenseId)
     {
-        var response = new ServiceResponse<Expense>();
+        var response = new ServiceResponse<bool>();
         try
         {
+            var expense = await _context.Expenses
+                .FirstOrDefaultAsync(e => e.UserId == userId && e.Id == expenseId); //fetch
 
+            if (expense == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
 
+                return response;
+            }
+
+            _context.Expenses.Remove(expense);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
         }
         catch (Exception ex)
         {
