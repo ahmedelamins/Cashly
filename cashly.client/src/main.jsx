@@ -2,8 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
-import store from './store';
-import { Provider } from 'react-redux';
 import theme from './theme';
 import LandingPage from './pages/LandingPage';
 import HomePage from './Pages/HomePage';
@@ -41,11 +39,9 @@ const router = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
     <StrictMode>
         <ThemeProvider theme={theme}>
             <RouterProvider router={router} />
         </ThemeProvider>
-    </StrictMode>,
-  </Provider>
+    </StrictMode> 
 )
