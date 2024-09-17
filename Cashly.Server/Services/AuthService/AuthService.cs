@@ -74,6 +74,7 @@ public class AuthService : IAuthService
             else
             {
                 response.Data = CreateToken(user);
+                response.Message = "Logged in Successfully!";
             }
 
 
@@ -185,7 +186,7 @@ public class AuthService : IAuthService
 
     private string CreateToken(User user)
     {
-        List<Claim> claims = new List<Claim>
+        var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.Username)
