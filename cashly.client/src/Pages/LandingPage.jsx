@@ -21,7 +21,6 @@ import vector from '../assets/vector.svg';
 
 const LandingPage = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [loginOpen, setLoginOpen] = useState(false);
     const [joinOpen, setJoinOpen] = useState(false);
@@ -39,17 +38,25 @@ const LandingPage = () => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
+            const response = await axios.post('/auth/login', fromData);
+            const { data } = response.data.Data;
+
+            //save token to local storage
+            localStorage.setItem('token', data);
 
             setLoginOpen(false);
             navigate('/home');
         } catch (error) {
             console.error("Login failed", error);
+            alert('Login Failed!');
         }
     };
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
+            const response = await axios.post('/auth/register', fromData);
+            alert('Register succefull, please log in.');
             setJoinOpen(false);
         } catch (error) {
             console.error("Registration failed", error);
