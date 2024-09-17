@@ -4,11 +4,12 @@ const HomePage = () => {
 
     const username = localStorage.getItem('username'); //fetching username
 
-    const Username = username.
+    const Username = username.charAt(0).toUpperCase() + username.slice(1);
+
     return (
         <Box>
             <Typography variant="h4">
-                Welcome, {username}!
+                Welcome, {Username}!
             </Typography>
             <p> This is home</p>
         </Box>
