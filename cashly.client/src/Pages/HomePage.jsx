@@ -1,6 +1,17 @@
-const HomePage = () =>{
+import { Box, Typography} from '@mui/material'
+
+const HomePage = () => {
+
+    const username = localStorage.getItem('username'); //fetching username
+
+    const Username = username.
     return (
-        <h1> Home page</h1>
+        <Box>
+            <Typography variant="h4">
+                Welcome, {username}!
+            </Typography>
+            <p> This is home</p>
+        </Box>
     );
 }
 
