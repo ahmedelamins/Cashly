@@ -9,6 +9,7 @@ import ReportsPage from './Pages/ReportsPage';
 import SettingsPage from './Pages/SettingsPage';
 import ErrorPage from './Pages/ErrorPage';
 import MainLayout from './Components/MainLayout';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 
 const router = createBrowserRouter([
@@ -23,16 +24,24 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "home",
-                element: <HomePage />,
+                element:
+                    <ProtectedRoute>
+                        <HomePage />
+                    </ProtectedRoute>
 
             },
             {
                 path: "reports",
-                element: <ReportsPage />,
+                element: <ProtectedRoute>
+                    <ReportsPage />
+                </ProtectedRoute>
             },
             {
                 path: "settings",
-                element: <SettingsPage />,
+                element:
+                    <ProtectedRoute>
+                        <SettingsPage />
+                    </ProtectedRoute>
             },
         ],
     },
