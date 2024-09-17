@@ -1,11 +1,11 @@
+global using Cashly.Server.Data;
 global using Cashly.Server.Models;
 global using Microsoft.EntityFrameworkCore;
-using Cashly.Server.Data;
+global using Microsoft.OpenApi.Models;
 using Cashly.Server.Services.AuthService;
 using Cashly.Server.Services.ExpenseService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
