@@ -33,6 +33,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
     category: "",
   });
 
+    const navigate = useNavigate();
+
   const handleClickOpen = () => {
     setOpen(true);
     if (isMobile) {
@@ -142,8 +144,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                           transform: 'scale(1.1)',
                       },
                   }}>
-                  <span style={{ marginRight: '8px' }}>Log out</span>
                   <LogoutIcon />
+                  <span style={{ marginRight: '8px' }}>Log out</span>
         </Button>
       </List>
     </div>

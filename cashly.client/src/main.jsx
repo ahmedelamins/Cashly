@@ -9,7 +9,6 @@ import ReportsPage from './Pages/ReportsPage';
 import SettingsPage from './Pages/SettingsPage';
 import ErrorPage from './Pages/ErrorPage';
 import MainLayout from './Components/MainLayout';
-import PrivateRoute from './PrivateRoute';
 
 
 const router = createBrowserRouter([
@@ -24,25 +23,16 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "home",
-                element:
-                    <PrivateRoute>
-                        <HomePage />
-                    </PrivateRoute>
+                element: <HomePage />,
 
             },
             {
                 path: "reports",
-                element:
-                    <PrivateRoute>
-                        <ReportsPage />
-                    </PrivateRoute>
+                element: <ReportsPage />,
             },
             {
                 path: "settings",
-                element:
-                     <PrivateRoute>
-                        <SettingsPage />
-                     </PrivateRoute>
+                element: <SettingsPage />,
             },
         ],
     },
