@@ -10,9 +10,25 @@ public class ExpenseService : IExpenseService
     }
 
 
-    public Task<ServiceResponse<List<Expense>>> GetExpenses(int userId)
+    public async Task<ServiceResponse<List<Expense>>> GetExpenses(int userId)
     {
+        var response = new ServiceResponse<List<Expense>>();
 
+        try
+        {
+            response.Data = await _context.Expenses
+                .Where(ex => ex.UserId == userId)
+                .OrderByDescending(ex => ex.CreatedAt)
+                .ToListAsync();
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 
     public Task<ServiceResponse<Expense>> GetExpenseById(int userId, int expenseId)
