@@ -57,12 +57,18 @@ public class ExpenseService : IExpenseService
         return response;
     }
 
-    public Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
+    public async Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
     {
         var response = new ServiceResponse<Expense>();
+
         try
         {
+            expense.UserId = userId;
 
+            _context.Expenses.Add(expense);
+            await _context.SaveChangesAsync();
+
+            response.Data = expense;
 
         }
         catch (Exception ex)
