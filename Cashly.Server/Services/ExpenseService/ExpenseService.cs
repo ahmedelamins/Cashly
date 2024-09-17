@@ -17,9 +17,52 @@ public class ExpenseService : IExpenseService
         try
         {
             response.Data = await _context.Expenses
-                .Where(ex => ex.UserId == userId)
-                .OrderByDescending(ex => ex.CreatedAt)
-                .ToListAsync();
+                  .Where(e => e.UserId == userId)
+                  .OrderByDescending(e => e.CreatedAt) //in order, newest => oldest
+                  .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<Expense>> GetExpenseById(int userId, int expenseId)
+    {
+        var response = new ServiceResponse<Expense>();
+        try
+        {
+            var expense = await _context.Expenses
+                .FirstOrDefaultAsync(e => e.UserId == userId && e.Id == expenseId); //fetch expense
+
+            if (expense == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+
+                return response;
+            }
+
+            response.Data = expense;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
+
+    public Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
+    {
+        var response = new ServiceResponse<Expense>();
+        try
+        {
+
 
         }
         catch (Exception ex)
@@ -31,23 +74,37 @@ public class ExpenseService : IExpenseService
         return response;
     }
 
-    public Task<ServiceResponse<Expense>> GetExpenseById(int userId, int expenseId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<ServiceResponse<Expense>> UpdateExpense(int userId, int expenseId, Expense updatedExpense)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Expense>();
+        try
+        {
+
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 
     public Task<ServiceResponse<bool>> DeleteExpense(int userId, int expenseId)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Expense>();
+        try
+        {
+
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 }
