@@ -14,7 +14,6 @@ import {
     TextField,
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
-import StartIcon from '@mui/icons-material/Start';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';
 import axiosInstance from '../utils/axiosInstance';
@@ -100,8 +99,7 @@ const LandingPage = () => {
                         sx={{  mr: 3, ml: 3 }}
                         onClick={() => setLoginOpen(true)}
                     >
-                        <span style={{ marginRight: '8px' }}>Login</span>
-                        <LoginIcon />
+                        Login
                     </Button>
                 </Toolbar>
             </AppBar>
@@ -141,7 +139,7 @@ const LandingPage = () => {
                             }}
                         >
                             <span style={{ marginRight: '8px' }}>Get Started</span>
-                            <StartIcon />
+                            
                         </Button>
                     </Grid>
 
@@ -171,7 +169,7 @@ const LandingPage = () => {
                 </Container>
             </Box>
 
-            {/* Aboud Modal */}
+            {/* About Modal */}
             <Dialog open={aboutOpen} onClose={() => setAboutOpen(false)}>
                 <DialogTitle>About</DialogTitle>
                 <DialogContent>
