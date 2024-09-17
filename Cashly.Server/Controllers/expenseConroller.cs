@@ -48,6 +48,17 @@ namespace Cashly.Server.Controllers
         [HttpPost, Authorize]
         public async Task<ActionResult<ServiceResponse<Expense>>> CreateExpense([FromBody] Expense expense)
         {
+            if (!ModelState.IsValid)
+            {
+                // Return BadRequest if the model state is invalid
+                return BadRequest(new ServiceResponse<Expense>
+                {
+                    Success = false,
+                    Message = "Invalid expense data.",
+                    Data = null
+                });
+            }
+
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var response = await _expenseService.CreateExpense(userId, expense);
 
