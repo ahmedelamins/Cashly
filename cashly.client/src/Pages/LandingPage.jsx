@@ -17,6 +17,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';
 import axiosInstance from '../utils/axiosInstance';
+import { jwtDecode } from 'jwt-decode';
 
 
 const LandingPage = () => {
@@ -43,12 +44,24 @@ const LandingPage = () => {
                 password: formData.password,
             });
 
-            console.log(response.data); //the token itself is here finally
+            //console.log(response.data); 
 
-            const token = response.data.data; // destructing the response
+            const token = response.data.data; // destructing the response, access token
 
             if (token) {
                 localStorage.setItem('token', token); // Store token
+
+                //decoding token for username
+                const decodedToken = jwtDecode(token)
+
+               //console.log(decodedToken) //log the decoded token
+
+                const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+
+                //console.log(username);
+
+                localStorage.setItem('username', username) //store username
+
                 setLoginOpen(false);
                 navigate('/home');
             } else {
