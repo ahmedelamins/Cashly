@@ -16,7 +16,8 @@ import {
 import LoginIcon from '@mui/icons-material/Login';
 import StartIcon from '@mui/icons-material/Start';
 import { useNavigate } from 'react-router-dom';
-import vector from '../assets/vector.svg';  
+import vector from '../assets/vector.svg';
+import axiosInstance from '../utils/axiosInstance';
 
 
 const LandingPage = () => {
@@ -38,24 +39,36 @@ const LandingPage = () => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/auth/login', fromData);
-            const { data } = response.data.Data;
+            const response = await axiosInstance.post('/auth/login', {
+                username: formData.username,
+                password: formData.password,
+            });
 
-            //save token to local storage
-            localStorage.setItem('token', data);
+            console.log(response.data); //the token itself is here finally
 
-            setLoginOpen(false);
-            navigate('/home');
+            const token = response.data.data; // destructing the response
+
+            if (token) {
+                localStorage.setItem('token', token); // Store token
+                setLoginOpen(false);
+                navigate('/home');
+            } else {
+                throw new Error("No token returned from login!!");
+            }
         } catch (error) {
             console.error("Login failed", error);
             alert('Login Failed!');
         }
     };
 
+
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/auth/register', fromData);
+            const response = await axiosInstance.post('/auth/register', {
+                username: formData.username,
+                password: formData.password,
+            });
             alert('Register succefull, please log in.');
             setJoinOpen(false);
         } catch (error) {
