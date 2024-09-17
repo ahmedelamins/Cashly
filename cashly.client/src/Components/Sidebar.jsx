@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Drawer,
   Button,
@@ -19,6 +19,8 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import ReportIcon from "@mui/icons-material/Assessment";
 import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const drawerWidth = 240;
 
@@ -56,8 +58,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
   };
 
     const handleLogout = (e) => {
-        e.preventDefault();
-        console.log("Logging out...")
+        localStorage.removeItem('token');
+        navigate('/');
     }
 
   const drawer = (
@@ -129,7 +131,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
         <Button
           variant="contained"
                   color="error"
-                  onClick={handleLogout} sx={{
+                  onClick={handleLogout}
+                  sx={{
                       mx: 2,
                       mt: "5rem",
                       p: "13px",
@@ -139,7 +142,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                           transform: 'scale(1.1)',
                       },
                   }}>
-          Log out
+                  
         </Button>
       </List>
     </div>
