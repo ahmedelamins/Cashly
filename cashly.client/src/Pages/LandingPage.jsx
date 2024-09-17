@@ -18,13 +18,16 @@ import StartIcon from '@mui/icons-material/Start';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';  
 
+
 const LandingPage = () => {
-    const nav = useNavigate();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [loginOpen, setLoginOpen] = useState(false);
     const [joinOpen, setJoinOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [formData, setFormData] = useState({ username: '', password: '' });
+
 
     const handleInputChange = (e) => {
         setFormData({
@@ -36,9 +39,9 @@ const LandingPage = () => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            await handleLogin(formData.username, formData.password);
+
             setLoginOpen(false);
-            console.log("successfull login")
+            navigate('/home');
         } catch (error) {
             console.error("Login failed", error);
         }
@@ -47,13 +50,11 @@ const LandingPage = () => {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
-            await handleRegister(formData.username, formData.password);
             setJoinOpen(false);
         } catch (error) {
             console.error("Registration failed", error);
         }
     };
-
     
 
     return (
