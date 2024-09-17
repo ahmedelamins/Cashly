@@ -74,8 +74,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           component={Link}
           to="/home"
           onClick={isMobile ? handleDrawerToggle : null}
-          sx={{ my: 3, height: "60px" }}
-        >
+          sx={{ my: 3, height: "60px" }}>
+        
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
             <HomeIcon fontSize="large" />
           </ListItemIcon>
@@ -89,8 +89,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           component={Link}
           to="/reports"
           onClick={isMobile ? handleDrawerToggle : null}
-          sx={{ my: 3, height: "60px" }}
-        >
+          sx={{ my: 3, height: "60px" }}>
+            
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
             <ReportIcon fontSize="large" />
           </ListItemIcon>
@@ -105,7 +105,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           to="/settings"
           onClick={isMobile ? handleDrawerToggle : null}
           sx={{ height: "60px" }}
-        >
+            >
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
             <SettingsIcon fontSize="large" />
           </ListItemIcon>
@@ -126,7 +126,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                       transition: 'transform 0.3s ease',
                       '&:hover': {
                           transform: 'scale(1.1)',
-                      }, }}
+                      },
+                  }}
              >
           New Expense
         </Button>
@@ -145,8 +146,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                           transform: 'scale(1.1)',
                       },
                   }}>
+                  <span style={{ marginRight: '8px' }}>Logout</span>
                   <LogoutIcon />
-                  <span style={{ marginRight: '8px' }}>Log out</span>
         </Button>
       </List>
     </div>
