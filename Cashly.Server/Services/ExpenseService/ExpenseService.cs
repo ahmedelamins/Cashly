@@ -8,14 +8,11 @@ public class ExpenseService : IExpenseService
     {
         _context = context;
     }
-    public Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<ServiceResponse<bool>> DeleteExpense(int userId, int expenseId)
+
+    public Task<ServiceResponse<List<Expense>>> GetExpenses(int userId)
     {
-        throw new NotImplementedException();
+
     }
 
     public Task<ServiceResponse<Expense>> GetExpenseById(int userId, int expenseId)
@@ -23,12 +20,17 @@ public class ExpenseService : IExpenseService
         throw new NotImplementedException();
     }
 
-    public Task<ServiceResponse<List<Expense>>> GetExpenses(int userId)
+    public Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
     {
         throw new NotImplementedException();
     }
 
     public Task<ServiceResponse<Expense>> UpdateExpense(int userId, int expenseId, Expense updatedExpense)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<bool>> DeleteExpense(int userId, int expenseId)
     {
         throw new NotImplementedException();
     }
