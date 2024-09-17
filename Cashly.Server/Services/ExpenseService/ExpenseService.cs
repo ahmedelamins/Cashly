@@ -2,9 +2,11 @@
 
 public class ExpenseService : IExpenseService
 {
-    public ExpenseService(DataContext )
-    {
+    private readonly DataContext _context;
 
+    public ExpenseService(DataContext context)
+    {
+        _context = context;
     }
     public Task<ServiceResponse<Expense>> CreateExpense(int userId, Expense expense)
     {
