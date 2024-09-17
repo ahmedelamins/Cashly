@@ -142,7 +142,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                           transform: 'scale(1.1)',
                       },
                   }}>
-                  
+                  <span style={{ marginRight: '8px' }}>Log out</span>
+                  <LogoutIcon />
         </Button>
       </List>
     </div>
