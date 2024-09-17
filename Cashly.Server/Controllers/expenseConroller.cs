@@ -45,5 +45,14 @@ namespace Cashly.Server.Controllers
             return Ok(response);
         }
 
+        [HttpPost, Authorize]
+        public async Task<ActionResult<ServiceResponse<Expense>>> CreateExpense([FromBody] Expense expense)
+        {
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var response = await _expenseService.CreateExpense(userId, expense);
+
+            return Ok(response);
+        }
+
     }
 }
