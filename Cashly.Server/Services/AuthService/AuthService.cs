@@ -57,24 +57,17 @@ public class AuthService : IAuthService
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower()
             .Equals(username.ToLower()));
 
-            if (user == null)
+            if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "User Doesn't Exist";
+                response.Message = "Invalid Credential";
 
                 return response;
             }
-            else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-            {
-                response.Success = false;
-                response.Message = "Wrong Password";
-            }
-            else
-            {
-                response.Data = CreateToken(user);
-                response.Message = "Logged in Successfully!";
-            }
 
+
+            response.Data = CreateToken(user);
+            response.Message = "Logged in Successfully!";
 
         }
         catch (Exception ex)
