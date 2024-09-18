@@ -7,4 +7,6 @@ public class User
     public byte[] PasswordHash { get; set; } = new byte[32];
     public byte[] PasswordSalt { get; set; } = new byte[32];
     public List<Expense> Expenses { get; set; } = new List<Expense>();
+    public string RefreshToken { get; set; } = string.Empty;
+    public DateTime RefreshTokenExpirary { get; set; }
 }
