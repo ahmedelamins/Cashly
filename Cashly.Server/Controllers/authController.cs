@@ -1,6 +1,7 @@
 ﻿using Cashly.Server.Services.AuthService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Cashly.Server.Controllers;
 
@@ -49,6 +50,25 @@ public class authController : ControllerBase
         }
 
         var response = await _authService.Login(request.Username, request.Password);
+
+        if (!response.Success)
+        {
+            return BadRequest(response.Message);
+        }
+
+        return Ok(response);
+    }
+
+    [HttpPost("change-password"), Authorize]
+    public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] string newPassword)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var response = await _authService.ChangePassword(int.Parse(userId), newPassword);
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User ID Not Found.");
+        }
 
         if (!response.Success)
         {
