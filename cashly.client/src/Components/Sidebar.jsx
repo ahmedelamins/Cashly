@@ -20,6 +20,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ReportIcon from "@mui/icons-material/Assessment";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { toast } from "react-toastify";
 
 
 const drawerWidth = 240;
@@ -63,6 +64,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         navigate('/');
+        toast.info("Logged out.");
     }
 
   const drawer = (
