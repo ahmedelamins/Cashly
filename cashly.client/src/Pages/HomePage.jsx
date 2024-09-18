@@ -7,9 +7,9 @@ const HomePage = () => {
     const Username = username.charAt(0).toUpperCase() + username.slice(1);
 
     return (
-        <Box>
+        <Box sx = {{ mt: 4} }>
             <Typography variant="h4">
-                Welcome, {Username}!
+                Hello, {Username}.
             </Typography>
             <p> This is home</p>
         </Box>
