@@ -54,7 +54,7 @@ createRoot(document.getElementById('root')).render(
     <StrictMode>
         <ThemeProvider theme={theme}>
             <RouterProvider router={router} />
-            <ToastContainer position="top-left" autoClose="2000" hideProgressBar="true" />
+            <ToastContainer position="top-left" autoClose="1500" hideProgressBar="true" />
         </ThemeProvider>
     </StrictMode> 
 )
