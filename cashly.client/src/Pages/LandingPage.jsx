@@ -13,11 +13,11 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';
 import axiosInstance from '../utils/axiosInstance';
 import { jwtDecode } from 'jwt-decode';
+import { toast } from 'react-toastify';
 
 
 const LandingPage = () => {
@@ -73,7 +73,7 @@ const LandingPage = () => {
         }
     };
 
-
+    //register
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -81,7 +81,9 @@ const LandingPage = () => {
                 username: formData.username,
                 password: formData.password,
             });
-            alert('Register succefull, please log in.');
+           
+            toast.success("Registered Successfuly! Please Log in."); //toast messagee
+
             setJoinOpen(false);
         } catch (error) {
             console.error("Registration failed", error);
