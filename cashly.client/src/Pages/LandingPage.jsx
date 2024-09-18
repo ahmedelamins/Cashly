@@ -197,7 +197,7 @@ const LandingPage = () => {
                             Manage your budget effortlessly, gain full control over your spending habits.
                         </Typography>
                         <DialogActions>
-                            <Button variant="contained" onClick={() => setAboutOpen(false)} color="primary">
+                            <Button variant="contained" onClick={() => setAboutOpen(false)}>
                                 Cool
                             </Button>
                         </DialogActions>
@@ -231,7 +231,7 @@ const LandingPage = () => {
                             onChange={handleInputChange}
                         />
                         <DialogActions>
-                            <Button variant ="outlined" onClick={() => setLoginOpen(false)} color="primary">
+                            <Button variant ="outlined" onClick={() => setLoginOpen(false)}>
                                 Cancel
                             </Button>
                             <Button variant="contained" type="submit" color="primary">
@@ -268,7 +268,7 @@ const LandingPage = () => {
                             onChange={handleInputChange}
                         />
                         <DialogActions>
-                            <Button variant="outlined" onClick={() => setJoinOpen(false)} color="primary">
+                            <Button variant="outlined" onClick={() => setJoinOpen(false)}>
                                 Cancel
                             </Button>
                             <Button variant="contained" type="submit" color="primary">
