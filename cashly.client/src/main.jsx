@@ -10,6 +10,8 @@ import SettingsPage from './Pages/SettingsPage';
 import ErrorPage from './Pages/ErrorPage';
 import MainLayout from './Components/MainLayout';
 import ProtectedRoute from './Components/ProtectedRoute';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const router = createBrowserRouter([
@@ -52,6 +54,7 @@ createRoot(document.getElementById('root')).render(
     <StrictMode>
         <ThemeProvider theme={theme}>
             <RouterProvider router={router} />
+            <ToastContainer />
         </ThemeProvider>
     </StrictMode> 
 )
