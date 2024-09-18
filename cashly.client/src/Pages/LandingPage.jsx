@@ -63,6 +63,9 @@ const LandingPage = () => {
                 localStorage.setItem('username', username) //store username
 
                 setLoginOpen(false);
+
+                toast.success("Welcome Back!");
+
                 navigate('/home');
             } else {
                 throw new Error("No token returned from login!!");
