@@ -72,11 +72,13 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
       <Toolbar />
       <List sx={{ mt: 7 }}>
         <ListItem
-          button
+          button="true"
           component={Link}
           to="/home"
           onClick={isMobile ? handleDrawerToggle : null}
-          sx={{ my: 3, height: "60px" }}>
+          sx={{
+            my: 3, height: "60px"
+          }}>
         
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
             <HomeIcon fontSize="large" />
@@ -86,12 +88,15 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
             primaryTypographyProps={{ fontSize: "1.2rem" }}
           />
         </ListItem>
+
         <ListItem
-          button
+          button="true"
           component={Link}
           to="/reports"
           onClick={isMobile ? handleDrawerToggle : null}
-          sx={{ my: 3, height: "60px" }}>
+          sx={{
+            my: 3, height: "60px"
+          }}>
             
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
             <ReportIcon fontSize="large" />
@@ -101,13 +106,15 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
             primaryTypographyProps={{ fontSize: "1.2rem" }}
           />
         </ListItem>
+
         <ListItem
-          button
+          button="true" 
           component={Link}
           to="/settings"
           onClick={isMobile ? handleDrawerToggle : null}
-          sx={{ height: "60px" }}
-            >
+          sx={{
+            my: 3, height: "60px"
+          }}>
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
             <SettingsIcon fontSize="large" />
           </ListItemIcon>
