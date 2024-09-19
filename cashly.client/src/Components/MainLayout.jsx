@@ -15,7 +15,6 @@ import {
     Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-//import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Sidebar from "./Sidebar"; 
 
 const drawerWidth = 240;
@@ -35,7 +34,7 @@ const MainLayout = () => {
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
             {/* AppBar - Top Navbar */}
-            <AppBar position="fixed" color="secondary" sx={{ py: 1, borderBottom: '2px solid #f4f6f7', zIndex: theme.zIndex.drawer + 3 }}>
+            <AppBar position="fixed" elevation={0} color="secondary" sx={{ py: 1, borderBottom: '2px solid #f4f6f7', zIndex: theme.zIndex.drawer + 3 }}>
                 <Toolbar>
                     {/* Hamburger Menu Icon */}
                     
