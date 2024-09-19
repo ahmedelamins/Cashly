@@ -26,8 +26,17 @@ const SettingsPage = () => {
         });
     };
 
-    const handleChangePassword = (e) => {
-        console.log('Change Password Clicked');
+    const handleChangePassword = async (e) => {
+        e.preventDefault();
+
+        try {
+
+
+            toast.success("Password changed successfully!");
+            setPasswordOpen(false);
+        } catch(error) {
+            toast.error("Something went wrong")
+        }
     };
 
     const handleDeleteAccount = async (e) => {
