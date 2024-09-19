@@ -72,6 +72,7 @@ const LandingPage = () => {
             }
         } catch (error) {
             toast.error("Something went wrong!");
+            console.log(error);
         }
     };
 
@@ -88,8 +89,9 @@ const LandingPage = () => {
 
             setJoinOpen(false);
         } catch (error) {
-            toast.error("Something went wrong!");
-            console.error("Registration failed", error);
+            toast.error(error.response.data);
+            //console.error("Registration failed", error);
+            console.log(error.response.data);
         }
     };
     
