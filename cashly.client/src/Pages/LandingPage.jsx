@@ -71,8 +71,7 @@ const LandingPage = () => {
                 throw new Error("No token returned from login!!");
             }
         } catch (error) {
-            console.error("Login failed", error);
-            alert('Login Failed!');
+            toast.error("Something went wrong!");
         }
     };
 
@@ -89,6 +88,7 @@ const LandingPage = () => {
 
             setJoinOpen(false);
         } catch (error) {
+            toast.error("Something went wrong!");
             console.error("Registration failed", error);
         }
     };
