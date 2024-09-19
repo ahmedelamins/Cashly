@@ -91,7 +91,7 @@ const LandingPage = () => {
         } catch (error) {
             toast.error(error.response.data);
             //console.error("Registration failed", error);
-            console.log(error.response.data);
+            //console.log(error.response.data);
         }
     };
     
