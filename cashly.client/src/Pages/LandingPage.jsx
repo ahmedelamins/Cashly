@@ -71,8 +71,8 @@ const LandingPage = () => {
                 throw new Error("No token returned from login!!");
             }
         } catch (error) {
-            toast.error("Something went wrong!");
-            console.log(error);
+            toast.error(error.response.data);
+            //console.log(error.response.data);
         }
     };
 
