@@ -1,24 +1,21 @@
-// src/utils/axiosInstance.js
-
 import axios from 'axios';
 
-// Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: "https://localhost:7040/api",  // Adjust the base URL
+    baseURL: "https://localhost:7040/api", //api here
 });
 
 // Add a request interceptor to inject the token into headers
 axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'); //fetch token
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });
 
-// Handle 401 (Unauthorized) response globally
+// Handle unauthorized globally 
 axiosInstance.interceptors.response.use(
-    (response) => response,
+    (response) => response, //return if successful
     (error) => {
         if (error.response?.status === 401) {
             // Clear token and redirect to login
