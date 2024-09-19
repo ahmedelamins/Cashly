@@ -12,24 +12,22 @@ const SettingsPage = () => {
 
     return (
         <Container>
-            <Box sx={{ mt: 4 }}>
-                <Typography variant="h4" gutterBottom sx={{ mb: 2} }>
+            <Box sx={{ mt: 4}}>
+                <Typography variant="h4" gutterBottom sx={{ mb: 2 }}>
                     Manage Your Account
                 </Typography>
-                <Box sx={{ mt: 2, display: 'flex', maxWidth: "250px", width: "100%", flexDirection: 'column', w: "40%" }}>
+                <Box sx={{ mt: 4, display: 'flex', maxWidth: "250px", width: "100%", flexDirection: 'column', w: "40%" }}>
                     <Button
                         variant="contained"
                         color="primary"
                         onClick={handleChangePassword}
-                        sx={{ mb: 2 }}
-                    >
+                        sx={{ mb: 2 }}>                    
                         Change Password
                     </Button>
                     <Button
                         variant="contained"
                         color="error"
-                        onClick={handleDeleteAccount}
-                    >
+                        onClick={handleDeleteAccount}>                    
                         Delete Account
                     </Button>
                 </Box>
