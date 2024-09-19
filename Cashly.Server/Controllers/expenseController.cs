@@ -7,11 +7,11 @@ namespace Cashly.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class expenseConroller : ControllerBase
+    public class expenseController : ControllerBase
     {
         private readonly IExpenseService _expenseService;
 
-        public expenseConroller(IExpenseService expenseService)
+        public expenseController(IExpenseService expenseService)
         {
             _expenseService = expenseService;
         }
