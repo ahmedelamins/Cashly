@@ -51,7 +51,11 @@ const SettingsPage = () => {
         const userId = localStorage.getItem('userId');
         try {
 
-            const response = await axiosInstance.delete(`/auth/delete-user/${userId}`);
+            const response = await axiosInstance.delete('/auth/delete-user', {
+                data: { userId }
+            });
+
+            console.log(response.data);
                     
             toast.success("Deleted account successfully!");
             navigate('/');
