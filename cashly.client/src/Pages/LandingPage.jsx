@@ -44,37 +44,31 @@ const LandingPage = () => {
                 password: formData.password,
             });
 
-            //console.log(response.data); 
+            console.log("Login response:", response.data); // Check the entire response
 
-            const token = response.data.data; // destructing the response, access token
+            const token = response.data.data; // Adjust this based on the actual response structure
 
             if (token) {
-                localStorage.setItem('token', token); // Store token
+                localStorage.setItem('token', token);
+                console.log("Token stored in localStorage:", localStorage.getItem('token')); // Verify
 
-                //decoding token for username
-                const decodedToken = jwtDecode(token)
+                const decodedToken = jwtDecode(token);
+                const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
-               //console.log(decodedToken) //log the decoded token
-
-                const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
-
-                //console.log(username);
-
-                localStorage.setItem('username', username) //store username
+                localStorage.setItem('username', username); // Store username
 
                 setLoginOpen(false);
-
                 toast.success("Welcome Back!");
-
                 navigate('/home');
             } else {
-                throw new Error("No token returned from login!!");
+                throw new Error("No token returned from login!");
             }
         } catch (error) {
-            toast.error(error.response.data);
-            //console.log(error.response.data);
+            toast.error(error.response?.data?.message || "Login failed.");
+            console.log("Login error:", error); // Log error details
         }
     };
+
 
     //register
     const handleRegisterSubmit = async (e) => {
