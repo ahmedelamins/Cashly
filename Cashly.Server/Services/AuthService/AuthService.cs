@@ -60,7 +60,7 @@ public class AuthService : IAuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "Hmm..Something is not right.";
+                response.Message = "User does not exist!";
 
                 return response;
             }
@@ -69,10 +69,11 @@ public class AuthService : IAuthService
                 response.Success = false;
                 response.Message = "Wrong password";
             }
-
-
-            response.Data = CreateToken(user);
-            response.Message = "Logged in Successfully!";
+            else
+            {
+                response.Data = CreateToken(user);
+                response.Message = "Logged in Successfully!";
+            }
 
         }
         catch (Exception ex)
