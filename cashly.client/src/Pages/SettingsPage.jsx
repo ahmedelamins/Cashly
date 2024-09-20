@@ -11,13 +11,15 @@ import {
     TextField,
 } from '@mui/material';
 import axiosInstance from '../utils/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const SettingsPage = () => {
 
+    const navigate = useNavigate();
+
     const [passwordOpen, setPasswordOpen] = useState(false);
     const [formData, setFormData] = useState({ password: '' });
-    const [loading, setLoading] = useState(false); // Add loading state
 
     const handleInputChange = (e) => {
         setFormData({
@@ -28,7 +30,6 @@ const SettingsPage = () => {
 
     const handleChangePassword = async (e) => {
         e.preventDefault();
-        setLoading(true); // Start loading
 
         try {
             const response = await axiosInstance.post('/auth/change-password', {
@@ -41,27 +42,31 @@ const SettingsPage = () => {
 
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to change the password.");
-        } finally {
-            setLoading(false); // Stop loading
-        }
+        } 
     };
 
     const handleDeleteAccount = async (e) => {
         e.preventDefault();
-        setLoading(true); // Start loading
-
+        
         try {
+            console.log(axiosInstance.defaults.headers.common['Authorization']);
 
-           // if (window.confirm("Are You Sure?")) {
-                const response = await axiosInstance.delete('/auth/delete-user');
-                toast.success("Account deleted successfully.");
-            //}
+            const response = await axiosInstance.delete('/auth/delete-user');
             
+
+            if (response.status === 200) {
+                toast.success("Deleted account successfully!");
+                navigate('/');
+
+            } else {
+                toast.error("Failed to delete account. Please try again.");
+            }
+
+
         } catch (error) {
-            toast.error("Failed to delete account.");
-        } finally {
-            setLoading(false); // Stop loading
+            toast.error(error.response?.data?.message || "Failed to delete account.");
         }
+        
     };
 
     return (
@@ -110,7 +115,7 @@ const SettingsPage = () => {
                             <Button variant="outlined" onClick={() => setPasswordOpen(false)}>
                                 Cancel
                             </Button>
-                            <Button variant="contained" type="submit" color="primary" disabled={loading}>
+                            <Button variant="contained" type="submit" color="primary">
                                 Change
                             </Button>
                         </DialogActions>
