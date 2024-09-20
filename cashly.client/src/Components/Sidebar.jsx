@@ -63,6 +63,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
     const handleLogout = (e) => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('userId');
         navigate('/');
         toast.info("Logged out.");
     }
