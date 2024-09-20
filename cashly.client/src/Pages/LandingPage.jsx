@@ -50,11 +50,8 @@ const LandingPage = () => {
 
             if (token) {
                 localStorage.setItem('token', token);
-                //console.log("Token stored in localStorage:", localStorage.getItem('token')); // Verify
-
+                
                 const decodedToken = jwtDecode(token);
-
-                //console.log(decodedToken);
 
                 const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
                 const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
@@ -63,7 +60,9 @@ const LandingPage = () => {
                 localStorage.setItem('userId', userId); // Store id
 
                 setLoginOpen(false);
+
                 toast.success("Welcome Back!");
+
                 navigate('/home');
             } else {
                 throw new Error("No token returned from login!");
