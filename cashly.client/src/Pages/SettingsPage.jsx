@@ -70,7 +70,7 @@ const SettingsPage = () => {
 
 
     return (
-        <Container>
+        <Box sx={{ ml: 5 }} >
             <Box sx={{ mt: 5 }}>
                 <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
                     Manage Your Account
@@ -136,7 +136,7 @@ const SettingsPage = () => {
                     </Box>
                 </DialogContent>
             </Dialog>            
-        </Container>
+        </Box>
     );
 }
 
