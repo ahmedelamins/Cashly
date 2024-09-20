@@ -60,23 +60,23 @@ public class authController : ControllerBase
     }
 
     [HttpPost("change-password"), Authorize]
-    public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] string newPassword)
+    public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] ChangePassword request)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var response = await _authService.ChangePassword(int.Parse(userId), newPassword);
-
         if (string.IsNullOrEmpty(userId))
         {
             return Unauthorized("User ID Not Found.");
         }
 
+        var response = await _authService.ChangePassword(int.Parse(userId), request.Password);
         if (!response.Success)
         {
-            return BadRequest(response.Message);
+            return BadRequest(response);
         }
 
         return Ok(response);
     }
+
 
     [HttpDelete("delete-user/{userId:int}"), Authorize]
     public async Task<ActionResult<ServiceResponse<bool>>> DeleteUser(int userId)
