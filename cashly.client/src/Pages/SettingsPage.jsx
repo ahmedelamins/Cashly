@@ -48,20 +48,13 @@ const SettingsPage = () => {
     const handleDeleteAccount = async (e) => {
         e.preventDefault();
 
+        const userId = localStorage.getItem('userId');
         try {
 
-            const response = await axiosInstance.delete('/auth/delete-user');
-
-            console.log('Authorization Header:', axiosInstance.defaults.headers.common['Authorization']);
-            //console.log('Response Status:', response.status);
-            console.log('Response Data:', response.data);
-
-            if (response.status === 200) {
-                toast.success("Deleted account successfully!");
-                navigate('/');
-            } else {
-                toast.error("Failed to delete account. Please try again.");
-            }
+            const response = await axiosInstance.delete(`/auth/delete-user/${userId}`);
+                    
+            toast.success("Deleted account successfully!");
+            navigate('/');
 
         } catch (error) {
 

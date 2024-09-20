@@ -79,7 +79,7 @@ public class authController : ControllerBase
     }
 
     [HttpDelete("delete-user"), Authorize]
-    public async Task<ActionResult<ServiceResponse<bool>>> DeleteUser(int userId)
+    public async Task<ActionResult<ServiceResponse<bool>>> DeleteUser([FromBody] int userId)
     {
         var response = await _authService.DeleteUser(userId);
 
