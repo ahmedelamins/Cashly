@@ -24,7 +24,7 @@ public class AuthService : IAuthService
             if (await UserExists(user.Username))
             {
                 response.Success = false;
-                response.Message = "This username already exists.";
+                response.Message = "This username already exists!";
 
                 return response;
             }
@@ -60,14 +60,14 @@ public class AuthService : IAuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "User does not exist!";
+                response.Message = "Username does not exist!";
 
                 return response;
             }
             else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "Wrong password";
+                response.Message = "Wrong password!";
             }
             else
             {
@@ -95,7 +95,7 @@ public class AuthService : IAuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "Not Found";
+                response.Message = "Username doesn't exist!";
 
                 return response;
             }
@@ -108,7 +108,7 @@ public class AuthService : IAuthService
             await _context.SaveChangesAsync();
 
 
-            response.Message = "Password Changed Successfully";
+            response.Message = "Password Changed Successfully!";
             response.Data = true;
 
         }
@@ -139,7 +139,7 @@ public class AuthService : IAuthService
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            response.Message = "Account Deleted Successfuly.";
+            response.Message = "Account Deleted.";
             response.Data = true;
 
         }
