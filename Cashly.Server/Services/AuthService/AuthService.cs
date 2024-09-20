@@ -24,7 +24,7 @@ public class AuthService : IAuthService
             if (await UserExists(user.Username))
             {
                 response.Success = false;
-                response.Message = "This Username Already Exist.";
+                response.Message = "This username already exists.";
 
                 return response;
             }
