@@ -47,27 +47,28 @@ const SettingsPage = () => {
 
     const handleDeleteAccount = async (e) => {
         e.preventDefault();
-        
+
         try {
-            console.log(axiosInstance.defaults.headers.common['Authorization']);
 
             const response = await axiosInstance.delete('/auth/delete-user');
-            
+
+            console.log('Authorization Header:', axiosInstance.defaults.headers.common['Authorization']);
+            //console.log('Response Status:', response.status);
+            console.log('Response Data:', response.data);
 
             if (response.status === 200) {
                 toast.success("Deleted account successfully!");
                 navigate('/');
-
             } else {
                 toast.error("Failed to delete account. Please try again.");
             }
 
-
         } catch (error) {
+
             toast.error(error.response?.data?.message || "Failed to delete account.");
         }
-        
     };
+
 
     return (
         <Container>
@@ -81,16 +82,14 @@ const SettingsPage = () => {
                         color="primary"
                         onClick={() => setPasswordOpen(true)}
                         sx={{ mb: 2 }}
-                        disabled={loading} // Disable while loading
+
                     >
                         Change Password
                     </Button>
                     <Button
                         variant="contained"
                         color="error"
-                        onClick={handleDeleteAccount}
-                        disabled={loading} // Disable while loading
-                    >
+                        onClick={handleDeleteAccount}>
                         Delete Account
                     </Button>
                 </Box>
