@@ -61,7 +61,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
   };
 
     const handleLogout = (e) => {
-        localStorage.clear
+        localStorage.clear();
 
         navigate('/');
 
