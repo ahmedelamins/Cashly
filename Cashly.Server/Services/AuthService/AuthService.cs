@@ -24,7 +24,7 @@ public class AuthService : IAuthService
             if (await UserExists(user.Username))
             {
                 response.Success = false;
-                response.Message = "Username Already Exists";
+                response.Message = "This Username Already Exist.";
 
                 return response;
             }
@@ -60,7 +60,7 @@ public class AuthService : IAuthService
             if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "Invalid Credential";
+                response.Message = "Invalid Credentials!";
 
                 return response;
             }
