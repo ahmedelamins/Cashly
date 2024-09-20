@@ -56,6 +56,8 @@ const SettingsPage = () => {
                             
             toast.success("Deleted account successfully!");
 
+            localStorage.clear();
+
             navigate('/');
 
         } catch (error) {
