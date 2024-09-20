@@ -33,18 +33,23 @@ const SettingsPage = () => {
         e.preventDefault();
 
         try {
-            const response = await axiosInstance.post('/auth/change-password', {
-                password: formData.password,
-            });
+            //console.log(formData)
 
-            toast.success("Password changed successfully!");
+            const response = await axiosInstance.post(`/auth/change-password`, {
+                password: formData.password
+            });
+            
+            toast.success("Password changed successfully");
+
             setPasswordOpen(false);
-            setFormData({ password: '' }); // Clear the form
+
+            setFormData({ password: '' });
 
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to change the password.");
-        } 
+            toast.error("An error occurred");
+        }
     };
+
 
     const handleDeleteAccount = async (e) => {
         e.preventDefault();
@@ -64,13 +69,13 @@ const SettingsPage = () => {
         } catch (error) {
             console.log(error)
 
-            toast.error(error.response?.data?.message || "Failed to delete account.");
+            toast.error(error.response.data);
         }
     };
 
 
     return (
-        <Box sx={{ ml: 5 }} >
+        <Box sx={{ ml: 3 }} >
             <Box sx={{ mt: 5 }}>
                 <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
                     Manage Your Account
@@ -122,7 +127,7 @@ const SettingsPage = () => {
                             type="password"
                             fullWidth
                             required
-                            value={formData.password}
+                            value={formData.newPassword}
                             onChange={handleInputChange}
                         />
                         <DialogActions>
