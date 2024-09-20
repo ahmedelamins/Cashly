@@ -81,7 +81,7 @@ const LandingPage = () => {
                 password: formData.password,
             });
            
-            toast.success("Registered Successfuly! Please Log in."); //toast messagee
+            toast.success(response.data.message); //toast messagee
 
             setJoinOpen(false);
         } catch (error) {
