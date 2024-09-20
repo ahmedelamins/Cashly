@@ -39,14 +39,14 @@ const SettingsPage = () => {
                 password: formData.password
             });
             
-            toast.success("Password changed successfully");
+            toast.success(response.data.message);
 
             setPasswordOpen(false);
 
             setFormData({ password: '' });
 
         } catch (error) {
-            toast.error("An error occurred");
+            toast.error(error.response.data);
         }
     };
 
