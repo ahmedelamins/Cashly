@@ -26,10 +26,10 @@ public class authController : ControllerBase
 
         var response = await _authService
             .Register(
-             new User
-             {
-                 Username = request.Username
-             },
+                new User
+                {
+                    Username = request.Username
+                },
                 request.Password
             );
 
@@ -78,8 +78,8 @@ public class authController : ControllerBase
         return Ok(response);
     }
 
-    [HttpDelete("delete-user"), Authorize]
-    public async Task<ActionResult<ServiceResponse<bool>>> DeleteUser([FromBody] int userId)
+    [HttpDelete("delete-user/{userId:int}"), Authorize]
+    public async Task<ActionResult<ServiceResponse<bool>>> DeleteUser(int userId)
     {
         var response = await _authService.DeleteUser(userId);
 
