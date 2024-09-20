@@ -19,6 +19,7 @@ const SettingsPage = () => {
     const navigate = useNavigate();
 
     const [passwordOpen, setPasswordOpen] = useState(false);
+    const [deleteUserOpen, setDeleteUserOpen] = useState(false);
     const [formData, setFormData] = useState({ password: '' });
 
     const handleInputChange = (e) => {
@@ -87,17 +88,33 @@ const SettingsPage = () => {
                     <Button
                         variant="contained"
                         color="error"
-                        onClick={handleDeleteAccount}>
+                        onClick={() => setDeleteUserOpen(true)}>
                         Delete Account
                     </Button>
                 </Box>
             </Box>
+            {/* delete account pop up*/}
+            <Dialog open={deleteUserOpen} onClose={() => setDeleteUserOpen(true)}>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogContent>
+                    <Box component="form" onSubmit={handleDeleteAccount} sx={{ mt: 2 }}>
+                        <DialogActions>
+                            <Button variant="outlined" onClick={() => setDeleteUserOpen(false)}>
+                                No, Keep it.
+                            </Button>
+                            <Button variant="contained" type="submit" color="primary">
+                               Yes, I'm sure.
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
 
             {/* change password pop up*/ }
             <Dialog open={passwordOpen} onClose={() => setPasswordOpen(false)}>
                 <DialogTitle>Change Password</DialogTitle>
                 <DialogContent>
-                    <Box component="form" onSubmit={handleChangePassword} sx={{ mt: 2 }}>
+                    <Box component="form" onSubmit={handleChangePassword}>
                         <TextField
                             margin="dense"
                             name="password"
@@ -118,34 +135,7 @@ const SettingsPage = () => {
                         </DialogActions>
                     </Box>
                 </DialogContent>
-            </Dialog>
-
-            {/* delete account pop up*/}
-            {/*<Dialog open={passwordOpen} onClose={() => setPasswordOpen(false)}>*/}
-            {/*    <DialogTitle>Change Password</DialogTitle>*/}
-            {/*    <DialogContent>*/}
-            {/*        <Box component="form" onSubmit={handleChangePassword} sx={{ mt: 2 }}>*/}
-            {/*            <TextField*/}
-            {/*                margin="dense"*/}
-            {/*                name="password"*/}
-            {/*                label="New Password"*/}
-            {/*                type="password"*/}
-            {/*                fullWidth*/}
-            {/*                required*/}
-            {/*                value={formData.password}*/}
-            {/*                onChange={handleInputChange}*/}
-            {/*            />*/}
-            {/*            <DialogActions>*/}
-            {/*                <Button variant="outlined" onClick={() => setPasswordOpen(false)}>*/}
-            {/*                    Cancel*/}
-            {/*                </Button>*/}
-            {/*                <Button variant="contained" type="submit" color="primary" disabled={loading}>*/}
-            {/*                    Change*/}
-            {/*                </Button>*/}
-            {/*            </DialogActions>*/}
-            {/*        </Box>*/}
-            {/*    </DialogContent>*/}
-            {/*</Dialog>*/}
+            </Dialog>            
         </Container>
     );
 }
