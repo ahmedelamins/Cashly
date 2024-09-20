@@ -44,18 +44,23 @@ const LandingPage = () => {
                 password: formData.password,
             });
 
-            console.log("Login response:", response.data); // Check the entire response
+            //console.log("Login response:", response.data); // Check the entire response
 
             const token = response.data.data; // Adjust this based on the actual response structure
 
             if (token) {
                 localStorage.setItem('token', token);
-                console.log("Token stored in localStorage:", localStorage.getItem('token')); // Verify
+                //console.log("Token stored in localStorage:", localStorage.getItem('token')); // Verify
 
                 const decodedToken = jwtDecode(token);
+
+                //console.log(decodedToken);
+
                 const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+                const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
 
                 localStorage.setItem('username', username); // Store username
+                localStorage.setItem('userId', userId); // Store id
 
                 setLoginOpen(false);
                 toast.success("Welcome Back!");
