@@ -43,8 +43,7 @@ const LandingPage = () => {
                 username: formData.username,
                 password: formData.password,
             });
-
-            //console.log("Login response:", response.data); // Check the entire response
+            
 
             const token = response.data.data; // Adjust this based on the actual response structure
 
@@ -61,7 +60,7 @@ const LandingPage = () => {
 
                 setLoginOpen(false);
 
-                toast.success("Welcome Back!");
+                toast.success(response.data.message);
 
                 navigate('/home');
             } else {
