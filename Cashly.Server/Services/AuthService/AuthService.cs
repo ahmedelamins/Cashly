@@ -57,12 +57,17 @@ public class AuthService : IAuthService
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower()
             .Equals(username.ToLower()));
 
-            if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (user == null)
             {
                 response.Success = false;
-                response.Message = "Invalid Credentials!";
+                response.Message = "Hmm..Something is not right.";
 
                 return response;
+            }
+            else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Wrong password";
             }
 
 
