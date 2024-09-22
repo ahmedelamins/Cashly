@@ -16,41 +16,36 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             .WithOne(e => e.Category)
             .HasForeignKey(e => e.CategoryId);
 
-        //seeding some expenses
-        //modelBuilder.Entity<Expense>().HasData(
+        //seeding categories
 
-        //     new Expense
-        //     {
-        //         Id = 1,
-        //         Title = "Lunch",
-        //         Amount = 12.99m,
-        //         CreatedAt = new DateTime(2024, 9, 17, 12, 30, 0),
-        //         UserId = 1 // belongs to user 1
-        //     },
-        //     new Expense
-        //     {
-        //         Id = 2,
-        //         Title = "shopping",
-        //         Amount = 99.99m,
-        //         CreatedAt = new DateTime(2024, 9, 17, 1, 30, 0),
-        //         UserId = 1
-        //     },
-        //     new Expense
-        //     {
-        //         Id = 3,
-        //         Title = "cinema",
-        //         Amount = 5.99m,
-        //         CreatedAt = new DateTime(2024, 9, 17, 2, 20, 0),
-        //         UserId = 3
-        //     },
-        //     new Expense
-        //     {
-        //         Id = 4,
-        //         Title = "haircut",
-        //         Amount = 24.99m,
-        //         CreatedAt = new DateTime(2024, 9, 16, 8, 20, 0),
-        //         UserId = 3
-        //     }
-        //);
+        modelBuilder.Entity<Category>().HasData
+            (
+                new Category
+                {
+                    Id = 1,
+                    Name = "Utility"
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Food"
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Fun"
+                },
+                new Category
+                {
+                    Id = 4,
+                    Name = "Savings"
+                },
+                new Category
+                {
+                    Id = 5,
+                    Name = "Other"
+                }
+            );
+
     }
 }
