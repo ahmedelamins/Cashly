@@ -5,8 +5,9 @@ namespace Cashly.Server.Models;
 public class Expense
 {
     public int Id { get; set; }
+    [Required]
     public string Title { get; set; } = string.Empty;
-    [Column(TypeName = "decimal(18,2)")]
+    [Required, Column(TypeName = "decimal(18,2)")]
     public decimal Amount { get; set; }
     [Required]
     public Category Category { get; set; }
