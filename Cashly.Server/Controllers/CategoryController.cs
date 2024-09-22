@@ -1,5 +1,24 @@
-﻿namespace Cashly.Server.Controllers;
+﻿using Cashly.Server.Services.CategoryService;
+using Microsoft.AspNetCore.Mvc;
 
-public class CategoryController
+namespace Cashly.Server.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CategoryController : ControllerBase
 {
+    private readonly CategoryService _categoryService;
+
+    public CategoryController(CategoryService categoryService)
+    {
+        _categoryService = categoryService;
+    }
+
+    public async Task<ActionResult<ServiceResponse<Category>>> GetCategories()
+    {
+        var response = await _categoryService.GetCategories();
+
+
+        return Ok(response);
+    }
 }
