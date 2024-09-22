@@ -1,5 +1,20 @@
-import { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, Typography, Card, CardContent, Grid, Paper, Stack, IconButton } from '@mui/material';
+import { Pie } from 'react-chartjs-2';
+import 'chart.js/auto'; // Import Chart.js
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+const mockExpenses = [
+    { id: 1, title: 'Electricity Bill', amount: 100, date: '2024-09-01', category: 'Utility' },
+    { id: 2, title: 'Groceries', amount: 50, date: '2024-09-02', category: 'Food' },
+    { id: 3, title: 'Movie Tickets', amount: 30, date: '2024-09-03', category: 'Fun' },
+    { id: 4, title: 'New Shoes', amount: 70, date: '2024-09-05', category: 'Shopping' },
+    { id: 5, title: 'Savings Deposit', amount: 100, date: '2024-09-06', category: 'Savings' },
+];
+
+const mockCategories = ['Utility', 'Food', 'Fun', 'Shopping', 'Savings'];
+
 
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
