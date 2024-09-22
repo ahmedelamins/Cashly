@@ -5,10 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-    const Username = username.charAt(0).toUpperCase() + username.slice(1);
+    const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
 
     // Mock data for expense history
     const expenseHistory = [
@@ -31,47 +28,20 @@ const HomePage = () => {
     };
 
     return (
-        <Box sx={{ mt: 3, display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 2 }}>
+        <Box sx={{ mt: 3, display: 'flex', flexDirection:'column'}}>
 
             <Typography variant="h4">
                 Hello, {Username}.
             </Typography>
 
-            {/* Donut Chart Container */}
-            <Container
-                sx={{
-                    width: isMobile ? '100%' : '45%',
-                    height: isMobile ? 'auto' : '500px',
-                }}
-            >
-               
-                {/* Placeholder for Donut Chart */}
-                <Box
-                    sx={{
-                        height: '100%',
-                        backgroundColor: '#f0f0f0',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 2,
-                        mt: 2
-                    }}
-                >
-                    <Typography variant="body1" color="textSecondary">
-                        Donut Chart Placeholder
-                    </Typography>
-                </Box>
-            </Container>
-
             {/* Expense History Container */}
-            <Container
+            <Box
                 sx={{
                     mt: 3,
-                    width: isMobile ? '100%' : '45%',
+                    width:'45%',
                     height: '500px',
                     overflow: 'auto',
-                }}
-            >
+                }}>
                 <Box sx={{ mt: 2 }}>
                     {expenseHistory.map(expense => (
                         <Card
@@ -99,7 +69,8 @@ const HomePage = () => {
                         </Card>
                     ))}
                 </Box>
-            </Container>
+                
+            </Box>
         </Box>
     );
 }
