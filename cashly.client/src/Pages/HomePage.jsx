@@ -41,13 +41,13 @@ const HomePage = () => {
 
     return (
         <Box sx={{ mt: 1, p: 2 }}>
-            {/* Welcome Section */}
+
             <Typography variant="h4" textAlign={{ xs: 'center', md: 'left' }}>
                 Hello, {Username}!
             </Typography>
 
             <Grid container spacing={2} sx={{ mt: 2 }}>
-                {/* Donut Chart */}
+                {/* Chart container */}
                 <Grid item xs={12} md={6} sx={{ mb: 2 }}>
                     <Paper elevation={3} sx={{ p: 2, textAlign: 'center' }}>
                         <Typography variant="h6" sx={{ mb: 2 }}>
@@ -59,7 +59,7 @@ const HomePage = () => {
                     </Paper>
                 </Grid>
 
-                {/* Expense History */}
+                {/* Expense History container*/}
                 <Grid item xs={12} md={6}>
                     <Paper elevation={3} sx={{ p: 2, maxHeight: '470px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ mb: 2, textAlign: { xs: 'center', md: 'left' } }}>
