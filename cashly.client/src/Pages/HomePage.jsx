@@ -131,9 +131,10 @@ const HomePage = () => {
                                             <IconButton aria-label="edit">
                                                 <EditIcon />
                                             </IconButton>
-                                            <IconButton aria-label="delete">
+                                            <IconButton aria-label="delete" onClick={() => handleDelete(expense.id)}>
                                                 <DeleteIcon />
                                             </IconButton>
+
                                         </Box>
                                     </CardContent>
                                 </Card>
