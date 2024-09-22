@@ -3,8 +3,26 @@ namespace Cashly.Server.Services.CategoryService;
 
 public class CategoryService : ICategoryService
 {
-    public Task<ServiceResponse<List<Category>>> GetCategories()
+    private readonly DataContext _context;
+
+    public CategoryService(DataContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    public async Task<ServiceResponse<List<Category>>> GetCategories()
+    {
+        var response = new ServiceResponse<List<Category>>();
+
+        try
+        {
+            response.Data = await _context.Categories.ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 }
