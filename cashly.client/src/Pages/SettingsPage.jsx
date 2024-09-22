@@ -10,6 +10,7 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import axiosInstance from '../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
@@ -21,6 +22,7 @@ const SettingsPage = () => {
     const [passwordOpen, setPasswordOpen] = useState(false);
     const [deleteUserOpen, setDeleteUserOpen] = useState(false);
     const [formData, setFormData] = useState({ password: '' });
+    const [loading, setLoading] = useState(false);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -31,6 +33,7 @@ const SettingsPage = () => {
 
     const handleChangePassword = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             //console.log(formData)
@@ -38,15 +41,21 @@ const SettingsPage = () => {
             const response = await axiosInstance.post(`/auth/change-password`, {
                 password: formData.password
             });
-            
-            toast.success(response.data.message);
 
-            setPasswordOpen(false);
+            setTimeout(() => {
+                setLoading(false);
+                setPasswordOpen(false);
 
+                toast.success(response.data.message);
+            }, 1000);
+                    
             setFormData({ password: '' });
 
         } catch (error) {
             toast.error(error.response.data);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
 
@@ -119,26 +128,28 @@ const SettingsPage = () => {
             <Dialog open={passwordOpen} onClose={() => setPasswordOpen(false)}>
                 <DialogTitle>Change Password</DialogTitle>
                 <DialogContent>
-                    <Box component="form" onSubmit={handleChangePassword}>
-                        <TextField
-                            margin="dense"
-                            name="password"
-                            label="New Password"
-                            type="password"
-                            fullWidth
-                            required
-                            value={formData.newPassword}
-                            onChange={handleInputChange}
-                        />
-                        <DialogActions>
-                            <Button variant="outlined" onClick={() => setPasswordOpen(false)}>
-                                Cancel
-                            </Button>
-                            <Button variant="contained" type="submit" color="primary">
-                                Change
-                            </Button>
-                        </DialogActions>
-                    </Box>
+                    {loading ? <CircularProgress /> : (
+                        <Box component="form" onSubmit={handleChangePassword}>
+                            <TextField
+                                margin="dense"
+                                name="password"
+                                label="New Password"
+                                type="password"
+                                fullWidth
+                                required
+                                value={formData.newPassword}
+                                onChange={handleInputChange}
+                            />
+                            <DialogActions>
+                                <Button variant="outlined" onClick={() => setPasswordOpen(false)}>
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" type="submit" color="primary">
+                                    Change
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    ) }
                 </DialogContent>
             </Dialog>            
         </Box>
