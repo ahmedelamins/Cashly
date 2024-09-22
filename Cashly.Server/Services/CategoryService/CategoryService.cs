@@ -1,6 +1,4 @@
-﻿
-
-namespace Cashly.Server.Services.CategoryService;
+﻿namespace Cashly.Server.Services.CategoryService;
 
 public class CategoryService : ICategoryService
 {
@@ -11,8 +9,20 @@ public class CategoryService : ICategoryService
         _context = context;
     }
 
-    public Task<ServiceResponse<List<Category>>> GetCategories()
+    public async Task<ServiceResponse<List<Category>>> GetCategories()
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<List<Category>>();
+
+        try
+        {
+            response.Data = await _context.Categories.ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 }
