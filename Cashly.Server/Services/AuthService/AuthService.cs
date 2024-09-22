@@ -99,17 +99,24 @@ public class AuthService : IAuthService
 
                 return response;
             }
+            else if (VerifyPasswordHash(newPassword, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "This is the current password.";
+            }
+            else
+            {
+                CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] passwordSalt);
 
-            CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] passwordSalt);
+                user.PasswordSalt = passwordSalt;
+                user.PasswordHash = passwordHash;
 
-            user.PasswordSalt = passwordSalt;
-            user.PasswordHash = passwordHash;
-
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
 
-            response.Message = "Password Changed Successfully!";
-            response.Data = true;
+                response.Message = "Password Changed Successfully!";
+                response.Data = true;
+            }
 
         }
         catch (Exception ex)
