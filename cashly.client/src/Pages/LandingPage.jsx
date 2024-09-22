@@ -88,18 +88,25 @@ const LandingPage = () => {
     //register
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             const response = await axiosInstance.post('/auth/register', {
                 username: formData.username,
                 password: formData.password,
             });
-           
-            toast.success(response.data.message); //toast messagee
 
-            setJoinOpen(false);
+            setTimeout(() => {
+                setJoinOpen(false);
+                setLoading(false);
+                toast.success(response.data.message);
+            }, 1000);
+            
         } catch (error) {
             toast.error(error.response.data);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
     
@@ -258,36 +265,38 @@ const LandingPage = () => {
             <Dialog open={joinOpen} onClose={() => setJoinOpen(false)}>
                 <DialogTitle>Join</DialogTitle>
                 <DialogContent>
-                    <Box component="form" onSubmit={handleRegisterSubmit} sx={{ mt: 2 }}>
-                        <TextField
-                            margin="dense"
-                            name="username"
-                            label="Username"
-                            type="text"
-                            fullWidth
-                            required
-                            value={formData.username}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            margin="dense"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            fullWidth
-                            required
-                            value={formData.password}
-                            onChange={handleInputChange}
-                        />
-                        <DialogActions>
-                            <Button variant="outlined" onClick={() => setJoinOpen(false)}>
-                                Cancel
-                            </Button>
-                            <Button variant="contained" type="submit" color="primary">
-                                Sign Up
-                            </Button>
-                        </DialogActions>
-                    </Box>
+                    {loading ? <CircularProgress /> : (
+                        <Box component="form" onSubmit={handleRegisterSubmit} sx={{ mt: 2 }}>
+                            <TextField
+                                margin="dense"
+                                name="username"
+                                label="Username"
+                                type="text"
+                                fullWidth
+                                required
+                                value={formData.username}
+                                onChange={handleInputChange}
+                            />
+                            <TextField
+                                margin="dense"
+                                name="password"
+                                label="Password"
+                                type="password"
+                                fullWidth
+                                required
+                                value={formData.password}
+                                onChange={handleInputChange}
+                            />
+                            <DialogActions>
+                                <Button variant="outlined" onClick={() => setJoinOpen(false)}>
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" type="submit" color="primary">
+                                    Sign Up
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    )}
                 </DialogContent>
             </Dialog>
         </Box>
