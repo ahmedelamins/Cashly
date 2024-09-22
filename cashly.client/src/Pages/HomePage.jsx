@@ -7,10 +7,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const mockExpenses = [
     { id: 1, title: 'Electricity Bill', amount: 100, date: '2024-09-01', category: 'Utility' },
-    { id: 2, title: 'Groceries', amount: 50, date: '2024-09-02', category: 'Food' },
-    { id: 3, title: 'Movie Tickets', amount: 30, date: '2024-09-03', category: 'Fun' },
-    { id: 4, title: 'New Shoes', amount: 70, date: '2024-09-05', category: 'Shopping' },
-    { id: 5, title: 'Savings Deposit', amount: 100, date: '2024-09-06', category: 'Savings' },
+    { id: 2, title: 'Groceries', amount: 87, date: '2024-09-02', category: 'Food' },
+    { id: 3, title: 'Night out', amount: 64, date: '2024-09-03', category: 'Fun' },
+    { id: 4, title: 'New Shoes', amount: 75, date: '2024-09-05', category: 'Shopping' },
+    { id: 5, title: 'Savings Deposit', amount: 95, date: '2024-09-06', category: 'Savings' },
+    { id: 6, title: 'Savings Deposit', amount: 33, date: '2024-09-07', category: 'Savings' },
 ];
 
 const mockCategories = ['Utility', 'Food', 'Fun', 'Shopping', 'Savings'];
