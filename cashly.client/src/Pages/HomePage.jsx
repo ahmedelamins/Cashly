@@ -19,6 +19,12 @@ const mockCategories = ['Utility', 'Food', 'Fun', 'Shopping', 'Savings'];
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
+    
+    useEffect(() => {
+        const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+        setTotalExpenses(total);
+    }, [expenses]);
+
 
     return (
         <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column' }}>
