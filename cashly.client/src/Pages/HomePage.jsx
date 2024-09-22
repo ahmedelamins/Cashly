@@ -53,11 +53,18 @@ const HomePage = () => {
         handleClose();
     };
 
+    const fetchExpenses = async () => {
+        try {
+            const response = await axiosInstance.get('/expense');
+
+            setExpenses(response.data.data);
+        } catch(error){
+            console.error(error);
+        }
+    }
     useEffect(() => {
-        // Calculate total expenses
-        const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-        setTotalExpenses(total);
-    }, [expenses]);
+        fetchExpenses();
+    }, []);
 
     const categoryData = {
         labels: mockCategories,
@@ -134,7 +141,6 @@ const HomePage = () => {
                                             <IconButton aria-label="delete" onClick={() => handleDelete(expense.id)}>
                                                 <DeleteIcon />
                                             </IconButton>
-
                                         </Box>
                                     </CardContent>
                                 </Card>
