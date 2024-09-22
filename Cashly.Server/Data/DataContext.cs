@@ -117,7 +117,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
                     Id = 8,
                     Title = "Fix phone",
                     Amount = 45.00m,
-                    CategoryId = 5, // Fun
+                    CategoryId = 5, // other
                     UserId = 1,
                     CreatedAt = new DateTime(2023, 8, 22)
                 }
