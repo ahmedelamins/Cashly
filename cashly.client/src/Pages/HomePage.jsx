@@ -19,7 +19,10 @@ const mockCategories = ['Utility', 'Food', 'Fun', 'Shopping', 'Savings'];
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
-    
+
+    const [expenses, setExpenses] = useState(mockExpenses);
+    const [totalExpenses, setTotalExpenses] = useState(0);
+
     useEffect(() => {
         const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
         setTotalExpenses(total);
