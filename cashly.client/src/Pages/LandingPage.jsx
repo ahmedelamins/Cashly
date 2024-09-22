@@ -63,19 +63,25 @@ const LandingPage = () => {
                 localStorage.setItem('username', username); // Store username
                 localStorage.setItem('userId', userId); // Store id
 
-                setLoginOpen(false);
+                setTimeout(() => {
+                    setLoginOpen(false);
+                    setLoading(false);
 
-                toast.success(response.data.message);
+                    toast.success(response.data.message);
 
-                navigate('/home');
+                    navigate('/home');
+                }, 1000);
+
+                
             } else {
                 throw new Error("No token returned from login!");
             }
         } catch (error) {
             toast.error(error.response.data);
-        } finally {
-            setLoading(false);
-        }
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+        } 
     };
 
 
