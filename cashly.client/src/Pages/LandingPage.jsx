@@ -100,6 +100,8 @@ const LandingPage = () => {
                 setJoinOpen(false);
                 setLoading(false);
                 toast.success(response.data.message);
+
+                setLoginOpen(true);
             }, 1000);
             
         } catch (error) {
