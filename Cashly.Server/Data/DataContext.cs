@@ -13,8 +13,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
 
         modelBuilder.Entity<Category>()
             .HasMany(c => c.Expenses)
-            .WithOne(c => c.Category)
-            .HasForeignKey(c => c.CategoryId);
+            .WithOne(e => e.Category)
+            .HasForeignKey(e => e.CategoryId);
 
         //seeding some expenses
         //modelBuilder.Entity<Expense>().HasData(
