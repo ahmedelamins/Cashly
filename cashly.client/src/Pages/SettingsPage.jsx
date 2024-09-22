@@ -17,6 +17,9 @@ import { toast } from "react-toastify";
 
 const SettingsPage = () => {
 
+    const username = localStorage.getItem('username');
+    const Username = username.charAt(0).toUpperCase() + username.slice(1);
+
     const navigate = useNavigate();
 
     const [passwordOpen, setPasswordOpen] = useState(false);
@@ -92,8 +95,11 @@ const SettingsPage = () => {
 
     return (
         <Box sx={{ ml: 3 }} >
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 3 }}>
                 <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
+                    Hello, {Username}!
+                </Typography>
+                <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
                     Manage Your Account
                 </Typography>
                 <Box sx={{ mt: 4, display: 'flex', maxWidth: "300px", width: "100%", flexDirection: 'column' }}>
