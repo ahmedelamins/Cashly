@@ -62,23 +62,29 @@ const SettingsPage = () => {
 
     const handleDeleteAccount = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         const userId = localStorage.getItem('userId');
 
         try {
 
             const response = await axiosInstance.delete(`/auth/delete-user/${userId}`);
-                            
-            toast.success("Deleted account successfully!");
 
-            localStorage.clear();
+            setTimeout(() => {
+                setLoading(false);
 
-            navigate('/');
+                toast.success("Deleted account successfully!");
+                localStorage.clear();  
+            
+                navigate('/');
+            }, 1000);
+            
 
         } catch (error) {
-            console.log(error)
-
             toast.error(error.response.data);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
 
@@ -111,16 +117,19 @@ const SettingsPage = () => {
             <Dialog open={deleteUserOpen} onClose={() => setDeleteUserOpen(true)}>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogContent>
-                    <Box component="form" onSubmit={handleDeleteAccount} sx={{ mt: 2 }}>
-                        <DialogActions>
-                            <Button variant="outlined" onClick={() => setDeleteUserOpen(false)}>
-                                No, Keep it.
-                            </Button>
-                            <Button variant="contained" type="submit" color="primary">
-                               Yes, I'm sure.
-                            </Button>
-                        </DialogActions>
-                    </Box>
+                    {loading ? <CircularProgress /> : (
+
+                        <Box component="form" onSubmit={handleDeleteAccount} sx={{ mt: 2 }}>
+                             <DialogActions>
+                                  <Button variant="outlined" onClick={() => setDeleteUserOpen(false)}>
+                                      No, Keep it.
+                                  </Button>
+                                  <Button variant="contained" type="submit" color="primary">
+                                      Yes, I'm sure.
+                                     </Button>
+                             </DialogActions>
+                         </Box>
+                    )}
                 </DialogContent>
             </Dialog>
 
