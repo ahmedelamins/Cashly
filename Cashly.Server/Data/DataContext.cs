@@ -17,9 +17,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             .HasForeignKey(e => e.CategoryId);
 
         //seeding categories
-
-        modelBuilder.Entity<Category>().HasData
-            (
+        modelBuilder.Entity<Category>()
+            .HasData(
                 new Category
                 {
                     Id = 1,
@@ -38,7 +37,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
                 new Category
                 {
                     Id = 4,
-                    Name = "Savings"
+                    Name = "Shopping"
                 },
                 new Category
                 {
