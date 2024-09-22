@@ -52,9 +52,10 @@ const SettingsPage = () => {
             setFormData({ password: '' });
 
         } catch (error) {
-            toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
+                const errorMessage = error.response?.data?.message || "Could not change password.";
+                toast.error(errorMessage);
             }, 1000);
         }
     };
