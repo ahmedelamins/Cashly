@@ -102,7 +102,7 @@ public class AuthService : IAuthService
             else if (VerifyPasswordHash(newPassword, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "This is the current password.";
+                response.Message = "Can't change to current password.";
             }
             else
             {
