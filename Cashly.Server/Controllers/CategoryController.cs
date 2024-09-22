@@ -14,6 +14,7 @@ public class CategoryController : ControllerBase
         _categoryService = categoryService;
     }
 
+    [HttpGet]
     public async Task<ActionResult<ServiceResponse<Category>>> GetCategories()
     {
         var response = await _categoryService.GetCategories();
