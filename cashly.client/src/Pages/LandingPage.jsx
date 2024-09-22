@@ -13,6 +13,7 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import vector from '../assets/vector.svg';
 import axiosInstance from '../utils/axiosInstance';
@@ -27,6 +28,7 @@ const LandingPage = () => {
     const [joinOpen, setJoinOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [formData, setFormData] = useState({ username: '', password: '' });
+    const [loading, setLoading] = useState(false);
 
 
     const handleInputChange = (e) => {
@@ -38,18 +40,21 @@ const LandingPage = () => {
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
+
+        setLoading(true)
+
         try {
             const response = await axiosInstance.post('/auth/login', {
                 username: formData.username,
                 password: formData.password,
             });
-            
+
 
             const token = response.data.data; // Adjust this based on the actual response structure
 
             if (token) {
                 localStorage.setItem('token', token);
-                
+
                 const decodedToken = jwtDecode(token);
 
                 const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
@@ -68,6 +73,8 @@ const LandingPage = () => {
             }
         } catch (error) {
             toast.error(error.response.data);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -75,6 +82,7 @@ const LandingPage = () => {
     //register
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const response = await axiosInstance.post('/auth/register', {
                 username: formData.username,
@@ -205,36 +213,38 @@ const LandingPage = () => {
             <Dialog open={loginOpen} onClose={() => setLoginOpen(false)}>
                 <DialogTitle>Login</DialogTitle>
                 <DialogContent>
-                    <Box component="form" onSubmit={handleLoginSubmit} sx={{ mt: 2 }}>
-                        <TextField
-                            margin="dense"
-                            name="username"
-                            label="Username"
-                            type="text"
-                            fullWidth
-                            required
-                            value={formData.username}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            margin="dense"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            fullWidth
-                            required
-                            value={formData.password}
-                            onChange={handleInputChange}
-                        />
-                        <DialogActions>
-                            <Button variant ="outlined" onClick={() => setLoginOpen(false)}>
-                                Cancel
-                            </Button>
-                            <Button variant="contained" type="submit" color="primary">
-                                Login
-                            </Button>
-                        </DialogActions>
-                    </Box>
+                    {loading ? <CircularProgress /> : (
+                        <Box component="form" onSubmit={handleLoginSubmit} sx={{ mt: 2 }}>
+                            <TextField
+                                margin="dense"
+                                name="username"
+                                label="Username"
+                                type="text"
+                                fullWidth
+                                required
+                                value={formData.username}
+                                onChange={handleInputChange}
+                            />
+                            <TextField
+                                margin="dense"
+                                name="password"
+                                label="Password"
+                                type="password"
+                                fullWidth
+                                required
+                                value={formData.password}
+                                onChange={handleInputChange}
+                            />
+                            <DialogActions>
+                                <Button variant="outlined" onClick={() => setLoginOpen(false)}>
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" type="submit" color="primary">
+                                    Login
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    )}
                 </DialogContent>
             </Dialog>
 
