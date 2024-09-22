@@ -19,7 +19,7 @@ const HomePage = () => {
     const [expenses, setExpenses] = useState(mockExpenses);
     const [totalExpenses, setTotalExpenses] = useState(0);
     const username = localStorage.getItem('username') || 'User'; // Fetching username
-    const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1); // Capitalize first letter
+    const Username = username.charAt(0).toUpperCase() + username.slice(1); // Capitalize first letter
 
     useEffect(() => {
         // Calculate total expenses
@@ -33,17 +33,17 @@ const HomePage = () => {
             {
                 label: 'Expenses by Category',
                 data: mockCategories.map((category) => expenses.filter((expense) => expense.category === category).reduce((acc, expense) => acc + expense.amount, 0)),
-                backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0'],
+                backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
                 hoverOffset: 4,
             },
         ],
     };
 
     return (
-        <Box sx={{ mt: 2, p: 2 }}>
+        <Box sx={{ mt: 1, p: 2 }}>
             {/* Welcome Section */}
             <Typography variant="h4" textAlign={{ xs: 'center', md: 'left' }}>
-                Hello, {capitalizedUsername}!
+                Hello, {Username}!
             </Typography>
 
             <Grid container spacing={2} sx={{ mt: 2 }}>
