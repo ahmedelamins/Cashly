@@ -120,6 +120,24 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
                     CategoryId = 5, // other
                     UserId = 1,
                     CreatedAt = new DateTime(2023, 8, 22)
+                },
+                new Expense
+                {
+                    Id = 9,
+                    Title = "New shirt",
+                    Amount = 45.00m,
+                    CategoryId = 4, // shopping
+                    UserId = 2009,
+                    CreatedAt = new DateTime(2023, 8, 22)
+                },
+                new Expense
+                {
+                    Id = 10,
+                    Title = "Date",
+                    Amount = 60.00m,
+                    CategoryId = 5, // other
+                    UserId = 2009,
+                    CreatedAt = new DateTime(2023, 8, 23)
                 }
             );
 
