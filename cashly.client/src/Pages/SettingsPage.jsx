@@ -50,7 +50,7 @@ const SettingsPage = () => {
                 setPasswordOpen(false);
 
                 toast.success(response.data.message);
-            }, 1000);
+            }, 900);
                     
             setFormData({ password: '' });
 
@@ -59,7 +59,7 @@ const SettingsPage = () => {
                 setLoading(false);
                 const errorMessage = error.response?.data?.message || "Could not change password.";
                 toast.error(errorMessage);
-            }, 1000);
+            }, 900);
         }
     };
 

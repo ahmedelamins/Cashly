@@ -102,13 +102,14 @@ const LandingPage = () => {
                 toast.success(response.data.message);
 
                 setLoginOpen(true);
-            }, 1000);
+            }, 900);
             
         } catch (error) {
-            toast.error(error.response.data);
+            const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+            toast.error(errorMessage);
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 900);
         }
     };
     
