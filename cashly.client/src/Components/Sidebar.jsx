@@ -26,39 +26,8 @@ import { toast } from "react-toastify";
 const drawerWidth = 240;
 
 const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
-  const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    amount: "",
-    date: "",
-    category: "",
-  });
-
+  
     const navigate = useNavigate();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-    if (isMobile) {
-      handleDrawerToggle();
-    }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-      e.preventDefault();
-        handleClose();
-  };
 
     const handleLogout = (e) => {
         localStorage.clear();
@@ -123,25 +92,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
             primary="Settings"
             primaryTypographyProps={{ fontSize: "1.2rem" }}
           />
-        </ListItem>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleClickOpen}
-                  sx={{
-                      mx: 2,
-                      mt: "4rem",
-                      p: "12px",
-                      fontWeight: 550,
-                      transition: 'transform 0.3s ease',
-                      '&:hover': {
-                          transform: 'scale(1.1)',
-                      },
-                  }}
-             >
-          New Expense
-        </Button>
-
+        </ListItem>        
         <Button
           variant="contained"
                   color="error"
@@ -187,74 +138,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
       >
         {drawer}
       </Drawer>
-      {/* Dialog for New Transaction */}
-      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle>New Transaction</DialogTitle>
-        <DialogContent sx={{ padding: 3 }}>
-          <Box
-            component="form"
-            sx={{ display: "flex", flexDirection: "column", mt: 2 }}
-            onSubmit={handleSubmit}
-          >
-            <TextField
-              margin="dense"
-              name="title"
-              label="Title"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={formData.title}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              margin="dense"
-              name="amount"
-              label="Amount"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={formData.amount}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              margin="dense"
-              name="date"
-              label="Date"
-              type="date"
-              fullWidth
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              value={formData.date}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              margin="dense"
-              name="category"
-              label="Category"
-              select
-              fullWidth
-              variant="outlined"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            >
-              <MenuItem value="expense">Expense</MenuItem>
-              <MenuItem value="income">Income</MenuItem>
-            </TextField>
-            <DialogActions>
-              <Button onClick={handleClose} variant="outlined" color="primary">
-                Cancel
-              </Button>
-              <Button variant="contained" type="submit" color="primary">
-                Submit
-              </Button>
-            </DialogActions>
-          </Box>
-        </DialogContent>
-      </Dialog>
+      
     </>
   );
 };

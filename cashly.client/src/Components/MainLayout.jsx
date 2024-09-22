@@ -34,7 +34,7 @@ const MainLayout = () => {
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
             {/* AppBar - Top Navbar */}
-            <AppBar position="fixed" elevation={0} color="secondary" sx={{ py: 1, borderBottom: '2px solid #f4f6f7', zIndex: theme.zIndex.drawer + 3 }}>
+            <AppBar position="fixed" elevation={0} color="secondary" sx={{ py: 0.9, borderBottom: '2px solid #f4f6f7', zIndex: theme.zIndex.drawer + 3 }}>
                 <Toolbar>
                     {/* Hamburger Menu Icon */}
                     
