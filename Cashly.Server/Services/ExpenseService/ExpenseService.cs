@@ -18,7 +18,7 @@ public class ExpenseService : IExpenseService
         {
             response.Data = await _context.Expenses
                   .Where(e => e.UserId == userId)
-                  .OrderByDescending(e => e.Date) //in order, newest => oldest
+                  .OrderByDescending(e => e.CreatedAt) //in order, newest => oldest
                   .ToListAsync();
         }
         catch (Exception ex)
@@ -99,7 +99,7 @@ public class ExpenseService : IExpenseService
 
             expense.Title = updatedExpense.Title;
             expense.Amount = updatedExpense.Amount;
-            expense.Date = updatedExpense.Date;
+            expense.CreatedAt = updatedExpense.CreatedAt;
 
             await _context.SaveChangesAsync();
 
