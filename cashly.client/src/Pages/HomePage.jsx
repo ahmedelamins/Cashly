@@ -13,7 +13,8 @@ const HomePage = () => {
 
     const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -41,10 +42,7 @@ const HomePage = () => {
         fetchData();
     }, []);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
+    const handleClickOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false);
         setFormData({ title: "", amount: "", date: "", category: "" });
@@ -52,42 +50,38 @@ const HomePage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
+        // Ensure the amount is a number
+        const formattedData = {
+            ...formData,
+            amount: parseFloat(formData.amount)
+        };
+
+        console.log(formData);
 
         try {
-
-            const response = await axiosInstance.post('/expense', {
-                title: formData.title,
-                amount: formData.amount,
-                date: formData.date,
-                category: formData.category
-            });
-
-            setTimeout(() => {
-                setOpen(false);
-                //setLoading(false);
-                toast.success(response.data.message || "New expense added");
-            })
-
+            const response = await axiosInstance.post('/expense', formattedData);
+            setExpenses(prevExpenses => [...prevExpenses, response.data.data]);
+            handleClose();
+            toast.success(response.data.message || "New expense added");
         } catch (error) {
-            setTimeout(() => {
-                //setLoading(false);
-                toast.error(error.response?.data?.message || "Something went wrong.");
-            }, 900);
+            console.error('Error submitting expense:', error.response?.data || error.message);
+            toast.error(error.response?.data?.message || "Failed to add expense. Please check your input and try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleDelete = async (id) => {
         try {
             await axiosInstance.delete(`/expense/${id}`);
-            setExpenses(expenses.filter(expense => expense.id !== id));
+            setExpenses(prevExpenses => prevExpenses.filter(expense => expense.id !== id));
             toast.success('Expense deleted successfully');
         } catch (err) {
             toast.error(err.response ? err.response.data.message : err.message);
@@ -98,18 +92,16 @@ const HomePage = () => {
     if (error) return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><Typography color="error">Error: {error}</Typography></Box>;
 
     const categoryData = {
-        labels: categories.map((category) => category.name),
-        datasets: [
-            {
-                label: 'Expenses by Category',
-                data: categories.map((category) =>
-                    expenses.filter((expense) => expense.category === category.name)
-                        .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
-                ),
-                backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
-                hoverOffset: 4,
-            },
-        ],
+        labels: categories.map(category => category.name),
+        datasets: [{
+            label: 'Expenses by Category',
+            data: categories.map(category =>
+                expenses.filter(expense => expense.category === category.name)
+                    .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
+            ),
+            backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
+            hoverOffset: 4,
+        }],
     };
 
     return (
@@ -130,7 +122,8 @@ const HomePage = () => {
                     '&:hover': {
                         transform: 'scale(1.1)',
                     },
-                }}>
+                }}
+            >
                 New Expense
             </Button>
 
@@ -190,10 +183,7 @@ const HomePage = () => {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>New Expense</DialogTitle>
                 <DialogContent>
-                    <Box
-                        component="form"
-                        onSubmit={handleSubmit}
-                    >
+                    <Box component="form" onSubmit={handleSubmit}>
                         <TextField
                             margin="dense"
                             name="title"
@@ -252,7 +242,7 @@ const HomePage = () => {
                     <Button onClick={handleClose} variant="outlined" color="primary">
                         Cancel
                     </Button>
-                    <Button variant="contained" type="submit" color="primary">
+                    <Button onClick={handleSubmit} variant="contained" color="primary">
                         Submit
                     </Button>
                 </DialogActions>
