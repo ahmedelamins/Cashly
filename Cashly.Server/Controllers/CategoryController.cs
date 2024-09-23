@@ -5,20 +5,19 @@ namespace Cashly.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoryController : ControllerBase
+public class categoryController : ControllerBase
 {
     private readonly CategoryService _categoryService;
 
-    public CategoryController(CategoryService categoryService)
+    public categoryController(CategoryService categoryService)
     {
         _categoryService = categoryService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<ServiceResponse<Category>>> GetCategories()
+    public async Task<ActionResult<ServiceResponse<List<Category>>>> GetCategories()
     {
         var response = await _categoryService.GetCategories();
-
 
         return Ok(response);
     }
