@@ -18,7 +18,7 @@ const HomePage = () => {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
-        amount: "",
+        amount: 0,
         date: "",
         category: "",
     });
@@ -53,30 +53,62 @@ const HomePage = () => {
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+    const findCategoryId = (categoryName) => {
+        return categories.find(category => category.name === categoryName)?.id;
+    };
 
-        // Ensure the amount is a number
-        const formattedData = {
-            ...formData,
-            amount: parseFloat(formData.amount)
-        };
+    
+    const selectedCategoryId = findCategoryId(formData.category);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        // Validate form data
+        if (!formData.title || !formData.amount || !formData.date || !formData.category) {
+            toast.error('Please fill in all fields');
+            return;
+        }
+
+        // Convert amount to a float
+        const parsedAmount = parseFloat(formData.amount);
+        if (isNaN(parsedAmount) || parsedAmount <= 0) {
+            toast.error('Please enter a valid amount');
+            return;
+        }
 
         console.log(formData);
 
         try {
-            const response = await axiosInstance.post('/expense', formattedData);
-            setExpenses(prevExpenses => [...prevExpenses, response.data.data]);
-            handleClose();
-            toast.success(response.data.message || "New expense added");
-        } catch (error) {
-            console.error('Error submitting expense:', error.response?.data || error.message);
-            toast.error(error.response?.data?.message || "Failed to add expense. Please check your input and try again.");
-        } finally {
-            setLoading(false);
+            // Send POST request to backend with the form data
+            const response = await axiosInstance.post('/expense', {
+                title: formData.title,
+                amount: parsedAmount,
+                date: formData.date,
+                categoryId: formData.categoryId // Use categoryId here
+            });
+
+            // Check if the response is successful
+            if (response.data && response.data.success) {
+                // Add the new expense to the state
+                setExpenses(prevExpenses => [...prevExpenses, response.data.data]);
+
+                // Close the form dialog and reset form
+                handleClose();
+
+                // Show success message
+                toast.success('Expense added successfully');
+            } else {
+                // Handle backend failure
+                throw new Error(response.data.message || 'Failed to add expense');
+            }
+        } catch (err) {
+            // Handle any errors in the request
+            console.error('Error adding expense:', err);
+            toast.error(err.response?.data?.message || err.message || 'An error occurred while adding the expense');
         }
     };
+
+
 
     const handleDelete = async (id) => {
         try {
@@ -242,7 +274,7 @@ const HomePage = () => {
                     <Button onClick={handleClose} variant="outlined" color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit} variant="contained" color="primary">
+                    <Button variant="contained" onClick={handleSubmit} color="primary">
                         Submit
                     </Button>
                 </DialogActions>
