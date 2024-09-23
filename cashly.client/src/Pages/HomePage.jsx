@@ -13,8 +13,7 @@ const HomePage = () => {
 
     const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -62,28 +61,26 @@ const HomePage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate form data
-        if (!formData.title || !formData.amount || !formData.date || !formData.category) {
-            toast.error('Please fill in all fields');
-            return;
-        }
-
         try {
+
             const response = await axiosInstance.post('/expense', {
-                ...formData,
-                amount: parseFloat(formData.amount), // Ensure amount is sent as a number
+                title: formData.title,
+                amount: formData.amount,
+                date: formData.date,
+                category: formData.category
             });
 
-            if (response.data && response.data.success) {
-                setExpenses(prevExpenses => [...prevExpenses, response.data.data]);
-                handleClose();
-                toast.success('Expense added successfully');
-            } else {
-                throw new Error(response.data.message || 'Failed to add expense');
-            }
-        } catch (err) {
-            console.error('Error adding expense:', err);
-            toast.error(err.response?.data?.message || err.message || 'An error occurred while adding the expense');
+            setTimeout(() => {
+                setOpen(false);
+                //setLoading(false);
+                toast.success(response.data.message || "New expense added");
+            })
+
+        } catch (error) {
+            setTimeout(() => {
+                //setLoading(false);
+                toast.error(error.response?.data?.message || "Something went wrong.");
+            }, 900);
         }
     };
 
@@ -195,7 +192,6 @@ const HomePage = () => {
                 <DialogContent>
                     <Box
                         component="form"
-                        sx={{ display: "flex", flexDirection: "column", mt: 2 }}
                         onSubmit={handleSubmit}
                     >
                         <TextField
@@ -256,7 +252,7 @@ const HomePage = () => {
                     <Button onClick={handleClose} variant="outlined" color="primary">
                         Cancel
                     </Button>
-                    <Button variant="contained" type="submit" color="primary" onClick={handleSubmit}>
+                    <Button variant="contained" type="submit" color="primary">
                         Submit
                     </Button>
                 </DialogActions>
