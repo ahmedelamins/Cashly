@@ -26,7 +26,7 @@ const HomePage = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axiosInstance.get('/category');
-                setCategories(response.data.data);
+                setCategories(response.data.data); 
                 setLoading(false);
             } catch (err) {
                 setError(err.response ? err.response.data.message : err.message);
@@ -37,7 +37,7 @@ const HomePage = () => {
         const fetchExpenses = async () => {
             try {
                 const response = await axiosInstance.get('/expense');
-                setExpenses(response.data.data);
+                setExpenses(response.data.data);  // Real expenses from backend
                 setLoading(false);
             } catch (err) {
                 setError(err.response ? err.response.data.message : err.message);
@@ -70,7 +70,7 @@ const HomePage = () => {
         e.preventDefault();
         try {
             const response = await axiosInstance.post('/expense', formData);
-            setExpenses([...expenses, response.data.data]);
+            setExpenses([...expenses, response.data.data]);  
             handleClose();
         } catch (err) {
             setError(err.response ? err.response.data.message : err.message);
@@ -89,21 +89,21 @@ const HomePage = () => {
     if (loading) return <div>Loading..</div>;
     if (error) return <div>Error: {error}</div>;
 
-    const categoryData = {
-        labels: categories.map((category) => category.name),  // Use the category names for labels
+    // Ensure categories and expenses are non-empty before creating chart data
+    const categoryData = categories.length > 0 && expenses.length > 0 ? {
+        labels: categories.map((category) => category.name),  // Map categories to their names
         datasets: [
             {
                 label: 'Expenses by Category',
                 data: categories.map((category) =>
                     expenses.filter((expense) => expense.category === category.name)
                         .reduce((acc, expense) => acc + expense.amount, 0)
-                ),
+                ),  // Sum up expenses by category
                 backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
                 hoverOffset: 4,
             },
         ],
-    };
-
+    } : null;
 
     return (
         <Box sx={{ mb: 1, p: 2 }}>
@@ -128,17 +128,23 @@ const HomePage = () => {
             </Button>
 
             <Grid container spacing={2} sx={{ mt: 2 }}>
+                {/* Chart container */}
                 <Grid item xs={12} md={6} sx={{ mb: 2 }}>
                     <Paper elevation={3} sx={{ p: 2, textAlign: 'center' }}>
                         <Typography variant="h6" sx={{ mb: 2 }}>
                             Expenses by Category
                         </Typography>
                         <Box sx={{ width: { xs: '100%', md: '70%' }, mx: 'auto' }}>
-                            <Pie data={categoryData} />
+                            {categoryData ? (
+                                <Pie data={categoryData} />  // Render chart if data is available
+                            ) : (
+                                <Typography>Nothing yet.</Typography>
+                            )}
                         </Box>
                     </Paper>
                 </Grid>
 
+                {/* Expense History container */}
                 <Grid item xs={12} md={6}>
                     <Paper elevation={3} sx={{ p: 2, maxHeight: '470px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ mb: 2, textAlign: { xs: 'center', md: 'left' } }}>
@@ -172,6 +178,7 @@ const HomePage = () => {
                 </Grid>
             </Grid>
 
+            {/* Dialog for new expense */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>New Expense</DialogTitle>
                 <DialogContent>
@@ -224,8 +231,8 @@ const HomePage = () => {
                             variant="outlined"
                             value={formData.category}
                             onChange={handleChange}
-                            required>
-
+                            required
+                        >
                             {categories.map((category) => (
                                 <MenuItem key={category.id} value={category.name}>
                                     {category.name}
