@@ -51,11 +51,17 @@ const HomePage = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setExpenses([...expenses, { ...formData, id: expenses.length + 1 }]);
-        handleClose();
+        try {
+            const response = await axiosInstance.post('/expense', formData);
+            setExpenses([...expenses, response.data.data]);
+            handleClose();
+        } catch (err) {
+            setError(err.response ? err.response.data.message : err.message);
+        }
     };
+
 
 
     useEffect(() => {
