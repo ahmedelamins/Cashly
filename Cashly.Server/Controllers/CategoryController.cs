@@ -7,9 +7,9 @@ namespace Cashly.Server.Controllers;
 [ApiController]
 public class categoryController : ControllerBase
 {
-    private readonly CategoryService _categoryService;
+    private readonly ICategoryService _categoryService;
 
-    public categoryController(CategoryService categoryService)
+    public categoryController(ICategoryService categoryService)
     {
         _categoryService = categoryService;
     }
