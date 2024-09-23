@@ -4,6 +4,7 @@ import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axiosInstance from '../utils/axiosInstance';
 
 const mockExpenses = [
     { id: 1, title: 'Electricity Bill', amount: 100, date: '2024-09-01', category: 'Utility' },
@@ -17,11 +18,13 @@ const mockExpenses = [
 const mockCategories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
 
 const HomePage = () => {
-    const [expenses, setExpenses] = useState(mockExpenses);
-    const [totalExpenses, setTotalExpenses] = useState(0);
     const username = localStorage.getItem('username') || 'User'; // Fetching username
     const Username = username.charAt(0).toUpperCase() + username.slice(1); // Capitalize first letter
 
+    const [expenses, setExpenses] = useState(mockExpenses);
+    const [totalExpenses, setTotalExpenses] = useState(0);
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -53,17 +56,19 @@ const HomePage = () => {
         handleClose();
     };
 
-    const fetchExpenses = async () => {
-        try {
-            const response = await axiosInstance.get('/expense');
 
-            setExpenses(response.data.data);
-        } catch(error){
-            console.error(error);
-        }
-    }
     useEffect(() => {
-        fetchExpenses();
+        const fetchCategories = async () => {
+            try {
+                const response = await axiosInstance.get('/category');
+                setCategories(response.data.data); // Assuming the response format is { data: { data: [categories] } }
+                setLoading(false);
+            } catch (err) {
+                setError(err.response ? err.response.data.message : err.message);
+                setLoading(false);
+            }
+        };
+        fetchCategories();
     }, []);
 
     const categoryData = {
