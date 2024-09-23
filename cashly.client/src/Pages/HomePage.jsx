@@ -5,6 +5,7 @@ import 'chart.js/auto';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axiosInstance from '../utils/axiosInstance';
+import { toastify } from 'react-toastify';
 
 const HomePage = () => {
     const username = localStorage.getItem('username') || 'User';
@@ -12,7 +13,7 @@ const HomePage = () => {
 
     const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -68,6 +69,7 @@ const HomePage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const response = await axiosInstance.post('/expense', formData);
             setExpenses([...expenses, response.data.data]);  
