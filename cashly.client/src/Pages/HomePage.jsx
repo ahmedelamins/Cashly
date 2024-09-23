@@ -6,26 +6,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axiosInstance from '../utils/axiosInstance';
 
-const mockExpenses = [
-    { id: 1, title: 'Electricity Bill', amount: 100, date: '2024-09-01', category: 'Utility' },
-    { id: 2, title: 'Groceries', amount: 87, date: '2024-09-02', category: 'Food' },
-    { id: 3, title: 'Night out', amount: 64, date: '2024-09-03', category: 'Fun' },
-    { id: 4, title: 'New Shoes', amount: 75, date: '2024-09-05', category: 'Shopping' },
-    { id: 5, title: 'Savings Deposit', amount: 95, date: '2024-09-06', category: 'Other' },
-    { id: 6, title: 'Savings Deposit', amount: 33, date: '2024-09-07', category: 'Other' },
-];
-
-const mockCategories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
-
 const HomePage = () => {
-    const username = localStorage.getItem('username') || 'User'; // Fetching username
-    const Username = username.charAt(0).toUpperCase() + username.slice(1); // Capitalize first letter
+    const username = localStorage.getItem('username') || 'User';
+    const Username = username.charAt(0).toUpperCase() + username.slice(1);
 
-    const [expenses, setExpenses] = useState(mockExpenses);
-    const [totalExpenses, setTotalExpenses] = useState(0);
+    const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -34,13 +22,40 @@ const HomePage = () => {
         category: "",
     });
 
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axiosInstance.get('/category');
+                setCategories(response.data.data);
+                setLoading(false);
+            } catch (err) {
+                setError(err.response ? err.response.data.message : err.message);
+                setLoading(false);
+            }
+        };
+
+        const fetchExpenses = async () => {
+            try {
+                const response = await axiosInstance.get('/expense');
+                setExpenses(response.data.data);
+                setLoading(false);
+            } catch (err) {
+                setError(err.response ? err.response.data.message : err.message);
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+        fetchExpenses();
+    }, []);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-        setFormData({ title: "", amount: "", date: "", category: "" }); // Reset form
+        setFormData({ title: "", amount: "", date: "", category: "" });
     };
 
     const handleChange = (e) => {
@@ -62,34 +77,25 @@ const HomePage = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            await axiosInstance.delete(`/expense/${id}`);
+            setExpenses(expenses.filter(expense => expense.id !== id));
+        } catch (err) {
+            setError(err.response ? err.response.data.message : err.message);
+        }
+    };
 
-
-    useEffect(() => {
-        const fetchExpenses = async () => {
-            try {
-                const response = await axiosInstance.get('/expense');
-                setExpenses(response.data.data);  // Assuming your API returns data in `data.data`
-                setLoading(false);
-            } catch (err) {
-                setError(err.response ? err.response.data.message : err.message);
-                setLoading(false);
-            }
-        };
-
-        fetchExpenses();
-    }, []);
-
-
-    if (loading) return <div>Loading..</div>
-    if (error) return <div>Error: {error}</div>
+    if (loading) return <div>Loading..</div>;
+    if (error) return <div>Error: {error}</div>;
 
     const categoryData = {
-        labels: mockCategories,
+        labels: categories.map((category) => category.name),  // Use the category names for labels
         datasets: [
             {
                 label: 'Expenses by Category',
-                data: mockCategories.map((category) =>
-                    expenses.filter((expense) => expense.category === category)
+                data: categories.map((category) =>
+                    expenses.filter((expense) => expense.category === category.name)
                         .reduce((acc, expense) => acc + expense.amount, 0)
                 ),
                 backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
@@ -97,6 +103,7 @@ const HomePage = () => {
             },
         ],
     };
+
 
     return (
         <Box sx={{ mb: 1, p: 2 }}>
@@ -121,7 +128,6 @@ const HomePage = () => {
             </Button>
 
             <Grid container spacing={2} sx={{ mt: 2 }}>
-                {/* Chart container */}
                 <Grid item xs={12} md={6} sx={{ mb: 2 }}>
                     <Paper elevation={3} sx={{ p: 2, textAlign: 'center' }}>
                         <Typography variant="h6" sx={{ mb: 2 }}>
@@ -133,7 +139,6 @@ const HomePage = () => {
                     </Paper>
                 </Grid>
 
-                {/* Expense History container*/}
                 <Grid item xs={12} md={6}>
                     <Paper elevation={3} sx={{ p: 2, maxHeight: '470px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ mb: 2, textAlign: { xs: 'center', md: 'left' } }}>
@@ -167,7 +172,6 @@ const HomePage = () => {
                 </Grid>
             </Grid>
 
-            {/* Dialog for new expense */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>New Expense</DialogTitle>
                 <DialogContent>
@@ -197,7 +201,7 @@ const HomePage = () => {
                             value={formData.amount}
                             onChange={handleChange}
                             required
-                            inputProps={{ min: 0 }} 
+                            inputProps={{ min: 0 }}
                         />
                         <TextField
                             margin="dense"
@@ -220,11 +224,11 @@ const HomePage = () => {
                             variant="outlined"
                             value={formData.category}
                             onChange={handleChange}
-                            required
-                        >
-                            {mockCategories.map((category) => (
-                                <MenuItem key={category} value={category}>
-                                    {category}
+                            required>
+
+                            {categories.map((category) => (
+                                <MenuItem key={category.id} value={category.name}>
+                                    {category.name}
                                 </MenuItem>
                             ))}
                         </TextField>
