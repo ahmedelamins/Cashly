@@ -24,7 +24,8 @@ const HomePage = () => {
     const [expenses, setExpenses] = useState(mockExpenses);
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null)
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -58,18 +59,23 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        const fetchCategories = async () => {
+        const fetchExpenses = async () => {
             try {
-                const response = await axiosInstance.get('/category');
-                setCategories(response.data.data); // Assuming the response format is { data: { data: [categories] } }
+                const response = await axiosInstance.get('/expense');
+                setExpenses(response.data.data);  // Assuming your API returns data in `data.data`
                 setLoading(false);
             } catch (err) {
                 setError(err.response ? err.response.data.message : err.message);
                 setLoading(false);
             }
         };
-        fetchCategories();
+
+        fetchExpenses();
     }, []);
+
+
+    if (loading) return <div>Loading..</div>
+    if (error) return <div>Error: {error}</div>
 
     const categoryData = {
         labels: mockCategories,
