@@ -1,12 +1,37 @@
+import { useState } from 'react';
 import {
     Box,
     Typography,
-    Button
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
 } from '@mui/material';
 
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
+
+    //open add new expense
+    const [openAdd, setOpenAdd] = useState(false);
+    const [formData, setFormData] = useState({
+        title: "",
+        amount: "",
+        date: "",
+        category: ""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        })
+    };
+
+
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
