@@ -32,24 +32,23 @@ const HomePage = () => {
     };
 
     const handleOpenAddExpense = () => {
-        setOpenAdd(true);
+        setOpenAddExpense(true);
     }
 
     const handleCloseAddExpense = () => {
-        setOpenAdd(false);
+        setOpenAddExpense(false);
     }
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
             <Typography variant="h4">
-
                 Hello, {Username}!
             </Typography>
             <Button
                 variant="contained"
                 sx={{
                     mt: 3,
-                    fontWeight: "500",
+                    fontWeight: "540",
                     py: 1.5,
                     px: 3,
                     transition: 'transform 0.3s ease',
