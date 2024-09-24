@@ -20,9 +20,10 @@ const HomePage = () => {
         title: "",
         amount: 0,
         date: "",
-        category: "",
+        categoryId: "", // Now we track categoryId, not category name
     });
 
+    // Fetch categories and expenses
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -45,7 +46,7 @@ const HomePage = () => {
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false);
-        setFormData({ title: "", amount: "", date: "", category: "" });
+        setFormData({ title: "", amount: "", date: "", categoryId: "" });
     };
 
     const handleChange = (e) => {
@@ -53,18 +54,11 @@ const HomePage = () => {
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
-    const findCategoryId = (categoryName) => {
-        return categories.find(category => category.name === categoryName)?.id;
-    };
-
-    
-    const selectedCategoryId = findCategoryId(formData.category);
-
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
 
         // Validate form data
-        if (!formData.title || !formData.amount || !formData.date || !formData.category) {
+        if (!formData.title || !formData.amount || !formData.date || !formData.categoryId) {
             toast.error('Please fill in all fields');
             return;
         }
@@ -76,15 +70,13 @@ const HomePage = () => {
             return;
         }
 
-        console.log(formData);
-
         try {
             // Send POST request to backend with the form data
             const response = await axiosInstance.post('/expense', {
                 title: formData.title,
                 amount: parsedAmount,
                 date: formData.date,
-                categoryId: formData.categoryId // Use categoryId here
+                categoryId: formData.categoryId // Send categoryId to backend
             });
 
             // Check if the response is successful
@@ -108,8 +100,6 @@ const HomePage = () => {
         }
     };
 
-
-
     const handleDelete = async (id) => {
         try {
             await axiosInstance.delete(`/expense/${id}`);
@@ -121,14 +111,14 @@ const HomePage = () => {
     };
 
     if (loading) return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><Typography>Loading...</Typography></Box>;
-    if (error) return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><Typography color="error">Error: {error}</Typography></Box>;
+   // if (error) return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><Typography color="error">Error: {error}</Typography></Box>;
 
     const categoryData = {
         labels: categories.map(category => category.name),
         datasets: [{
             label: 'Expenses by Category',
             data: categories.map(category =>
-                expenses.filter(expense => expense.category === category.name)
+                expenses.filter(expense => expense.categoryId === category.id)
                     .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
             ),
             backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
@@ -190,7 +180,7 @@ const HomePage = () => {
                                                     {expense.title} - ${parseFloat(expense.amount).toFixed(2)}
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {expense.category} | {new Date(expense.date).toLocaleDateString()}
+                                                    {categories.find(cat => cat.id === expense.categoryId)?.name} | {new Date(expense.date).toLocaleDateString()}
                                                 </Typography>
                                             </Box>
                                             <Box>
@@ -253,17 +243,17 @@ const HomePage = () => {
                         />
                         <TextField
                             margin="dense"
-                            name="category"
+                            name="categoryId"
                             label="Category"
                             select
                             fullWidth
                             variant="outlined"
-                            value={formData.category}
+                            value={formData.categoryId}
                             onChange={handleChange}
                             required
                         >
-                            {categories.map((category) => (
-                                <MenuItem key={category.id} value={category.name}>
+                            {categories.map(category => (
+                                <MenuItem key={category.id} value={category.id}>
                                     {category.name}
                                 </MenuItem>
                             ))}
@@ -271,12 +261,8 @@ const HomePage = () => {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} variant="outlined" color="primary">
-                        Cancel
-                    </Button>
-                    <Button variant="contained" onClick={handleSubmit} color="primary">
-                        Submit
-                    </Button>
+                    <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                    <Button variant="contained" onClick={handleSubmit} color="primary">Add Expense</Button>
                 </DialogActions>
             </Dialog>
         </Box>
