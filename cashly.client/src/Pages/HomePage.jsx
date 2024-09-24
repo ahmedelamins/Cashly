@@ -15,7 +15,7 @@ const HomePage = () => {
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
 
     //open add new expense
-    const [openAdd, setOpenAdd] = useState(false);
+    const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
         amount: "",
@@ -31,7 +31,13 @@ const HomePage = () => {
         })
     };
 
+    const handleOpenAddExpense = () => {
+        setOpenAdd(true);
+    }
 
+    const handleCloseAddExpense = () => {
+        setOpenAdd(false);
+    }
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
