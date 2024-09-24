@@ -5,7 +5,7 @@ const HomePage = () => {
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
 
     return (
-        <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ mt: 1, mb: 1, p: 1  }} >
             <Typography variant="h4">
                 Hello, {Username}!
             </Typography>
