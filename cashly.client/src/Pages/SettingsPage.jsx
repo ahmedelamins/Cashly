@@ -158,10 +158,10 @@ const SettingsPage = () => {
                             />
                             <DialogActions>
                                 <Button variant="outlined" onClick={() => setPasswordOpen(false)}>
-                                    Cancel
+                                    Discard
                                 </Button>
                                 <Button variant="contained" type="submit" color="primary">
-                                    Change
+                                    Confirm
                                 </Button>
                             </DialogActions>
                         </Box>
