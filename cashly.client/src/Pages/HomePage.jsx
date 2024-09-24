@@ -8,6 +8,9 @@ import {
     DialogContent,
     DialogTitle,
     TextField,
+    Grid,
+    Stack,
+    Paper
 } from '@mui/material';
 
 const HomePage = () => {
@@ -57,7 +60,7 @@ const HomePage = () => {
                 sx={{
                     mt: 3,
                     fontWeight: "540",
-                    py: 1.5,
+                    py: 1.4,
                     px: 3,
                     transition: 'transform 0.3s ease',
                     '&:hover': {
@@ -65,7 +68,35 @@ const HomePage = () => {
                     },
                 }}>
                 New Expense
-            </Button>            
+            </Button> 
+
+            {/* chart and history containers */}
+            <Grid container spacing={2} sx={{ mt: 2 }}>
+                {/* chart container*/}
+                <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                    <Paper elevation={3} sx={{ p: 2, textAlign: 'center' }}>
+                        <Typography variant="h6" sx={{ mb: 2 }}>
+                            Expenditure
+                        </Typography>
+                        <Box sx={{ width: { xs: '100%', md: '70%' }, mx: 'auto' }}>
+                            <h5> Chart Container here</h5>
+                        </Box>
+                    </Paper>
+                </Grid>
+
+                {/* expense history container*/}
+                <Grid item xs={12} md={6}>
+                    <Paper elevation={3} sx={{ p: 2, maxHeight: '740px', overFlowY: 'auto' }}>
+                        <Typography variant="h6" sx={{ mb: 2, textAlign: 'center'}}>
+                            Recent History
+                        </Typography>
+                        <Stack spacing={2}>
+                            <h5 style={{ textAlign: 'center' }} > Recent History here</h5>
+                        </Stack>
+                    </Paper>
+                </Grid>
+            </Grid>
+
             {/* new expense form dialog*/}
             <Dialog open={openAddExpense} onClose={handleCloseAddExpense}>
                 <DialogTitle>New Expense</DialogTitle>
