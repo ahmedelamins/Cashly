@@ -14,7 +14,7 @@ const HomePage = () => {
                     backgroundColor: '#f0f4f8', 
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
-                    animation: 'fadeSlideUp 0.5s ease-in-out',
+                    animation: 'fadeSlideUp 0.8s ease-in-out',
                     '@keyframes fadeSlideUp': {
                         '0%': { opacity: 0, transform: 'translateY(10px)' },
                         '100%': { opacity: 1, transform: 'translateY(0)' },
