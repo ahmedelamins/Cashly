@@ -38,7 +38,7 @@ const SettingsPage = () => {
         try {
             //console.log(formData)
 
-            const response = await axiosInstance.post(`/auth/change-password`, {
+            const response = await axiosInstance.post('/auth/change-password', {
                 password: formData.password
             });
 
