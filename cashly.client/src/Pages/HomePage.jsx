@@ -37,6 +37,7 @@ const HomePage = () => {
 
     const handleCloseAddExpense = () => {
         setOpenAddExpense(false);
+        setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
     }
 
     const handleAddExpenseSubmit = (e) => {
