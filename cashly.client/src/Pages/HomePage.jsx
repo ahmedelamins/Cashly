@@ -57,6 +57,7 @@ const HomePage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
 
+        console.log(formData);
         // Validate form data
         if (!formData.title || !formData.amount || !formData.date || !formData.categoryId) {
             toast.error('Please fill in all fields');
