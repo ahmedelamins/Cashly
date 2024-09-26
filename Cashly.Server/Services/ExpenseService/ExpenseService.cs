@@ -63,6 +63,8 @@ public class ExpenseService : IExpenseService
 
         try
         {
+            expense.Date = DateOnly.Parse(expense.Date.ToString()); //parse date 
+
             expense.UserId = userId;
 
             _context.Expenses.Add(expense);
