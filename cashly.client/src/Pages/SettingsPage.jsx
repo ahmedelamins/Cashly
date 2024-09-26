@@ -71,7 +71,7 @@ const SettingsPage = () => {
             setTimeout(() => {
                 setLoading(false);
 
-                toast.success("User deleted. Sorry to see you go.");
+                toast.success(response.data.message);
                 localStorage.clear();  
             
                 navigate('/');

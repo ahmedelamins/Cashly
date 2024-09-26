@@ -96,14 +96,12 @@ const LandingPage = () => {
                 password: formData.password,
             });
 
-            toast.success(response.data.message || "Account created");
+            toast.success(response.data.message);
             setTimeout(() => {
                 setJoinOpen(false);
                 setLoading(false);
                 
-            }, 900);
-
-            
+            }, 900);            
 
         } catch (error) {
             toast.error(error.response.data);
