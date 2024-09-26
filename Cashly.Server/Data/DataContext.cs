@@ -4,18 +4,12 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Expense> Expenses { get; set; }
-    public DbSet<Category> Categories { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
             .HasMany(u => u.Expenses)
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId);
-
-        modelBuilder.Entity<Category>()
-            .HasMany(c => c.Expenses)
-            .WithOne(e => e.Category)
-            .HasForeignKey(e => e.CategoryId);
 
         //seeding categories
         //modelBuilder.Entity<Category>().HasData
