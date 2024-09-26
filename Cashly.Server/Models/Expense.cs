@@ -11,5 +11,9 @@ public class Expense
     public decimal Amount { get; set; }
     [Required]
     public string Category { get; set; } = string.Empty;
+    [Required]
+    public DateTime Date { get; set; } = DateTime.Now;
+    [Required]
     public int UserId { get; set; }
+
 }
