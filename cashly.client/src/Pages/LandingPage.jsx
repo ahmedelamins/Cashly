@@ -103,10 +103,9 @@ const LandingPage = () => {
 
                 setLoginOpen(true);
             }, 900);
-            
+
         } catch (error) {
-            const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
-            toast.error(errorMessage);
+            toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
             }, 900);
