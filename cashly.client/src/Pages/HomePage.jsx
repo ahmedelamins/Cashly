@@ -48,13 +48,6 @@ const HomePage = () => {
     const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
 
-        // Ensure valid inputs
-        if (!formData.title || !formData.amount || !formData.category) {
-            toast.error("Please fill out all fields");
-            console.error('no data')
-            return;
-        }
-
         try {            
 
             const expenseData = {
@@ -63,19 +56,14 @@ const HomePage = () => {
                 date: formData.date,
                 category: formData.category,
             }
+
             console.log(expenseData);
 
             const response = await axiosInstance.post('/expense', expenseData);
 
             toast.success(response.data.message);
 
-            // Reset
-            setFormData({
-                title: "",
-                amount: "",
-                date: "",
-                category: ""
-            });
+            handleCloseAddExpense();
 
         } catch (error) {
             toast.error(error.response?.data || 'Something went wrong');
@@ -173,7 +161,6 @@ const HomePage = () => {
                             name="date"
                             label="Date"
                             type="date"
-                            //fullWidth
                             variant="outlined"
                             InputLabelProps={{ shrink: true }}
                             value={formData.date}
@@ -183,8 +170,7 @@ const HomePage = () => {
                         <DialogActions>
                         <Button
                                 variant="outlined"
-                                onClick={handleCloseAddExpense}>
-                            
+                                onClick={handleCloseAddExpense}>                            
                                 Discard
                             </Button>
                             <Button
