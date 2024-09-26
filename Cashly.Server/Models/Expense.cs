@@ -10,8 +10,7 @@ public class Expense
     [Required, Column(TypeName = "decimal(18,2)")]
     public decimal Amount { get; set; }
     [Required]
-    public Category Category { get; set; }
-    public int CategoryId { get; set; }
+    public string Category { get; set; } = string.Empty;
     [Required]
     public User User { get; set; }
     public int UserId { get; set; }
