@@ -41,22 +41,23 @@ const HomePage = () => {
         })
     };
 
+    //open dialog
     const handleOpenAddExpense = () => {
         setOpenAddExpense(true);
     }
 
+    //close dialog
     const handleCloseAddExpense = () => {
         setOpenAddExpense(false);
         setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
     }
 
+    //submit expense
     const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
-
         setLoading(true);
 
-        try {            
-
+        try {       
             const expenseData = {
                 title: formData.title,
                 amount: parseFloat(formData.amount),
@@ -80,6 +81,7 @@ const HomePage = () => {
         }
     };
 
+    //grab expenses
     const fetchExpenses = async () => {
         try {
             const response = await axiosInstance.get('/expense');
