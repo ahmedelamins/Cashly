@@ -25,17 +25,17 @@ import { toast } from "react-toastify";
 
 const drawerWidth = 240;
 
-const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
+const Sidebar = ({ handleDrawerToggle, isMobile }) => {
   
     const navigate = useNavigate();
 
-    const handleLogout = (e) => {
+    const handleLogout = () => {
         localStorage.clear();
         setTimeout(() => {
 
            navigate('/');
 
-        }, 900);                //smooth redirecting
+        }, 400);                //smooth redirecting
 
         toast.info("See You Later.");
     }
