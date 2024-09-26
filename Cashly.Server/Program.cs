@@ -3,7 +3,6 @@ global using Cashly.Server.Models;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.OpenApi.Models;
 using Cashly.Server.Services.AuthService;
-using Cashly.Server.Services.CategoryService;
 using Cashly.Server.Services.ExpenseService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -67,7 +66,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 //registering services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
