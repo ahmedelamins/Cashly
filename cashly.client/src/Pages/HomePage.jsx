@@ -72,8 +72,7 @@ const HomePage = () => {
                 handleCloseAddExpense();
             }, 1000);                     
 
-        } catch (error) {
-            toast.error(error.response?.data || 'Something went wrong');
+        } catch (error) {           
             toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
@@ -114,7 +113,7 @@ const HomePage = () => {
                         transform: 'scale(1.1)',
                     },
                 }}>
-                New Expense
+                Add Expense
             </Button> 
 
             {/* chart and history containers */}

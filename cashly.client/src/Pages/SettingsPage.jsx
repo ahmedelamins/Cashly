@@ -93,7 +93,7 @@ const SettingsPage = () => {
     return (
         <Box sx={{ ml: 3 }} >
             <Box sx={{
-                mt: 3,
+                mt: 5,
                 animation: 'fadeSlideUp 0.9s ease-in-out',
                 '@keyframes fadeSlideUp': {
                     '0%': { opacity: 0, transform: 'translateY(10px)' },
@@ -121,7 +121,7 @@ const SettingsPage = () => {
                 </Box>
             </Box>
             {/* delete account pop up*/}
-            <Dialog open={deleteUserOpen} onClose={() => setDeleteUserOpen(true)}>
+            <Dialog open={deleteUserOpen} onClose={() => setDeleteUserOpen(false)}>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogContent>
                     {loading ? <CircularProgress /> : (
