@@ -28,17 +28,24 @@ public class AuthService : IAuthService
 
                 return response;
             }
+            else if (!ValidUsername(user.Username))
+            {
+                response.Success = false;
+                response.Message = "Invalid username!";
+            }
+            else
+            {
+                CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            response.Message = "Welcome to Cashly!";
-            response.Data = user.Id;
+                response.Message = "Welcome to Cashly!";
+                response.Data = user.Id;
+            }
 
         }
         catch (Exception ex)
@@ -102,7 +109,12 @@ public class AuthService : IAuthService
             else if (VerifyPasswordHash(newPassword, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "Please enter new password!";
+                response.Message = "Please enter a new password!";
+            }
+            else if (!ValidPassword(newPassword))
+            {
+                response.Success = false;
+                response.Message = "Invalid password!";
             }
             else
             {
@@ -144,6 +156,11 @@ public class AuthService : IAuthService
             {
                 response.Success = false;
                 response.Message = "Username is taken!";
+            }
+            else if (!ValidUsername(newUsername))
+            {
+                response.Success = false;
+                response.Message = "Invalid username!";
             }
             else
             {
@@ -202,6 +219,26 @@ public class AuthService : IAuthService
             return true;
         }
         return false;
+    }
+
+    private bool ValidPassword(string password)
+    {
+        if (password.Length >= 4 && password.Length <= 20)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool ValidUsername(string username)
+    {
+        if (username.Contains(" "))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private void CreatePasswordHash(string passowrd, out byte[] passwordHash, out byte[] passwordSalt)
