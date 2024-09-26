@@ -100,7 +100,7 @@ const HomePage = () => {
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
-            <Typography variant="h4">
+            <Typography variant="h4" gutterBottom sx={{ letterSpacing: '0.10em', textAlign: 'left' }}>
                 Hello, {Username}!
             </Typography>
             <Button
