@@ -23,8 +23,8 @@ const HomePage = () => {
     const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
-        amount: 0,
-       // date: "",
+        amount: "",
+        date: "",
         category: ""
     });
 
@@ -59,7 +59,8 @@ const HomePage = () => {
 
             const expenseData = {
                 title: formData.title,
-                amount: parseFloat(formData.amount), 
+                amount: parseFloat(formData.amount),
+                date: formData.date,
                 category: formData.category,
             }
             console.log(expenseData);
@@ -72,6 +73,7 @@ const HomePage = () => {
             setFormData({
                 title: "",
                 amount: "",
+                date: "",
                 category: ""
             });
 
@@ -166,18 +168,18 @@ const HomePage = () => {
                             onChange={handleChange}
                             required
                         />
-                        {/*<TextField*/}
-                        {/*    margin="dense"*/}
-                        {/*    name="date"*/}
-                        {/*    label="Date"*/}
-                        {/*    type="date"*/}
-                        {/*    //fullWidth*/}
-                        {/*    variant="outlined"*/}
-                        {/*    InputLabelProps={{ shrink: true }}*/}
-                        {/*    value={formData.date}*/}
-                        {/*    onChange={handleChange}*/}
-                        {/*    required*/}
-                        {/*/>                        */}
+                        <TextField
+                            margin="dense"
+                            name="date"
+                            label="Date"
+                            type="date"
+                            //fullWidth
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                            value={formData.date}
+                            onChange={handleChange}
+                            required
+                        />                        
                         <DialogActions>
                         <Button
                                 variant="outlined"
