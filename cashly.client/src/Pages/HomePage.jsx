@@ -12,6 +12,8 @@ import {
     Stack,
     Paper
 } from '@mui/material';
+import { toast } from 'react-toastify';
+import axiosInstance from '../utils/axiosInstance';
 
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
@@ -43,10 +45,36 @@ const HomePage = () => {
         setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
     }
 
-    const handleAddExpenseSubmit = (e) => {
+    const handleAddExpenseSubmit = async(e) => {
         e.preventDefault();
 
-        console.log("new expense: ", formData);
+        try 
+        {
+            console.log("new expense: ", formData);
+
+            const response = await axiosInstance.post('/expense', {
+                title: formData.title,
+                amount: formData.amount,
+                date: formData.date,
+                category: formData.category,
+            });
+
+            toast.success(response.data.message);
+
+            //reset
+            setFormData({
+                title: "",
+                amount: "",
+                date: "",
+                category: ""
+            });
+
+        } catch (error) {
+            toast.error('something went wronge');
+        }
+
+
+
     };
 
     return (
