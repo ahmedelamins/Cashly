@@ -62,6 +62,11 @@ namespace Cashly.Server.Controllers
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var response = await _expenseService.CreateExpense(userId, expense);
 
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
             return Ok(response);
         }
 
