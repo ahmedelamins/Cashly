@@ -14,12 +14,13 @@ import {
 } from '@mui/material';
 import { toast } from 'react-toastify';
 import axiosInstance from '../utils/axiosInstance';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
 
-    //open add new expense
+    const [loading, setLoading] = useState(false);
     const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -48,6 +49,8 @@ const HomePage = () => {
     const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true);
+
         try {            
 
             const expenseData = {
@@ -61,12 +64,18 @@ const HomePage = () => {
 
             const response = await axiosInstance.post('/expense', expenseData);
 
-            toast.success(response.data.message);
-
-            handleCloseAddExpense();
+            setTimeout(() => {
+                toast.success(response.data.message);
+                setLoading(false);
+                handleCloseAddExpense();
+            }, 1000);                     
 
         } catch (error) {
             toast.error(error.response?.data || 'Something went wrong');
+            toast.error(error.response.data);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
 
@@ -123,63 +132,66 @@ const HomePage = () => {
             <Dialog open={openAddExpense} onClose={handleCloseAddExpense}>
                 <DialogTitle>New Expense</DialogTitle>
                 <DialogContent>
+                    {loading ? <CircularProgress /> : (
+
                     <Box component="form" onSubmit={handleAddExpenseSubmit}>
-                        <TextField
-                            margin="dense"
-                            name="title"
-                            label="Title"
-                            type="text"
-                            fullWidth
-                            value={formData.title}
-                            onChange={handleChange}
-                            required
-                        />
-                        <TextField
-                            margin="dense"
-                            name="amount"
-                            label="Amount"
-                            type="number"
-                            fullWidth
-                            required
-                            value={formData.amount}
-                            onChange={handleChange}
-                        />      
-                        <TextField
-                            margin="dense"
-                            name="category"
-                            label="Category"
-                            type="text"
-                            //select
-                            fullWidth
-                            variant="outlined"
-                            value={formData.category}
-                            onChange={handleChange}
-                            required
-                        />
-                        <TextField
-                            margin="dense"
-                            name="date"
-                            label="Date"
-                            type="date"
-                            variant="outlined"
-                            InputLabelProps={{ shrink: true }}
-                            value={formData.date}
-                            onChange={handleChange}
-                            required
-                        />                        
-                        <DialogActions>
-                        <Button
+                            <TextField
+                                margin="dense"
+                                name="title"
+                                label="Title"
+                                type="text"
+                                fullWidth
+                                value={formData.title}
+                                onChange={handleChange}
+                                required
+                            />
+                            <TextField
+                                margin="dense"
+                                name="amount"
+                                label="Amount"
+                                type="number"
+                                fullWidth
+                                required
+                                value={formData.amount}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                margin="dense"
+                                name="category"
+                                label="Category"
+                                type="text"
+                                //select
+                                fullWidth
                                 variant="outlined"
-                                onClick={handleCloseAddExpense}>                            
-                                Discard
-                            </Button>
-                            <Button
-                                variant="contained"
-                                type="submit">
-                                submit
-                            </Button>
-                        </DialogActions>
-                    </Box>
+                                value={formData.category}
+                                onChange={handleChange}
+                                required
+                            />
+                            <TextField
+                                margin="dense"
+                                name="date"
+                                label="Date"
+                                type="date"
+                                variant="outlined"
+                                InputLabelProps={{ shrink: true }}
+                                value={formData.date}
+                                onChange={handleChange}
+                                required
+                            />
+                            <DialogActions>
+                                <Button
+                                    variant="outlined"
+                                    onClick={handleCloseAddExpense}>
+                                    Discard
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    type="submit">
+                                    submit
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    )}
                 </DialogContent>
             </Dialog>
         </Box>
