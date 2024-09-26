@@ -6,4 +6,5 @@ public interface IAuthService
     Task<ServiceResponse<string>> Login(string username, string password);
     Task<ServiceResponse<bool>> DeleteUser(int userId);
     Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword);
+    Task<ServiceResponse<bool>> ChangeUsername(int userId, string newUsername);
 }

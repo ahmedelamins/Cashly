@@ -114,10 +114,45 @@ public class AuthService : IAuthService
                 await _context.SaveChangesAsync();
 
 
-                response.Message = "Password is changed.";
+                response.Message = "Password has changed.";
                 response.Data = true;
             }
 
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<bool>> ChangeUsername(int userId, string newUsername)
+    {
+        var response = new ServiceResponse<bool>();
+
+        try
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found!";
+            }
+            else if (await UserExists(newUsername))
+            {
+                response.Success = false;
+                response.Message = "Username is taken!";
+            }
+            else
+            {
+                user.Username = newUsername;
+                await _context.SaveChangesAsync();
+
+                response.Message = "Username has Changed!";
+                response.Data = true;
+            }
         }
         catch (Exception ex)
         {
