@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Box,
     Typography,
@@ -24,6 +24,7 @@ const HomePage = () => {
     const Username = username.charAt(0).toUpperCase() + username.slice(1); //Capitalize first letter
 
     const [loading, setLoading] = useState(false);
+    const [expenses, setExpenses] = useState([])
     const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -63,8 +64,6 @@ const HomePage = () => {
                 category: formData.category,
             }
 
-            console.log(expenseData);
-
             const response = await axiosInstance.post('/expense', expenseData);
 
             setTimeout(() => {
@@ -81,6 +80,20 @@ const HomePage = () => {
             }, 1000);
         }
     };
+
+    const fetchExpenses = async () => {
+        try {
+            const response = await axiosInstance.get('/expense');
+            setExpenses(response.data.data);
+            console.log(response.data.data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {      
+        fetchExpenses();
+    }, [])
 
 
     return (
