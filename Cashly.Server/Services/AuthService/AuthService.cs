@@ -24,7 +24,7 @@ public class AuthService : IAuthService
             if (await UserExists(user.Username))
             {
                 response.Success = false;
-                response.Message = "This username already exists!";
+                response.Message = "Username is taken!";
 
                 return response;
             }
@@ -37,7 +37,7 @@ public class AuthService : IAuthService
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            response.Message = "Registered Successfully!";
+            response.Message = "Welcome to Cashly!";
             response.Data = user.Id;
 
         }
@@ -60,7 +60,7 @@ public class AuthService : IAuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "Username does not exist!";
+                response.Message = "User not found!";
 
                 return response;
             }
@@ -72,7 +72,7 @@ public class AuthService : IAuthService
             else
             {
                 response.Data = CreateToken(user);
-                response.Message = "Logged in Successfully!";
+                response.Message = "Welcome!";
             }
 
         }
@@ -95,14 +95,14 @@ public class AuthService : IAuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "Username doesn't exist!";
+                response.Message = "User not found!";
 
                 return response;
             }
             else if (VerifyPasswordHash(newPassword, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "Can't change to current password.";
+                response.Message = "Please enter new password!";
             }
             else
             {
@@ -114,7 +114,7 @@ public class AuthService : IAuthService
                 await _context.SaveChangesAsync();
 
 
-                response.Message = "Password Changed Successfully!";
+                response.Message = "Password is changed.";
                 response.Data = true;
             }
 
@@ -138,7 +138,7 @@ public class AuthService : IAuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "Not Found";
+                response.Message = "User not found!";
 
                 return response;
             }
@@ -146,7 +146,7 @@ public class AuthService : IAuthService
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            response.Message = "Account Deleted.";
+            response.Message = "Account deleted. Sorry to see you go.";
             response.Data = true;
 
         }
