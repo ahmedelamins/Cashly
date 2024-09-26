@@ -23,8 +23,8 @@ const HomePage = () => {
     const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
-        amount: "",
-        date: "",
+        amount: 0,
+       // date: "",
         category: ""
     });
 
@@ -45,37 +45,41 @@ const HomePage = () => {
         setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
     }
 
-    const handleAddExpenseSubmit = async(e) => {
+    const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
 
-        try 
-        {
-            console.log("new expense: ", formData);
+        // Ensure valid inputs
+        if (!formData.title || !formData.amount || !formData.category) {
+            toast.error("Please fill out all fields");
+            console.error('no data')
+            return;
+        }
 
-            const response = await axiosInstance.post('/expense', {
+        try {            
+
+            const expenseData = {
                 title: formData.title,
-                amount: formData.amount,
-                date: formData.date,
+                amount: parseFloat(formData.amount), 
                 category: formData.category,
-            });
+            }
+            console.log(expenseData);
+
+            const response = await axiosInstance.post('/expense', expenseData);
 
             toast.success(response.data.message);
 
-            //reset
+            // Reset
             setFormData({
                 title: "",
                 amount: "",
-                date: "",
                 category: ""
             });
 
         } catch (error) {
-            toast.error('something went wronge');
+            toast.error(error.response?.data || 'Something went wrong');
         }
-
-
-
     };
+
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
@@ -162,18 +166,18 @@ const HomePage = () => {
                             onChange={handleChange}
                             required
                         />
-                        <TextField
-                            margin="dense"
-                            name="date"
-                            label="Date"
-                            type="date"
-                            //fullWidth
-                            variant="outlined"
-                            InputLabelProps={{ shrink: true }}
-                            value={formData.date}
-                            onChange={handleChange}
-                            required
-                        />                        
+                        {/*<TextField*/}
+                        {/*    margin="dense"*/}
+                        {/*    name="date"*/}
+                        {/*    label="Date"*/}
+                        {/*    type="date"*/}
+                        {/*    //fullWidth*/}
+                        {/*    variant="outlined"*/}
+                        {/*    InputLabelProps={{ shrink: true }}*/}
+                        {/*    value={formData.date}*/}
+                        {/*    onChange={handleChange}*/}
+                        {/*    required*/}
+                        {/*/>                        */}
                         <DialogActions>
                         <Button
                                 variant="outlined"

@@ -50,7 +50,15 @@ namespace Cashly.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Return BadRequest if the model state is invalid
+                // Log the validation errors
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine(error.ErrorMessage); // Log errors
+                    }
+                }
+
                 return BadRequest(new ServiceResponse<Expense>
                 {
                     Success = false,

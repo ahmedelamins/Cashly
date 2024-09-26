@@ -18,7 +18,7 @@ public class ExpenseService : IExpenseService
         {
             response.Data = await _context.Expenses
                   .Where(e => e.UserId == userId)
-                  .OrderByDescending(e => e.Date) //in order, newest => oldest
+                  .OrderByDescending(e => e.Id) //in order, newest => oldest
                   .ToListAsync();
         }
         catch (Exception ex)
@@ -63,7 +63,6 @@ public class ExpenseService : IExpenseService
 
         try
         {
-            expense.Date = DateOnly.Parse(expense.Date.ToString()); //parse date 
 
             expense.UserId = userId;
 
@@ -71,6 +70,7 @@ public class ExpenseService : IExpenseService
             await _context.SaveChangesAsync();
 
             response.Data = expense;
+            response.Message = "New expense added!";
 
         }
         catch (Exception ex)
@@ -101,7 +101,7 @@ public class ExpenseService : IExpenseService
 
             expense.Title = updatedExpense.Title;
             expense.Amount = updatedExpense.Amount;
-            expense.Date = updatedExpense.Date;
+            //expense.Date = updatedExpense.Date;
 
             await _context.SaveChangesAsync();
 

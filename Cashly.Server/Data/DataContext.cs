@@ -8,7 +8,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     {
         modelBuilder.Entity<User>()
             .HasMany(u => u.Expenses)
-            .WithOne(e => e.User)
+            .WithOne()
             .HasForeignKey(e => e.UserId);
 
         //seeding categories
