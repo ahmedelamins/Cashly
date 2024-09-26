@@ -3,6 +3,7 @@ using Cashly.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cashly.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240926032653_UpdatedExpenseModelDate")]
+    partial class UpdatedExpenseModelDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,8 +32,8 @@ namespace Cashly.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -77,11 +80,13 @@ namespace Cashly.Server.Migrations
 
             modelBuilder.Entity("Cashly.Server.Models.Expense", b =>
                 {
-                    b.HasOne("Cashly.Server.Models.User", null)
+                    b.HasOne("Cashly.Server.Models.User", "User")
                         .WithMany("Expenses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Cashly.Server.Models.User", b =>
