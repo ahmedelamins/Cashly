@@ -65,10 +65,28 @@ public class authController : ControllerBase
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userId))
         {
-            return Unauthorized("User ID Not Found.");
+            return Unauthorized("User ID Not Found!");
         }
 
         var response = await _authService.ChangePassword(int.Parse(userId), request.Password);
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
+
+    [HttpPost("change-username"), Authorize]
+    public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] ChangeUsername request)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User ID not found!");
+        }
+
+        var response = await _authService.ChangeUsername(int.Parse(userId), request.Username);
         if (!response.Success)
         {
             return BadRequest(response);
