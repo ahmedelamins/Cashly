@@ -10,11 +10,14 @@ import {
     TextField,
     Grid,
     Stack,
-    Paper
+    Paper,
+    MenuItem
 } from '@mui/material';
 import { toast } from 'react-toastify';
 import axiosInstance from '../utils/axiosInstance';
 import CircularProgress from '@mui/material/CircularProgress';
+
+const categories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
 
 const HomePage = () => {
     const username = localStorage.getItem('username'); // Fetching username
@@ -159,14 +162,19 @@ const HomePage = () => {
                                 margin="dense"
                                 name="category"
                                 label="Category"
-                                type="text"
-                                //select
-                                fullWidth
+                                select
+                               fullWidth
                                 variant="outlined"
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
-                            />
+                            >
+                                {categories.map((category) => (
+                                    <MenuItem key={category} value={category}>
+                                        {category}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                             <TextField
                                 margin="dense"
                                 name="date"
