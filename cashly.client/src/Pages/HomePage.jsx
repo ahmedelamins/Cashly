@@ -86,7 +86,7 @@ const HomePage = () => {
         try {
             const response = await axiosInstance.get('/expense');
             setExpenses(response.data.data);
-            console.log(response.data.data);
+            //console.log(response.data.data);
         } catch (error) {
             console.log(error)
             toast.error("Something went wrong")
