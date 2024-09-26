@@ -113,7 +113,7 @@ const LandingPage = () => {
     
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '98vh' }}>
             <AppBar position="sticky" color="secondary" elevation={0} sx={{ py: 1, borderBottom: '2px solid #f4f6f7' }}>
                 <Toolbar>
                     <Typography variant="h3" sx={{
