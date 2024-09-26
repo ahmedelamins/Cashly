@@ -66,7 +66,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 //registering services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
