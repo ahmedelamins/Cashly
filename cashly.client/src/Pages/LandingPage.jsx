@@ -70,7 +70,7 @@ const LandingPage = () => {
                     toast.success(response.data.message);
 
                     navigate('/home');
-                }, 1000);
+                }, 900);
 
                 
             } else {
@@ -80,7 +80,7 @@ const LandingPage = () => {
             toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 900);
         } 
     };
 
@@ -99,10 +99,11 @@ const LandingPage = () => {
             setTimeout(() => {
                 setJoinOpen(false);
                 setLoading(false);
-                toast.success(response.data.message);
-
-                setLoginOpen(true);
+                toast.success(response.data.message || "Account created");
+                
             }, 900);
+
+            
 
         } catch (error) {
             toast.error(error.response.data);
