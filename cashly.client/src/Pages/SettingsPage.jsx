@@ -31,13 +31,12 @@ const SettingsPage = () => {
         });
     };
 
+    //change password
     const handleChangePassword = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            //console.log(formData)
-
             const response = await axiosInstance.post('/auth/change-password', {
                 password: formData.password
             });
@@ -50,17 +49,15 @@ const SettingsPage = () => {
             }, 900);
                     
             setFormData({ password: '' });
-
         } catch (error) {
+            toast.error("Could not change password");
             setTimeout(() => {
                 setLoading(false);
-                const errorMessage = error.response?.data?.message || "Could not change password.";
-                toast.error(errorMessage);
             }, 900);
         }
     };
 
-
+    //delete account
     const handleDeleteAccount = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -74,12 +71,11 @@ const SettingsPage = () => {
             setTimeout(() => {
                 setLoading(false);
 
-                toast.success("Deleted account successfully!");
+                toast.success("User deleted. Sorry to see you go.");
                 localStorage.clear();  
             
                 navigate('/');
-            }, 1000);
-            
+            }, 1000);       
 
         } catch (error) {
             toast.error(error.response.data);
