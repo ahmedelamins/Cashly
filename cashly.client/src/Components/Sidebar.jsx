@@ -31,8 +31,11 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
 
     const handleLogout = (e) => {
         localStorage.clear();
+        setTimeout(() => {
 
-        navigate('/');
+           navigate('/');
+
+        }, 900);                //smooth redirecting
 
         toast.info("See You Later.");
     }
