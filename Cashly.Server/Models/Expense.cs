@@ -14,5 +14,5 @@ public class Expense
     [Required]
     public User User { get; set; }
     public int UserId { get; set; }
-    public DateOnly CreatedAt { get; set; }
+    public DateOnly Date { get; set; }
 }
