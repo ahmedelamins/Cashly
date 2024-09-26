@@ -38,6 +38,7 @@ const LandingPage = () => {
         });
     };
 
+    //login
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
 
@@ -50,7 +51,7 @@ const LandingPage = () => {
             });
 
 
-            const token = response.data.data; // Adjust this based on the actual response structure
+            const token = response.data.data;
 
             if (token) {
                 localStorage.setItem('token', token);
@@ -133,8 +134,7 @@ const LandingPage = () => {
                     <Button variant="contained"
                         color="primary"
                         sx={{  mr: 3, ml: 3 }}
-                        onClick={() => setLoginOpen(true)}
-                    >
+                        onClick={() => setLoginOpen(true)}>                    
                         Login
                     </Button>
                 </Toolbar>
@@ -143,7 +143,7 @@ const LandingPage = () => {
 
             <Container maxWidth="lg" sx={{
                 flexGrow: 1,
-                mt: 16,
+                mt: 13,
                 animation: 'slideIn 1s ease-out',
                 '@keyframes slideIn': {
                     '0%': { transform: 'translateY(20px)', opacity: 0 },

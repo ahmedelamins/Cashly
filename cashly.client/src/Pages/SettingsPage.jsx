@@ -139,21 +139,33 @@ const SettingsPage = () => {
                         variant="contained"
                         color="primary"
                         onClick={() => setPasswordOpen(true)}
-                        sx={{ mb: 2, mt: 2 }}>
+                        sx={{
+                            mb: 2, mt: 2, transition: 'transform 0.3s ease',
+                            '&:hover': {
+                                transform: 'scale(1.1)',
+                            }, }}>
                         Change Password
                     </Button>
                     <Button
                         variant="contained"
                         color="primary"
                         onClick={() => setUsernameOpen(true)}
-                        sx={{ mb: 2, mt: 2 }}>
+                        sx={{
+                            mb: 2, mt: 2, transition: 'transform 0.3s ease',
+                            '&:hover': {
+                                transform: 'scale(1.1)',
+                            }, }}>
                         Change Username
                     </Button>
                     <Button
                         variant="contained"
                         color="error"
                         onClick={() => setDeleteUserOpen(true)}
-                        sx={{ mb: 2, mt: 2 }}>
+                        sx={{
+                            mb: 2, mt: 2, transition: 'transform 0.3s ease',
+                            '&:hover': {
+                                transform: 'scale(1.1)',
+                            }, }}>
                         Delete Account
                     </Button>
                 </Box>
