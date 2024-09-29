@@ -11,11 +11,15 @@ import {
     Grid,
     Stack,
     Paper,
-    MenuItem
+    MenuItem,
+    Divider,
+    IconButton
 } from '@mui/material';
 import { toast } from 'react-toastify';
 import axiosInstance from '../utils/axiosInstance';
 import CircularProgress from '@mui/material/CircularProgress';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const categories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
 
@@ -57,7 +61,7 @@ const HomePage = () => {
         e.preventDefault();
         setLoading(true);
 
-        try {       
+        try {
             const expenseData = {
                 title: formData.title,
                 amount: parseFloat(formData.amount),
@@ -71,9 +75,10 @@ const HomePage = () => {
                 toast.success(response.data.message);
                 setLoading(false);
                 handleCloseAddExpense();
-            }, 1000);                     
+                fetchExpenses();  // Fetch the updated list of expenses after adding
+            }, 1000);
 
-        } catch (error) {           
+        } catch (error) {
             toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
@@ -86,17 +91,15 @@ const HomePage = () => {
         try {
             const response = await axiosInstance.get('/expense');
             setExpenses(response.data.data);
-            //console.log(response.data.data);
         } catch (error) {
             console.log(error)
             toast.error("Something went wrong")
         }
     }
 
-    useEffect(() => {      
+    useEffect(() => {
         fetchExpenses();
     }, [])
-
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
@@ -117,7 +120,7 @@ const HomePage = () => {
                     },
                 }}>
                 Add Expense
-            </Button> 
+            </Button>
 
             {/* chart and history containers */}
             <Grid container spacing={2} sx={{ mt: 2 }}>
@@ -135,24 +138,45 @@ const HomePage = () => {
 
                 {/* expense history container*/}
                 <Grid item xs={12} md={6}>
-                    <Paper elevation={3} sx={{ p: 2, maxHeight: '740px', overFlowY: 'auto' }}>
-                        <Typography variant="h6" sx={{ mb: 2, textAlign: 'center'}}>
-                            Recent History
+                    <Paper elevation={3} sx={{ p: 2, maxHeight: '450px', overflowY: 'auto' }}>
+                        <Typography variant="h6"  sx={{ mb: 2, textAlign: 'center' }}>
+                            Expense History
                         </Typography>
                         <Stack spacing={2}>
-                            <h5 style={{ textAlign: 'center' }} > Recent History here</h5>
+                            {expenses.length > 0 ? (
+                                expenses.map((expense, index) => (
+                                    <Box key={index} sx={{ p: 1.5, border: '3px solid #ddd', borderRadius: '8px' }}>
+                                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                                            {expense.title}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Category: {expense.category}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Amount: ${expense.amount}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Date: {new Date(expense.date).toLocaleDateString()}
+                                        </Typography>
+                                        <Divider sx={{ mt: 4 }} />
+                                    </Box>
+                                ))
+                            ) : (
+                                <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
+                                    Nothing to see here..
+                                </Typography>
+                            )}
                         </Stack>
                     </Paper>
                 </Grid>
             </Grid>
 
-            {/* new expense form dialog*/}
+            {/* new expense form dialog */}
             <Dialog open={openAddExpense} onClose={handleCloseAddExpense}>
                 <DialogTitle>New Expense</DialogTitle>
                 <DialogContent>
                     {loading ? <CircularProgress /> : (
-
-                    <Box component="form" onSubmit={handleAddExpenseSubmit}>
+                        <Box component="form" onSubmit={handleAddExpenseSubmit}>
                             <TextField
                                 margin="dense"
                                 name="title"
@@ -178,7 +202,7 @@ const HomePage = () => {
                                 name="category"
                                 label="Category"
                                 select
-                               fullWidth
+                                fullWidth
                                 variant="outlined"
                                 value={formData.category}
                                 onChange={handleChange}
@@ -222,4 +246,3 @@ const HomePage = () => {
 }
 
 export default HomePage;
-
