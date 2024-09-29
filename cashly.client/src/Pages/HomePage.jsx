@@ -90,15 +90,22 @@ const HomePage = () => {
             setTimeout(() => {
                 toast.success(response.data.message);
                 setLoading(false);
-                handleCloseAddExpense();
-                fetchExpenses();  // Fetch the updated list of expenses after adding
+                handleCloseAddExpense();               
+                fetchExpenses(); 
+                
             }, 1000);
 
         } catch (error) {
-            toast.error(error.response.data);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 900);
         }
     };
 
