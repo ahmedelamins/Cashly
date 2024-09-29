@@ -54,7 +54,22 @@ const HomePage = () => {
     const handleCloseAddExpense = () => {
         setOpenAddExpense(false);
         setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
+    }   
+
+    //grab expenses
+    const fetchExpenses = async () => {
+        try {
+            const response = await axiosInstance.get('/expense');
+            setExpenses(response.data.data);
+        } catch (error) {
+            console.log(error)
+            toast.error("Something went wrong")
+        }
     }
+
+    useEffect(() => {
+        fetchExpenses();
+    }, []);
 
     //submit expense
     const handleAddExpenseSubmit = async (e) => {
@@ -86,20 +101,12 @@ const HomePage = () => {
         }
     };
 
-    //grab expenses
-    const fetchExpenses = async () => {
-        try {
-            const response = await axiosInstance.get('/expense');
-            setExpenses(response.data.data);
-        } catch (error) {
-            console.log(error)
-            toast.error("Something went wrong")
-        }
-    }
+    //delete expense
+    const handleDeleteExpense = async (e) => {
+        e.preventDefault();
 
-    useEffect(() => {
-        fetchExpenses();
-    }, [])
+        console.log('deleted expense');
+    };
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
@@ -138,40 +145,46 @@ const HomePage = () => {
 
                 {/* expense history container */}
                 <Grid item xs={12} md={6}>
-                    <Paper elevation={3} sx={{ p: 2, maxHeight: '470px', overflowY: 'auto' }}>
+                    <Paper elevation={3} sx={{ p: 2, maxHeight: '480px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
-                            Expense History
+                            Recent History
                         </Typography>
                         <Stack spacing={2}>
                             {expenses.length > 0 ? (
                                 expenses.map((expense, index) => (
-                                    <Card key={index} sx={{ p: 2 }}>
-                                        {/* Flex container for title, amount, and actions */}
-                                        <Box display="flex" justifyContent="space-between" alignItems="center">
-                                            <Box>
+                                    <Card key={index} sx={{ p: 2, maxWidth: '100%', mx: 'auto', width: '100%' }}>                                        
+                                        <Box
+                                            display="flex"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            flexDirection={{ xs: 'column', sm: 'row' }}  
+                                            textAlign={{ xs: 'center', sm: 'left' }}>    
+                                        
+                                            <Box sx={{ mb: { xs: 1, sm: 0 } }}>
                                                 <Typography variant="h6">
                                                     {expense.title}
                                                 </Typography>
-                                                <Typography variant="body2" color="text.secondary">
+                                                <Typography variant="body" color="text.secondary">
                                                     {new Date(expense.date).toLocaleDateString()}
                                                 </Typography>
                                             </Box>
 
-                                            <Box display="flex" alignItems="center">
-                                                <Typography variant="h6" color="primary" sx={{ mr: 2 }}>
+                                            <Box display="flex" alignItems="center" justifyContent={{ xs: 'center', sm: 'flex-end' }} flexDirection={{ xs: 'column', sm: 'row' }}>
+                                                <Typography variant="h6" color="primary" sx={{ mr: { sm: 2 }, mb: { xs: 1, sm: 0 } }}>
                                                     ${expense.amount.toFixed(2)}
                                                 </Typography>
-                                                <Button variant="contained" size="medium"
-                                                    startIcon={<EditIcon />} sx={{ mr: 1 }}>
+                                                <Button variant="contained" startIcon={<EditIcon />}
+                                                     sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
                                                     Edit
                                                 </Button>
-                                                <Button variant="contained" size="medium"
-                                                    startIcon={<DeleteIcon />} color="error">
+                                                <Button onClick={handleDeleteExpense} variant="contained" color="error"
+                                                    startIcon={<DeleteIcon />}>
                                                     Delete
                                                 </Button>
                                             </Box>
                                         </Box>
 
+                                        {/* Category Info */}
                                         <Typography variant="body2" sx={{ mt: 1 }}>
                                             Category: {expense.category}
                                         </Typography>
@@ -185,6 +198,7 @@ const HomePage = () => {
                         </Stack>
                     </Paper>
                 </Grid>
+
             </Grid>
 
             {/* new expense form dialog */}
