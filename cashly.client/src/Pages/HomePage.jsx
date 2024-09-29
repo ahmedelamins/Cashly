@@ -97,12 +97,9 @@ const HomePage = () => {
                 toast.success(response.data.message);
                 setLoading(false);
                 handleCloseAddExpense();
-                                
+                fetchExpenses();                                
             }, 900);
-
-            setTimeout(() => {
-                fetchExpenses();
-            }, 900);
+            
 
         } catch (error) {
             if (error.response) {
