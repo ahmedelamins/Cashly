@@ -249,33 +249,36 @@ const HomePage = () => {
 
                     </Paper>
                 </Grid>
-
             </Grid>
+
             {/* delete dialog*/}
-            <Dialog open={openDelete !== null} onClose={() => setOpenDelete(null)}>
-                <DialogTitle>Are you sure?</DialogTitle>
-                <DialogContent>
+            <Dialog
+                maxWidth="xs"
+                fullWidth
+                open={openDelete !== null}
+                onClose={() => setOpenDelete(null)}>
+                <DialogTitle sx={{ textAlign: 'center' }}> Delete?</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? (
                         <CircularProgress />
                     ) : (
-                        <>
-                            <DialogActions>
-                                <Button variant="outlined" onClick={() => setOpenDelete(null)}>
-                                    Discard
-                                </Button>
-                                <Button onClick={handleDeleteExpense} variant="contained" color="error">
-                                    Delete
-                                </Button>
-                            </DialogActions>
-                        </>
+                        <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                            <Button variant="outlined" onClick={() => setOpenDelete(null)}>
+                                cancel
+                            </Button>
+                            <Button onClick={handleDeleteExpense} variant="contained" color="error">
+                                Delete
+                            </Button>
+                        </DialogActions>
                     )}
                 </DialogContent>
             </Dialog>
 
+
             {/* new expense form dialog */}
             <Dialog open={openAddExpense} onClose={handleCloseAddExpense}>
-                <DialogTitle>New Expense</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{ textAlign: 'center' }}>New Expense</DialogTitle>
+                <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleAddExpenseSubmit}>
                             <TextField
@@ -326,7 +329,7 @@ const HomePage = () => {
                                 onChange={handleChange}
                                 required
                             />
-                            <DialogActions>
+                            <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                 <Button
                                     variant="outlined"
                                     onClick={handleCloseAddExpense}>
