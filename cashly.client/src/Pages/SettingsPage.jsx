@@ -80,9 +80,9 @@ const SettingsPage = () => {
                 setUsernameOpen(false);
              
                 toast.success(response.data.message);
+                setNewUsername(newUsername);
             },900);
 
-            setNewUsername(newUsername);
             setFormData("");
         } catch (error) {
             toast.error(error.response.data.message);
