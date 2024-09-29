@@ -140,7 +140,7 @@ const HomePage = () => {
                 <Grid item xs={12} md={6}>
                     <Paper elevation={3} sx={{ p: 2, maxHeight: '470px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
-                            Recent History
+                            Expense History
                         </Typography>
                         <Stack spacing={2}>
                             {expenses.length > 0 ? (
@@ -160,13 +160,15 @@ const HomePage = () => {
                                             <Box display="flex" alignItems="center">
                                                 <Typography variant="h6" color="primary" sx={{ mr: 2 }}>
                                                     ${expense.amount.toFixed(2)}
-                                                </Typography>                                                
-                                                <IconButton>
-                                                    <EditIcon />
-                                                </IconButton>
-                                                <IconButton>
-                                                    <DeleteIcon />
-                                                </IconButton>
+                                                </Typography>
+                                                <Button variant="contained" size="medium"
+                                                    startIcon={<EditIcon />} sx={{ mr: 1 }}>
+                                                    Edit
+                                                </Button>
+                                                <Button variant="contained" size="medium"
+                                                    startIcon={<DeleteIcon />} color="error">
+                                                    Delete
+                                                </Button>
                                             </Box>
                                         </Box>
 
