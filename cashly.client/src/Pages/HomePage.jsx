@@ -142,6 +142,7 @@ const HomePage = () => {
         }
     };
 
+    //open edit dialog and store id
     const handleOpenEdit = (expense) => {
         setFormData({
             title: expense.title,
@@ -149,7 +150,8 @@ const HomePage = () => {
             date: expense.date,
             category: expense.category
         });
-        setOpenEdit(expense.id); // Store the ID of the expense being edited
+
+        setOpenEdit(expense.id);
     };
 
 
