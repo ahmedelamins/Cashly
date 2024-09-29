@@ -171,16 +171,16 @@ const SettingsPage = () => {
             </Box>
             {/* delete account dialog*/}
             <Dialog maxWidth="xs" fullWidth open={deleteUserOpen} onClose={() => setDeleteUserOpen(false)}>
-                <DialogTitle>Are you sure?</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{ textAlign: 'center' }}>Are you sure?</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
 
                         <Box component="form" onSubmit={handleDeleteAccount} sx={{ mt: 2 }}>
-                             <DialogActions>
+                            <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                                   <Button variant="outlined" onClick={() => setDeleteUserOpen(false)}>
                                       No, Keep it.
                                   </Button>
-                                  <Button variant="contained" type="submit" color="primary">
+                                <Button variant="contained" type="submit" color="error">
                                       Yes, I'm sure.
                                      </Button>
                              </DialogActions>
@@ -190,8 +190,8 @@ const SettingsPage = () => {
             </Dialog>
             {/* change username dialog*/}
             <Dialog maxWidth="xs" fullWidth open={usernameOpen} onClose={() => setUsernameOpen(false)}>
-                <DialogTitle>Change Username</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{ textAlign: 'center' }}>Change Username</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleChangeUsername}>
                             <TextField
@@ -204,7 +204,7 @@ const SettingsPage = () => {
                                 value={formData.username}
                                 onChange={handleInputChange}
                             />
-                            <DialogActions>
+                            <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                                 <Button variant="outlined" onClick={() => setUsernameOpen(false)}>
                                     Discard
                                 </Button>
@@ -219,8 +219,8 @@ const SettingsPage = () => {
 
             {/* change password dialog*/ }
             <Dialog maxWidth="xs" fullWidth open={passwordOpen} onClose={() => setPasswordOpen(false)}>
-                <DialogTitle>Change Password</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{ textAlign: 'center' }}>Change Password</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleChangePassword}>
                             <TextField
@@ -233,7 +233,7 @@ const SettingsPage = () => {
                                 value={formData.password}
                                 onChange={handleInputChange}
                             />
-                            <DialogActions>
+                            <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                                 <Button variant="outlined" onClick={() => setPasswordOpen(false)}>
                                     Discard
                                 </Button>
