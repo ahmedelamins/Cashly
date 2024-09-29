@@ -203,7 +203,7 @@ const HomePage = () => {
 
                             ) : expenses.length > 0 ? (
                                 expenses.map((expense, index) => (
-                                    <Card key={index} sx={{ p: 2, maxWidth: '100%', mx: 'auto', width: '100%' }}>
+                                    <Card key={index} elevation={3} sx={{ p: 2, maxWidth: '100%', mx: 'auto', width: '100%' }}>
                                         <Box
                                             display="flex"
                                             justifyContent="space-between"
@@ -276,9 +276,9 @@ const HomePage = () => {
 
 
             {/* new expense form dialog */}
-            <Dialog open={openAddExpense} onClose={handleCloseAddExpense}>
+            <Dialog maxWidth="xs" fullWidth open={openAddExpense} onClose={handleCloseAddExpense}>
                 <DialogTitle sx={{ textAlign: 'center' }}>New Expense</DialogTitle>
-                <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleAddExpenseSubmit}>
                             <TextField
