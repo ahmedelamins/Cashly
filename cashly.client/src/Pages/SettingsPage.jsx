@@ -14,7 +14,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axiosInstance from '../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { jwtDecode } from 'jwt-decode';
 
 const SettingsPage = () => {
 
