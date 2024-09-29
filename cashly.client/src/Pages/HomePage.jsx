@@ -29,6 +29,7 @@ const HomePage = () => {
 
     const [loading, setLoading] = useState(false);
     const [expenses, setExpenses] = useState([])
+    const [openDelete, setOpenDelete] = useState(null);
     const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -45,12 +46,12 @@ const HomePage = () => {
         })
     };
 
-    //open dialog
+    //open add dialog
     const handleOpenAddExpense = () => {
         setOpenAddExpense(true);
     }
 
-    //close dialog
+    //close add dialog
     const handleCloseAddExpense = () => {
         setOpenAddExpense(false);
         setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
@@ -101,11 +102,32 @@ const HomePage = () => {
         }
     };
 
-    //delete expense
-    const handleDeleteExpense = async (e) => {
-        e.preventDefault();
+    // Open delete dialog and store the ID of the expense
+    const handleOpenDelete = (id) => {
+        setOpenDelete(id);
+    }
 
-        console.log('deleted expense');
+    //delete expense
+    const handleDeleteExpense = async () => {
+        setLoading(true)
+
+        try {
+            const response = await axiosInstance.delete(`/expense/${openDelete}`);
+
+            setTimeout(() => {
+                setLoading(false);
+                setOpenDelete(null);
+
+                toast.success(response.data.message);
+                fetchExpenses(); //refresh
+            }, 900);
+
+        } catch (error) {
+            toast.error(error.response.data);
+            setTimeout(() => {
+                setLoading(null);
+            }, 900)
+        }
     };
 
     return (
@@ -177,7 +199,7 @@ const HomePage = () => {
                                                      sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
                                                     Edit
                                                 </Button>
-                                                <Button onClick={handleDeleteExpense} variant="contained" color="error"
+                                                <Button onClick={() => handleOpenDelete(expense.id)} variant="contained" color="error"
                                                     startIcon={<DeleteIcon />}>
                                                     Delete
                                                 </Button>
@@ -200,6 +222,22 @@ const HomePage = () => {
                 </Grid>
 
             </Grid>
+            {/* delete dialog*/}
+            <Dialog open={openDelete !== null} onClose={() => setOpenDelete(null)}>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogContent>
+                    {loading ? <CircularProgress /> : (
+                        <DialogActions>
+                            <Button variant="outlined" onClick={() => setOpenDelete(null)}>
+                                Discard
+                            </Button>
+                            <Button onClick={handleDeleteExpense} variant="contained" color="error">
+                                Delete
+                            </Button>
+                        </DialogActions>
+                    )}
+                </DialogContent>
+            </Dialog>
 
             {/* new expense form dialog */}
             <Dialog open={openAddExpense} onClose={handleCloseAddExpense}>
