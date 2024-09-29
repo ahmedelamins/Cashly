@@ -58,12 +58,19 @@ const HomePage = () => {
 
     //grab expenses
     const fetchExpenses = async () => {
+        setLoading(true);
+
         try {
             const response = await axiosInstance.get('/expense');
-            setExpenses(response.data.data);
+            setTimeout(() => {
+                setExpenses(response.data.data);
+                setLoading(false);
+            }, 900);
         } catch (error) {
-            console.log(error)
-            toast.error("Something went wrong")
+            toast.error(error.response.data || "Connection error");
+            setTimeout(() => {
+                setLoading(false);
+            })
         }
     }
 
@@ -89,10 +96,13 @@ const HomePage = () => {
             setTimeout(() => {
                 toast.success(response.data.message);
                 setLoading(false);
-                handleCloseAddExpense();               
-                fetchExpenses(); 
-                
-            }, 1000);
+                handleCloseAddExpense();
+                                
+            }, 900);
+
+            setTimeout(() => {
+                fetchExpenses();
+            }, 900);
 
         } catch (error) {
             if (error.response) {
@@ -178,16 +188,21 @@ const HomePage = () => {
                             Expense History
                         </Typography>
                         <Stack spacing={2}>
-                            {expenses.length > 0 ? (
+                            {loading ? (
+                                <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                                    <CircularProgress />
+                                </Box>
+
+                            ) : expenses.length > 0 ? (
                                 expenses.map((expense, index) => (
-                                    <Card key={index} sx={{ p: 2, maxWidth: '100%', mx: 'auto', width: '100%' }}>                                        
+                                    <Card key={index} sx={{ p: 2, maxWidth: '100%', mx: 'auto', width: '100%' }}>
                                         <Box
                                             display="flex"
                                             justifyContent="space-between"
                                             alignItems="center"
-                                            flexDirection={{ xs: 'column', sm: 'row' }}  
-                                            textAlign={{ xs: 'center', sm: 'left' }}>    
-                                        
+                                            flexDirection={{ xs: 'column', sm: 'row' }}
+                                            textAlign={{ xs: 'center', sm: 'left' }}>
+
                                             <Box sx={{ mb: { xs: 1, sm: 0 } }}>
                                                 <Typography variant="h6">
                                                     {expense.title}
@@ -202,7 +217,7 @@ const HomePage = () => {
                                                     ${expense.amount.toFixed(2)}
                                                 </Typography>
                                                 <Button variant="contained" startIcon={<EditIcon />}
-                                                     sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
+                                                    sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
                                                     Edit
                                                 </Button>
                                                 <Button onClick={() => handleOpenDelete(expense.id)} variant="contained" color="error"
@@ -211,8 +226,7 @@ const HomePage = () => {
                                                 </Button>
                                             </Box>
                                         </Box>
-
-                                        {/* Category Info */}
+                                        
                                         <Typography variant="body2" sx={{ mt: 1 }}>
                                             Category: {expense.category}
                                         </Typography>
@@ -224,6 +238,7 @@ const HomePage = () => {
                                 </Typography>
                             )}
                         </Stack>
+
                     </Paper>
                 </Grid>
 
