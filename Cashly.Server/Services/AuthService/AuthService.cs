@@ -33,6 +33,11 @@ public class AuthService : IAuthService
                 response.Success = false;
                 response.Message = "Invalid username!";
             }
+            else if (!ValidPassword(password))
+            {
+                response.Success = false;
+                response.Message = "Invalid password!";
+            }
             else
             {
                 CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
