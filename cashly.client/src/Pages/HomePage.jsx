@@ -29,6 +29,7 @@ const HomePage = () => {
     const [loading, setLoading] = useState(false);
     const [expenses, setExpenses] = useState([])
     const [openDelete, setOpenDelete] = useState(null);
+    const [openEdit, setOpenEdit] = useState(null);
     const [openAddExpense, setOpenAddExpense] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -44,7 +45,12 @@ const HomePage = () => {
             [name]: value,
         })
     };
+    //update expense
+    const handleEditExpense = async (e) => {
+        e.preventDefault();
 
+        console.log("Editing this shitttt :)")
+    }
     //open add dialog
     const handleOpenAddExpense = () => {
         setOpenAddExpense(true);
@@ -70,13 +76,9 @@ const HomePage = () => {
             toast.error(error.response.data || "Connection error");
             setTimeout(() => {
                 setLoading(false);
-            })
+            }, 900);
         }
     }
-
-    useEffect(() => {
-        fetchExpenses();
-    }, []);
 
     //submit expense
     const handleAddExpenseSubmit = async (e) => {
@@ -142,6 +144,15 @@ const HomePage = () => {
             }, 900)
         }
     };
+
+    const handleOpenEdit = () => {
+
+    }
+
+    //main load 
+    useEffect(() => {
+        fetchExpenses();
+    }, []);
 
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
@@ -213,7 +224,7 @@ const HomePage = () => {
                                                 <Typography variant="h6" color="primary" sx={{ mr: { sm: 2 }, mb: { xs: 1, sm: 0 } }}>
                                                     ${expense.amount.toFixed(2)}
                                                 </Typography>
-                                                <Button variant="contained" startIcon={<EditIcon />}
+                                                <Button onClick={ } variant="contained" startIcon={<EditIcon />}
                                                     sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
                                                     Edit
                                                 </Button>
@@ -244,15 +255,19 @@ const HomePage = () => {
             <Dialog open={openDelete !== null} onClose={() => setOpenDelete(null)}>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogContent>
-                    {loading ? <CircularProgress /> : (
-                        <DialogActions>
-                            <Button variant="outlined" onClick={() => setOpenDelete(null)}>
-                                Discard
-                            </Button>
-                            <Button onClick={handleDeleteExpense} variant="contained" color="error">
-                                Delete
-                            </Button>
-                        </DialogActions>
+                    {loading ? (
+                        <CircularProgress />
+                    ) : (
+                        <>
+                            <DialogActions>
+                                <Button variant="outlined" onClick={() => setOpenDelete(null)}>
+                                    Discard
+                                </Button>
+                                <Button onClick={handleDeleteExpense} variant="contained" color="error">
+                                    Delete
+                                </Button>
+                            </DialogActions>
+                        </>
                     )}
                 </DialogContent>
             </Dialog>
