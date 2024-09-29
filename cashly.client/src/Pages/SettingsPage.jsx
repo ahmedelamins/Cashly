@@ -51,13 +51,7 @@ const SettingsPage = () => {
                     
             setFormData("");
         } catch (error) {
-            if (error.response) {
-                toast.error(error.response.data);
-            } else if (error.request) {
-                toast.error("Server is unreachable. Check your connection.");
-            } else {
-                toast.error("An unexpected error occured.");
-            }
+            toast.error(error.response.data.message);
             setTimeout(() => {
                 setLoading(false);
             }, 900);
@@ -91,13 +85,7 @@ const SettingsPage = () => {
             setNewUsername(newUsername);
             setFormData("");
         } catch (error) {
-            if (error.response) {
-                toast.error(error.response.data);
-            } else if (error.request) {
-                toast.error("Server is unreachable. Check your connection.");
-            } else {
-                toast.error("An unexpected error occured.");
-            }
+            toast.error(error.response.data.message);
             setTimeout(() => {
                 setLoading(false);
             }, 900);
@@ -125,16 +113,10 @@ const SettingsPage = () => {
             }, 900);       
 
         } catch (error) {
-            if (error.response) {
-                toast.error(error.response.data);
-            } else if (error.request) {
-                toast.error("Server is unreachable. Check your connection.");
-            } else {
-                toast.error("An unexpected error occured.");
-            }
+            toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
-            }, 900);
+            }, 1000);
         }
     };
 
@@ -160,8 +142,7 @@ const SettingsPage = () => {
                             mb: 2, mt: 2, transition: 'transform 0.3s ease',
                             '&:hover': {
                                 transform: 'scale(1.1)',
-                            },
-                        }}>
+                            }, }}>
                         Change Password
                     </Button>
                     <Button
@@ -193,6 +174,7 @@ const SettingsPage = () => {
                 <DialogTitle sx={{ textAlign: 'center' }}>Are you sure?</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
+
                         <Box component="form" onSubmit={handleDeleteAccount} sx={{ mt: 2 }}>
                             <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                                   <Button variant="outlined" onClick={() => setDeleteUserOpen(false)}>
