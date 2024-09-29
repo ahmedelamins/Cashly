@@ -178,9 +178,6 @@ const HomePage = () => {
                             Expense History
                         </Typography>
                         <Stack spacing={2}>
-                        <Typography variant="h6" sx={{ position: 'sticky', mb: 2, textAlign: 'center' }}>
-                            Expense History
-                        </Typography>
                             {expenses.length > 0 ? (
                                 expenses.map((expense, index) => (
                                     <Card key={index} sx={{ p: 2, maxWidth: '100%', mx: 'auto', width: '100%' }}>                                        
