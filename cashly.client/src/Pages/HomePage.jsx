@@ -46,12 +46,7 @@ const HomePage = () => {
             [name]: value,
         })
     };
-    //update expense
-    const handleEditExpense = async (e) => {
-        e.preventDefault();
-
-        console.log("Editing this shitttt :)")
-    }
+    
     //open add dialog
     const handleOpenAddExpense = () => {
         setOpenAddExpense(true);
@@ -135,8 +130,9 @@ const HomePage = () => {
                 setOpenDelete(null);
 
                 toast.success(response.data.message);
-                fetchExpenses(); //refresh
             }, 900);
+
+            fetchExpenses(); //refresh
 
         } catch (error) {
             toast.error(error.response.data);
@@ -146,6 +142,7 @@ const HomePage = () => {
         }
     };
 
+    //edit expense
     const handleOpenEdit = () => {
         console.log("editing this shitt")
     }
@@ -276,9 +273,79 @@ const HomePage = () => {
                 </DialogContent>
             </Dialog>
 
-
             {/* new expense form dialog */}
             <Dialog maxWidth="xs" fullWidth open={openAddExpense} onClose={handleCloseAddExpense}>
+                <DialogTitle sx={{ textAlign: 'center' }}>{ loading? "Adding expense.." : "New Expense" }</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    {loading ? <CircularProgress /> : (
+                        <Box component="form" onSubmit={handleAddExpenseSubmit}>
+                            <TextField
+                                margin="dense"
+                                name="title"
+                                label="Title"
+                                type="text"
+                                fullWidth
+                                value={formData.title}
+                                onChange={handleChange}
+                                required
+                            />
+                            <TextField
+                                margin="dense"
+                                name="amount"
+                                label="Amount"
+                                type="number"
+                                fullWidth
+                                required
+                                value={formData.amount}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                margin="dense"
+                                name="category"
+                                label="Category"
+                                select
+                                fullWidth
+                                variant="outlined"
+                                value={formData.category}
+                                onChange={handleChange}
+                                required
+                            >
+                                {categories.map((category) => (
+                                    <MenuItem key={category} value={category}>
+                                        {category}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                margin="dense"
+                                name="date"
+                                label="Date"
+                                type="date"
+                                variant="outlined"
+                                InputLabelProps={{ shrink: true }}
+                                value={formData.date}
+                                onChange={handleChange}
+                                required
+                            />
+                            <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                <Button
+                                    variant="outlined"
+                                    onClick={handleCloseAddExpense}>
+                                    Discard
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    type="submit">
+                                    submit
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    )}
+                </DialogContent>
+            </Dialog>
+
+            {/* edit expense form dialog */}
+            <Dialog maxWidth="xs" fullWidth open={openEdit} onClose={() => setOpenEdit(false)}>
                 <DialogTitle sx={{ textAlign: 'center' }}>New Expense</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
