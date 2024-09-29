@@ -239,7 +239,9 @@ const LandingPage = () => {
 
             {/* Login Modal */}
             <Dialog open={loginOpen} onClose={() => setLoginOpen(false)}>
-                <DialogTitle sx={{ textAlign: 'center' }}>Login</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>
+                    {loading? "Logging in.." : "Login" }
+                </DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? (
                         <CircularProgress />
@@ -280,7 +282,9 @@ const LandingPage = () => {
 
             {/* Register Modal */}
             <Dialog open={joinOpen} onClose={() => setJoinOpen(false)}>
-                <DialogTitle sx={{ textAlign: 'center' }}>Join</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>
+                    {loading ? "Registering..." : "Register"}
+                </DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleRegisterSubmit} sx={{ mt: 2 }}>

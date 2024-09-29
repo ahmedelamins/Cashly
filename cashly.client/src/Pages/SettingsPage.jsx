@@ -169,9 +169,10 @@ const SettingsPage = () => {
                     </Button>
                 </Box>
             </Box>
+
             {/* delete account dialog*/}
             <Dialog maxWidth="xs" fullWidth open={deleteUserOpen} onClose={() => setDeleteUserOpen(false)}>
-                <DialogTitle sx={{ textAlign: 'center' }}>Are you sure?</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>{loading? "Deleting.." : "Are you sure?"}</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
 
@@ -188,9 +189,10 @@ const SettingsPage = () => {
                     )}
                 </DialogContent>
             </Dialog>
+
             {/* change username dialog*/}
             <Dialog maxWidth="xs" fullWidth open={usernameOpen} onClose={() => setUsernameOpen(false)}>
-                <DialogTitle sx={{ textAlign: 'center' }}>Change Username</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>{loading ? "Updating.." : "Change Username"}</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleChangeUsername}>
@@ -219,7 +221,7 @@ const SettingsPage = () => {
 
             {/* change password dialog*/ }
             <Dialog maxWidth="xs" fullWidth open={passwordOpen} onClose={() => setPasswordOpen(false)}>
-                <DialogTitle sx={{ textAlign: 'center' }}>Change Password</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>{loading ? "Updating.." : "Change Password"}</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleChangePassword}>

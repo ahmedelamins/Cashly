@@ -228,7 +228,7 @@ const HomePage = () => {
                                                 </Typography>
                                                 <Button onClick={handleOpenEdit} variant="contained" startIcon={<EditIcon />}
                                                     sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
-                                                    Update   
+                                                    Update
                                                 </Button>
                                                 <Button onClick={() => handleOpenDelete(expense.id)} variant="contained" color="error"
                                                     startIcon={<DeleteIcon />}>
