@@ -12,7 +12,6 @@ import {
     Stack,
     Paper,
     MenuItem,
-    IconButton,
     Card
 } from '@mui/material';
 import { toast } from 'react-toastify';
@@ -175,9 +174,7 @@ const HomePage = () => {
                 {/* expense history container */}
                 <Grid item xs={12} md={6}>
                     <Paper elevation={3} sx={{ p: 2, maxHeight: '480px', overflowY: 'auto' }}>
-                        <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
-                            Recent History
-                        </Typography>
+                        <AppBar></AppBar>
                         <Stack spacing={2}>
                             {expenses.length > 0 ? (
                                 expenses.map((expense, index) => (
@@ -221,7 +218,7 @@ const HomePage = () => {
                                 ))
                             ) : (
                                 <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
-                                    No expenses found.
+                                    Nothing to see here..
                                 </Typography>
                             )}
                         </Stack>
