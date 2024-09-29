@@ -13,7 +13,8 @@ import {
     Paper,
     MenuItem,
     Divider,
-    IconButton
+    IconButton,
+    Card
 } from '@mui/material';
 import { toast } from 'react-toastify';
 import axiosInstance from '../utils/axiosInstance';
@@ -136,34 +137,49 @@ const HomePage = () => {
                     </Paper>
                 </Grid>
 
-                {/* expense history container*/}
+                {/* expense history container */}
                 <Grid item xs={12} md={6}>
-                    <Paper elevation={3} sx={{ p: 2, maxHeight: '450px', overflowY: 'auto' }}>
-                        <Typography variant="h6"  sx={{ mb: 2, textAlign: 'center' }}>
-                            Expense History
+                    <Paper elevation={3} sx={{ p: 2, maxHeight: '470px', overflowY: 'auto' }}>
+                        <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
+                            Recent History
                         </Typography>
                         <Stack spacing={2}>
                             {expenses.length > 0 ? (
                                 expenses.map((expense, index) => (
-                                    <Box key={index} sx={{ p: 1.5, border: '3px solid #ddd', borderRadius: '8px' }}>
-                                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                                            {expense.title}
-                                        </Typography>
-                                        <Typography variant="body2">
+                                    <Card key={index} sx={{ p: 2 }}>
+                                        {/* Flex container for title, amount, and actions */}
+                                        <Box display="flex" justifyContent="space-between" alignItems="center">
+                                            <Box>
+                                                <Typography variant="h6">
+                                                    {expense.title}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {new Date(expense.date).toLocaleDateString()}
+                                                </Typography>
+                                            </Box>
+
+                                            <Box display="flex" alignItems="center">
+                                                <Typography variant="h6" color="primary" sx={{ mr: 2 }}>
+                                                    ${expense.amount.toFixed(2)}
+                                                </Typography>
+                                                {/* Placeholder for future Edit and Delete buttons */}
+                                                <Button variant="outlined" size="small" sx={{ mr: 1 }}>
+                                                    Edit
+                                                </Button>
+                                                <Button variant="outlined" size="small" color="error">
+                                                    Delete
+                                                </Button>
+                                            </Box>
+                                        </Box>
+
+                                        <Typography variant="body2" sx={{ mt: 1 }}>
                                             Category: {expense.category}
                                         </Typography>
-                                        <Typography variant="body2">
-                                            Amount: ${expense.amount}
-                                        </Typography>
-                                        <Typography variant="body2">
-                                            Date: {new Date(expense.date).toLocaleDateString()}
-                                        </Typography>
-                                        <Divider sx={{ mt: 4 }} />
-                                    </Box>
+                                    </Card>
                                 ))
                             ) : (
                                 <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
-                                    Nothing to see here..
+                                    No expenses found.
                                 </Typography>
                             )}
                         </Stack>
