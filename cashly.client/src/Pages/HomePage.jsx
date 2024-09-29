@@ -19,6 +19,7 @@ import axiosInstance from '../utils/axiosInstance';
 import CircularProgress from '@mui/material/CircularProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 const categories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
 
@@ -162,6 +163,7 @@ const HomePage = () => {
             <Button
                 variant="contained"
                 onClick={handleOpenAddExpense}
+                startIcon={<AddIcon />}
                 sx={{
                     mt: 3,
                     fontWeight: "540",
