@@ -18,8 +18,7 @@ public class ExpenseService : IExpenseService
         {
             response.Data = await _context.Expenses
                   .Where(e => e.UserId == userId)
-                  .OrderByDescending(e => e.Date) //in order, newest => oldest
-                  .ThenByDescending(e => e.Id) // order by id
+                  .OrderByDescending(e => e.Id) //in order, newest => oldest
                   .ToListAsync();
         }
         catch (Exception ex)
