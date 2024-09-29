@@ -19,6 +19,7 @@ public class ExpenseService : IExpenseService
             response.Data = await _context.Expenses
                   .Where(e => e.UserId == userId)
                   .OrderByDescending(e => e.Date) //in order, newest => oldest
+                  .ThenByDescending(e => e.Id) // order by id
                   .ToListAsync();
         }
         catch (Exception ex)
@@ -106,6 +107,7 @@ public class ExpenseService : IExpenseService
             await _context.SaveChangesAsync();
 
             response.Data = expense;
+            response.Message = "Expense updated";
         }
         catch (Exception ex)
         {
@@ -136,6 +138,7 @@ public class ExpenseService : IExpenseService
             await _context.SaveChangesAsync();
 
             response.Data = true;
+            response.Message = "Expense deleted.";
         }
         catch (Exception ex)
         {
