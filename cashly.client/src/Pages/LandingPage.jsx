@@ -50,7 +50,6 @@ const LandingPage = () => {
                 password: formData.password,
             });
 
-
             const token = response.data.data;
 
             if (token) {
@@ -167,11 +166,14 @@ const LandingPage = () => {
                         <Typography variant="h1" gutterBottom sx={{ letterSpacing: '0.10em', textAlign: 'left' }}>
                             Welcome to Cashly!
                         </Typography>
-                        <Typography variant="h6" gutterBottom sx={{ fontWeight: '400', lineHeight: 1.6, textAlign: 'left' }}>
-                            Track your expenses with ease and stay on top of your finances.
-                            <br />
-                            Manage your budget effortlessly, gain full control over your spending habits.
+                        <Typography
+                            variant="h6"
+                            gutterBottom
+                            sx={{ fontWeight: '400', lineHeight: 1.6, textAlign: 'left' }}>
+                            Manage your expenses with ease.
+                            Cashly ensures secure authentication while letting you track spending by category and visualize your budget.
                         </Typography>
+
                         <Button
                             variant="contained"
                             color="primary"
@@ -237,10 +239,12 @@ const LandingPage = () => {
 
             {/* Login Modal */}
             <Dialog open={loginOpen} onClose={() => setLoginOpen(false)}>
-                <DialogTitle>Login</DialogTitle>
-                <DialogContent>
-                    {loading ? <CircularProgress /> : (
-                        <Box component="form" onSubmit={handleLoginSubmit} sx={{ mt: 2 }}>
+                <DialogTitle sx={{ textAlign: 'center' }}>Login</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    {loading ? (
+                        <CircularProgress />
+                    ) : (
+                        <Box component="form" onSubmit={handleLoginSubmit} sx={{ mt: 2, width: '100%', maxWidth: 400 }}>
                             <TextField
                                 margin="dense"
                                 name="username"
@@ -261,7 +265,7 @@ const LandingPage = () => {
                                 value={formData.password}
                                 onChange={handleInputChange}
                             />
-                            <DialogActions>
+                            <DialogActions sx={{ justifyContent: 'center', mt: 2, gap: 2 }}>
                                 <Button variant="outlined" onClick={() => setLoginOpen(false)}>
                                     Cancel
                                 </Button>
@@ -276,8 +280,8 @@ const LandingPage = () => {
 
             {/* Register Modal */}
             <Dialog open={joinOpen} onClose={() => setJoinOpen(false)}>
-                <DialogTitle>Join</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{ textAlign: 'center' }}>Join</DialogTitle>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
                         <Box component="form" onSubmit={handleRegisterSubmit} sx={{ mt: 2 }}>
                             <TextField
@@ -300,7 +304,7 @@ const LandingPage = () => {
                                 value={formData.password}
                                 onChange={handleInputChange}
                             />
-                            <DialogActions>
+                            <DialogActions sx={{ justifyContent: 'center', mt: 2, gap: 2 }}>
                                 <Button variant="outlined" onClick={() => setJoinOpen(false)}>
                                     Cancel
                                 </Button>

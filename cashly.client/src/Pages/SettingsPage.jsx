@@ -174,7 +174,6 @@ const SettingsPage = () => {
                 <DialogTitle sx={{ textAlign: 'center' }}>Are you sure?</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
-
                         <Box component="form" onSubmit={handleDeleteAccount} sx={{ mt: 2 }}>
                             <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                                   <Button variant="outlined" onClick={() => setDeleteUserOpen(false)}>

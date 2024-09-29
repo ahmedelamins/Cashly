@@ -151,12 +151,12 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
 
           {/* Logout dialog*/}
       <Dialog maxWidth="xs" fullWidth open={logoutOpen} onClose={() => setLogoutOpen(false)}>
-         <DialogTitle>Logout?</DialogTitle>
-            <DialogContent>
+              <DialogTitle sx={{ textAlign: 'center' }}>Logout?</DialogTitle>
+            <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                {loading ? <CircularProgress /> : (
                     <Box>
-                        <DialogActions>
-                            <Button varaint="contained" onClick={() => setLogoutOpen(false)}>
+                          <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                            <Button onClick={() => setLogoutOpen(false)}>
                               Cancel
                             </Button>
                             <Button variant="contained" color="primary" onClick={handleLogout}>
