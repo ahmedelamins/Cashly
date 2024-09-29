@@ -36,7 +36,7 @@ public class AuthService : IAuthService
             else if (!ValidPassword(password))
             {
                 response.Success = false;
-                response.Message = "Invalid password!";
+                response.Message = "Password must be 4-20 characters!";
             }
             else
             {
