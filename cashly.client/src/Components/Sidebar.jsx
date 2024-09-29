@@ -20,6 +20,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ReportIcon from "@mui/icons-material/Assessment";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from '@mui/icons-material/Logout';
+import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from "react-toastify";
 
 
@@ -29,12 +30,21 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
   
     const navigate = useNavigate();
 
+    const [logoutOpen, setLogoutOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const handleLogout = () => {
-        localStorage.clear();
+        setLoading(true);
 
-        navigate('/');
+        setTimeout(() => {
 
-        toast.info("See You Later.");
+            localStorage.clear();
+            setLoading(false);
+
+            navigate('/');
+            toast.info("See You Later.");
+        }, 900);
+
     }
 
   const drawer = (
@@ -96,7 +106,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
         <Button
           variant="contained"
                   color="error"
-                  onClick={handleLogout}
+                  onClick={() => setLogoutOpen(true)}
                   sx={{
                       mx: 2,
                       mt: "5rem",
@@ -138,7 +148,25 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
       >
         {drawer}
       </Drawer>
-      
+
+          {/* Logout dialog*/}
+          <Dialog maxWidth="sm" fullWidth open={logoutOpen} onClose={() => setLogoutOpen(false)}>
+          <DialogTitle>Are you sure?</DialogTitle>
+              <DialogContent>
+                  {loading ? <CircularProgress /> : (
+                      <Box>
+                          <DialogActions>
+                              <Button varaint="contained" onClick={() => setLogoutOpen(false)} sx={{ color: "white", backgroundColor: 'green' }} >
+                                Cancel
+                            </Button>
+                              <Button variant="contained" color="secondary" onClick={handleLogout}>
+                               Yes
+                              </Button>
+                          </DialogActions>
+                      </Box>
+                  )}
+              </DialogContent>
+      </Dialog>
     </>
   );
 };
