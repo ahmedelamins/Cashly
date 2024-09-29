@@ -51,7 +51,13 @@ const SettingsPage = () => {
                     
             setFormData("");
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
                 setLoading(false);
             }, 900);
@@ -85,7 +91,13 @@ const SettingsPage = () => {
             setNewUsername(newUsername);
             setFormData("");
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
                 setLoading(false);
             }, 900);
@@ -113,10 +125,16 @@ const SettingsPage = () => {
             }, 900);       
 
         } catch (error) {
-            toast.error(error.response.data);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 900);
         }
     };
 
@@ -142,7 +160,8 @@ const SettingsPage = () => {
                             mb: 2, mt: 2, transition: 'transform 0.3s ease',
                             '&:hover': {
                                 transform: 'scale(1.1)',
-                            }, }}>
+                            },
+                        }}>
                         Change Password
                     </Button>
                     <Button
