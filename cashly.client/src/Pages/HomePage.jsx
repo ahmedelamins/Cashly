@@ -12,7 +12,6 @@ import {
     Stack,
     Paper,
     MenuItem,
-    Divider,
     IconButton,
     Card
 } from '@mui/material';
@@ -161,14 +160,13 @@ const HomePage = () => {
                                             <Box display="flex" alignItems="center">
                                                 <Typography variant="h6" color="primary" sx={{ mr: 2 }}>
                                                     ${expense.amount.toFixed(2)}
-                                                </Typography>
-                                                {/* Placeholder for future Edit and Delete buttons */}
-                                                <Button variant="outlined" size="small" sx={{ mr: 1 }}>
-                                                    Edit
-                                                </Button>
-                                                <Button variant="outlined" size="small" color="error">
-                                                    Delete
-                                                </Button>
+                                                </Typography>                                                
+                                                <IconButton>
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton>
+                                                    <DeleteIcon />
+                                                </IconButton>
                                             </Box>
                                         </Box>
 
