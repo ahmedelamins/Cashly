@@ -152,7 +152,7 @@ const LandingPage = () => {
             </AppBar>
 
 
-            <Container maxWidth="lg" sx={{
+            <Container maxWidth="xl" fullWidth sx={{
                 flexGrow: 1,
                 mt: 13,
                 animation: 'slideIn 1s ease-out',
