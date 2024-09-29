@@ -78,7 +78,13 @@ const LandingPage = () => {
                 throw new Error("No token returned from login!");
             }
         } catch (error) {
-            toast.error(error.response.data);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable!");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
                 setLoading(false);
             }, 900);
