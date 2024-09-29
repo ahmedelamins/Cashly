@@ -105,7 +105,13 @@ const LandingPage = () => {
             }, 900);            
 
         } catch (error) {
-            toast.error(error.response.data);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
                 setLoading(false);
             }, 900);
