@@ -170,7 +170,7 @@ const SettingsPage = () => {
                 </Box>
             </Box>
             {/* delete account dialog*/}
-            <Dialog open={deleteUserOpen} onClose={() => setDeleteUserOpen(false)}>
+            <Dialog maxWidth="xs" fullWidth open={deleteUserOpen} onClose={() => setDeleteUserOpen(false)}>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogContent>
                     {loading ? <CircularProgress /> : (
@@ -189,7 +189,7 @@ const SettingsPage = () => {
                 </DialogContent>
             </Dialog>
             {/* change username dialog*/}
-            <Dialog open={usernameOpen} onClose={() => setUsernameOpen(false)}>
+            <Dialog maxWidth="xs" fullWidth open={usernameOpen} onClose={() => setUsernameOpen(false)}>
                 <DialogTitle>Change Username</DialogTitle>
                 <DialogContent>
                     {loading ? <CircularProgress /> : (
@@ -218,7 +218,7 @@ const SettingsPage = () => {
             </Dialog>          
 
             {/* change password dialog*/ }
-            <Dialog open={passwordOpen} onClose={() => setPasswordOpen(false)}>
+            <Dialog maxWidth="xs" fullWidth open={passwordOpen} onClose={() => setPasswordOpen(false)}>
                 <DialogTitle>Change Password</DialogTitle>
                 <DialogContent>
                     {loading ? <CircularProgress /> : (

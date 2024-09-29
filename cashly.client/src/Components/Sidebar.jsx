@@ -150,22 +150,22 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
       </Drawer>
 
           {/* Logout dialog*/}
-          <Dialog maxWidth="sm" fullWidth open={logoutOpen} onClose={() => setLogoutOpen(false)}>
-          <DialogTitle>Are you sure?</DialogTitle>
-              <DialogContent>
-                  {loading ? <CircularProgress /> : (
-                      <Box>
-                          <DialogActions>
-                              <Button varaint="contained" onClick={() => setLogoutOpen(false)} sx={{ color: "white", backgroundColor: 'green' }} >
-                                Cancel
+      <Dialog maxWidth="xs" fullWidth open={logoutOpen} onClose={() => setLogoutOpen(false)}>
+         <DialogTitle>Logout?</DialogTitle>
+            <DialogContent>
+               {loading ? <CircularProgress /> : (
+                    <Box>
+                        <DialogActions>
+                            <Button varaint="contained" onClick={() => setLogoutOpen(false)}>
+                              Cancel
                             </Button>
-                              <Button variant="contained" color="secondary" onClick={handleLogout}>
+                            <Button variant="contained" color="primary" onClick={handleLogout}>
                                Yes
                               </Button>
-                          </DialogActions>
-                      </Box>
-                  )}
-              </DialogContent>
+                        </DialogActions>
+                    </Box>
+               )}
+          </DialogContent>
       </Dialog>
     </>
   );
