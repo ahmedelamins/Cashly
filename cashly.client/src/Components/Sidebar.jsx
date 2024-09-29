@@ -104,21 +104,21 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           />
         </ListItem>        
         <Button
-          variant="contained"
-                  color="error"
-                  onClick={() => setLogoutOpen(true)}
-                  sx={{
-                      mx: 2,
-                      mt: "5rem",
-                      p: "13px",
-                      fontWeight: 550,
-                      transition: 'transform 0.3s ease',
-                      '&:hover': {
-                          transform: 'scale(1.1)',
-                      },
-                  }}>
-                  <span style={{ marginRight: '8px' }}>Logout</span>
-                  <LogoutIcon />
+          variant="outlined"
+          color="error"
+          onClick={() => setLogoutOpen(true)}
+          sx={{
+             mx: 2,
+             mt: "5rem",
+             p: "13px",
+             fontWeight: 550,
+             transition: 'transform 0.3s ease',
+             '&:hover': {
+                  transform: 'scale(1.1)',
+             },
+          }}>
+             <span style={{ marginRight: '8px' }}>Logout</span>
+             <LogoutIcon />
         </Button>
       </List>
     </div>
