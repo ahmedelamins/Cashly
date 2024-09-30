@@ -102,6 +102,7 @@ public class ExpenseService : IExpenseService
             expense.Title = updatedExpense.Title;
             expense.Amount = updatedExpense.Amount;
             expense.Date = updatedExpense.Date;
+            expense.Category = updatedExpense.Category;
 
             await _context.SaveChangesAsync();
 
