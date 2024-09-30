@@ -79,7 +79,9 @@ const HomePage = () => {
             }, 600)
         } catch (error) {
             toast.error(error.response.data || "Connection error");
-            setLoading(false);
+            setTimeout(() => {
+                setLoading(false);
+            }, 600)
         }
     }
 
@@ -88,13 +90,7 @@ const HomePage = () => {
         e.preventDefault();
         setLoading(true);
 
-        try {
-            setFormData({
-                title: "",
-                amount: "",
-                date: "",
-                category: ""
-            });
+        try {            
 
             const response = await axiosInstance.post('/expense', {
                 title: formData.title,
@@ -107,13 +103,7 @@ const HomePage = () => {
             setLoading(false);
             handleCloseAddExpense();
             fetchExpenses();
-
-            setFormData({
-                title: "",
-                amount: "",
-                date: "",
-                category: ""
-            });
+            
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -122,9 +112,7 @@ const HomePage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 900);
+            setLoading(false);
         }
     };     
 
@@ -189,13 +177,14 @@ const HomePage = () => {
 
             toast.success(response.data.message);
 
+            fetchExpenses(); //refresh
+
             setFormData({
                 title: "",
                 amount: "",
                 date: "",
                 category: ""
             });
-            fetchExpenses(); //refresh
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
