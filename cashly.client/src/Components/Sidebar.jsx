@@ -43,7 +43,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
 
             navigate('/');
             toast.info("See You Later.");
-        }, 900);
+        }, 500);
 
     }
 
