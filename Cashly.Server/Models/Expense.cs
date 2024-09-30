@@ -14,7 +14,7 @@ public class Expense
     [Required]
     public string Category { get; set; } = string.Empty;
     [Required]
-    public DateTime Date { get; set; } = DateTime.Now;
+    public DateOnly Date { get; set; }
     [Required]
     public int UserId { get; set; }
 
