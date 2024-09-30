@@ -47,14 +47,14 @@ const SettingsPage = () => {
                 setPasswordOpen(false);
 
                 toast.success(response.data.message);
-            }, 900);
+            }, 700);
                     
             setFormData("");
         } catch (error) {
             toast.error(error.response.data.message);
             setTimeout(() => {
                 setLoading(false);
-            }, 900);
+            }, 700);
         }
     };
 
@@ -81,14 +81,14 @@ const SettingsPage = () => {
              
                 toast.success(response.data.message);
                 setNewUsername(newUsername);
-            },900);
+            }, 700);
 
             setFormData("");
         } catch (error) {
             toast.error(error.response.data.message);
             setTimeout(() => {
                 setLoading(false);
-            }, 900);
+            }, 700);
         }
     }
 
@@ -110,13 +110,13 @@ const SettingsPage = () => {
                 localStorage.clear();  
             
                 navigate('/');
-            }, 900);       
+            }, 700);       
 
         } catch (error) {
             toast.error(error.response.data);
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 7000);
         }
     };
 
