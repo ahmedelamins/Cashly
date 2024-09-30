@@ -41,7 +41,6 @@ const LandingPage = () => {
     //login
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-
         setLoading(true)
 
         try {
@@ -70,7 +69,7 @@ const LandingPage = () => {
                     toast.success(response.data.message);
 
                     navigate('/home');
-                }, 900);
+                }, 600);
 
                 
             } else {
@@ -86,7 +85,7 @@ const LandingPage = () => {
             }
             setTimeout(() => {
                 setLoading(false);
-            }, 900);
+            }, 600);
         } 
     };
 
