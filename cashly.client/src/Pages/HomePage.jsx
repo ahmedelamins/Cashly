@@ -20,6 +20,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import { Pie } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 const categories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
 
@@ -205,7 +207,32 @@ const HomePage = () => {
     useEffect(() => {
         fetchExpenses();
     }, []);
+    
+    //category totals
+    const getCategoryTotals = () => {
+        return categories.map((category) => {
+            return expenses
+                .filter((expense) => expense.category === category)
+                .reduce((total, expense) => total + expense.amount, 0);
+        });
+    };
 
+    const donutData = {
+        labels: categories,  // The categories as labels
+        datasets: [
+            {
+                data: getCategoryTotals(),
+                backgroundColor: ['#f44336', '#64b5f6', '#515785', '#ffb74d', '#629464'],
+                hoverOffset: 5,
+            },
+        ],
+    };
+
+    const donutOptions = {
+        responsive: true,        
+        cutout: '50%', 
+    };
+    
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
             <Typography variant="h4" gutterBottom sx={{ letterSpacing: '0.10em', textAlign: 'left' }}>
@@ -234,10 +261,10 @@ const HomePage = () => {
                 <Grid item xs={12} md={6} sx={{ mb: 2 }}>
                     <Paper elevation={3} sx={{ p: 2, textAlign: 'center' }}>
                         <Typography variant="h6" sx={{ mb: 2 }}>
-                            Expenditure
+                            Expenditure by category
                         </Typography>
                         <Box sx={{ width: { xs: '100%', md: '70%' }, mx: 'auto' }}>
-                            <h5> Chart Container here</h5>
+                            {loading ? <CircularProgress /> : <Pie data={donutData} options={donutOptions} /> }
                         </Box>
                     </Paper>
                 </Grid>
