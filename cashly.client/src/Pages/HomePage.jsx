@@ -218,7 +218,7 @@ const HomePage = () => {
     };
 
     const donutData = {
-        labels: categories,  // The categories as labels
+        labels: categories, 
         datasets: [
             {
                 data: getCategoryTotals(),
@@ -263,11 +263,20 @@ const HomePage = () => {
                         <Typography variant="h6" sx={{ mb: 2 }}>
                             Expenditure by category
                         </Typography>
-                        <Box sx={{ width: { xs: '100%', md: '70%' }, mx: 'auto' }}>
-                            {loading ? <CircularProgress /> : <Pie data={donutData} options={donutOptions} /> }
+                        <Box sx={{ width: { xs: '80%', md: '70%' }, mx: 'auto' }}>
+                            {loading ? (    
+                                <CircularProgress />
+                            ) : (donutData && donutData.datasets && donutData.datasets[0] && donutData.datasets[0].data && donutData.datasets[0].data.length > 0) ? (
+                                <Pie data={donutData} options={donutOptions} />
+                            )  : (
+                                <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
+                                    No data available..
+                                </Typography>
+                            )}
                         </Box>
                     </Paper>
                 </Grid>
+
 
                 {/* expense history container */}
                 <Grid item xs={12} md={6}>
