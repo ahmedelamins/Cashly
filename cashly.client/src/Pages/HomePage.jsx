@@ -66,15 +66,14 @@ const HomePage = () => {
 
         try {
             const response = await axiosInstance.get('/expense');
+
             setTimeout(() => {
                 setExpenses(response.data.data);
                 setLoading(false);
-            }, 900);
+            }, 600)
         } catch (error) {
             toast.error(error.response.data || "Connection error");
-            setTimeout(() => {
-                setLoading(false);
-            }, 900);
+            setLoading(false);
         }
     }
 
@@ -91,12 +90,10 @@ const HomePage = () => {
                 category: formData.category,
             });
 
-            setTimeout(() => {
-                toast.success(response.data.message);
-                setLoading(false);
-                handleCloseAddExpense();
-                fetchExpenses();                                
-            }, 900);            
+            toast.success(response.data.message);
+            setLoading(false);
+            handleCloseAddExpense();
+            fetchExpenses();
 
             setFormData("");
         } catch (error) {
@@ -125,12 +122,10 @@ const HomePage = () => {
         try {
             const response = await axiosInstance.delete(`/expense/${openDelete}`);
 
-            setTimeout(() => {
-                setLoading(false);
-                setOpenDelete(null);
+            setLoading(false);
+            setOpenDelete(null);
 
-                toast.success(response.data.message);
-            }, 900);
+            toast.success(response.data.message);
 
             fetchExpenses(); //refresh
 
@@ -142,9 +137,7 @@ const HomePage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 900);
+            setLoading(false);
         }
     };
 
@@ -172,23 +165,20 @@ const HomePage = () => {
                 amount: parseFloat(formData.amount),
                 date: formData.date,
                 category: formData.category,
-            });
+            }); 
 
-            setTimeout(() => {
-                setLoading(false);
-                setOpenEdit(null);
+            setLoading(false);
+            setOpenEdit(null);
 
-                toast.success(response.data.message);
+            toast.success(response.data.message);
 
-            }, 900);
-
-            fetchExpenses(); //refresh
             setFormData({
                 title: "",
                 amount: "",
                 date: "",
                 category: ""
             });
+            fetchExpenses(); //refresh
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -197,9 +187,7 @@ const HomePage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 900);
+            setLoading(false);
         }
     }
 
@@ -243,7 +231,7 @@ const HomePage = () => {
                 onClick={handleOpenAddExpense}
                 startIcon={<AddIcon />}
                 sx={{
-                    mt: 3,
+                    mt: 2,
                     fontWeight: "540",
                     py: 1.4,
                     px: 3,
@@ -278,7 +266,7 @@ const HomePage = () => {
 
                 {/* expense history container */}
                 <Grid item xs={12} md={6}>
-                    <Paper elevation={3} sx={{ p: 2, maxHeight: '500px', overflowY: 'auto' }}>
+                    <Paper elevation={3} sx={{ p: 2, maxHeight: '450px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ position: 'sticky', mb: 2, textAlign: 'center' }}>
                             Expense History
                         </Typography>
