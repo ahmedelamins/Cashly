@@ -82,23 +82,21 @@ const HomePage = () => {
         setLoading(true);
 
         try {
-            const expenseData = {
+            const response = await axiosInstance.post('/expense', {
                 title: formData.title,
                 amount: parseFloat(formData.amount),
                 date: formData.date,
                 category: formData.category,
-            }
-
-            const response = await axiosInstance.post('/expense', expenseData);
+            });
 
             setTimeout(() => {
                 toast.success(response.data.message);
                 setLoading(false);
                 handleCloseAddExpense();
                 fetchExpenses();                                
-            }, 900);
-            
+            }, 900);            
 
+            setFormData("");
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -153,7 +151,7 @@ const HomePage = () => {
 
         setOpenEdit(expense.id);
     };
-
+        
 
     //edit expense
     const handleUpdateExpense = async (e) => {
@@ -161,24 +159,28 @@ const HomePage = () => {
         setLoading(true)
 
         try {
-            const updatedExpenseData = {
+            const response = await axiosInstance.put(`/expense/${openEdit}`, {
                 title: formData.title,
                 amount: parseFloat(formData.amount),
                 date: formData.date,
-                category: formData.category
-            };
-
-            const response = await axiosInstance.put(`/expense/${openEdit}`, updatedExpenseData);
+                category: formData.category,
+            });
 
             setTimeout(() => {
                 setLoading(false);
                 setOpenEdit(null);
 
                 toast.success(response.data.message);
+
             }, 900);
 
             fetchExpenses(); //refresh
-
+            setFormData({
+                title: "",
+                amount: "",
+                date: "",
+                category: ""
+            });
         } catch (error) {
             toast.error(error.response.data);
             setTimeout(() => {
@@ -289,6 +291,7 @@ const HomePage = () => {
                     </Paper>
                 </Grid>
             </Grid>
+
             {/* edit expense form dialog */}
             <Dialog maxWidth="xs" fullWidth open={openEdit} onClose={() => setOpenEdit(false)}>
                 <DialogTitle sx={{ textAlign: 'center' }}>{loading ? "Updating.." : "Update expense"}</DialogTitle>
