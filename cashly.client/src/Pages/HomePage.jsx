@@ -172,8 +172,6 @@ const HomePage = () => {
                 category: formData.category,
             });
 
-            console.log(formData.category)
-
             setTimeout(() => {
                 setLoading(false);
                 setOpenEdit(null);
