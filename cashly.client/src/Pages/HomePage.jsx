@@ -58,8 +58,14 @@ const HomePage = () => {
     const handleCloseAddExpense = () => {
         setOpenAddExpense(false);
         setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
-    }   
+    }  
 
+    //close edit dialog
+    const handleCloseEditExpense = () => {
+        setOpenEdit(false);
+        setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
+    }  
+        
     //grab expenses
     const fetchExpenses = async () => {
         setLoading(true);
@@ -83,6 +89,13 @@ const HomePage = () => {
         setLoading(true);
 
         try {
+            setFormData({
+                title: "",
+                amount: "",
+                date: "",
+                category: ""
+            });
+
             const response = await axiosInstance.post('/expense', {
                 title: formData.title,
                 amount: parseFloat(formData.amount),
@@ -95,7 +108,12 @@ const HomePage = () => {
             handleCloseAddExpense();
             fetchExpenses();
 
-            setFormData("");
+            setFormData({
+                title: "",
+                amount: "",
+                date: "",
+                category: ""
+            });
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -108,7 +126,7 @@ const HomePage = () => {
                 setLoading(false);
             }, 900);
         }
-    };
+    };     
 
     // Open delete dialog and store the ID of the expense
     const handleOpenDelete = (id) => {
@@ -151,8 +169,7 @@ const HomePage = () => {
         });
 
         setOpenEdit(expense.id);
-    };
-        
+    };        
 
     //edit expense
     const handleUpdateExpense = async (e) => {
@@ -316,8 +333,8 @@ const HomePage = () => {
                                     </Card>
                                 ))
                             ) : (
-                                <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
-                                    Nothing to see here..
+                                <Typography variant="body1" sx={{ textAlign: 'center', mt: 2 }}>
+                                    No data available
                                 </Typography>
                             )}
                         </Stack>
@@ -327,7 +344,7 @@ const HomePage = () => {
             </Grid>
 
             {/* edit expense form dialog */}
-            <Dialog maxWidth="xs" fullWidth open={openEdit} onClose={() => setOpenEdit(false)}>
+            <Dialog maxWidth="xs" fullWidth open={openEdit} onClose={handleCloseEditExpense}>
                 <DialogTitle sx={{ textAlign: 'center' }}>{loading ? "Updating.." : "Update expense"}</DialogTitle>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? <CircularProgress /> : (
@@ -383,7 +400,7 @@ const HomePage = () => {
                             <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                 <Button
                                     variant="outlined"
-                                    onClick={() => setOpenEdit(false)}>
+                                    onClick={handleCloseEditExpense}>
                                     Discard
                                 </Button>
                                 <Button
