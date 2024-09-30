@@ -41,6 +41,16 @@ const HomePage = () => {
         category: ""
     });
 
+    //clear form
+    const clearForm = () => {
+        setFormData({
+            title: "",
+            amount: "",
+            date: "",
+            category: ""
+        });
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -57,13 +67,13 @@ const HomePage = () => {
     //close add dialog
     const handleCloseAddExpense = () => {
         setOpenAddExpense(false);
-        setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
+        clearForm();
     }  
 
     //close edit dialog
     const handleCloseEditExpense = () => {
         setOpenEdit(false);
-        setFormData({ title: "", amount: "", date: "", category: "" }); //reset formData
+        clearForm();
     }  
         
     //grab expenses
@@ -77,6 +87,7 @@ const HomePage = () => {
                 setExpenses(response.data.data);
                 setLoading(false);
             }, 600)
+
         } catch (error) {
             toast.error(error.response.data || "Connection error");
             setTimeout(() => {
@@ -90,8 +101,7 @@ const HomePage = () => {
         e.preventDefault();
         setLoading(true);
 
-        try {            
-
+        try {
             const response = await axiosInstance.post('/expense', {
                 title: formData.title,
                 amount: parseFloat(formData.amount),
@@ -177,14 +187,9 @@ const HomePage = () => {
 
             toast.success(response.data.message);
 
-            fetchExpenses(); //refresh
-
-            setFormData({
-                title: "",
-                amount: "",
-                date: "",
-                category: ""
-            });
+            fetchExpenses();
+            clearForm();
+            
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -250,7 +255,7 @@ const HomePage = () => {
             </Button>
 
             {/* chart and history containers */}
-            <Grid container spacing={2} sx={{ mt: 2 }}>
+            <Grid container spacing={2} sx={{ mt: 2}}>
                 {/* chart container*/}
                 <Grid item xs={12} md={6} sx={{ mb: 2 }}>
                     <Paper elevation={3} sx={{ p: 2, textAlign: 'center' }}>
