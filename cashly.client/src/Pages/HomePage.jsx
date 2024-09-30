@@ -133,10 +133,16 @@ const HomePage = () => {
             fetchExpenses(); //refresh
 
         } catch (error) {
-            toast.error(error.response.data);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
-                setLoading(null);
-            }, 900)
+                setLoading(false);
+            }, 900);
         }
     };
 
@@ -182,10 +188,16 @@ const HomePage = () => {
                 category: ""
             });
         } catch (error) {
-            toast.error(error.response.data);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable. Check your connection.");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
             setTimeout(() => {
-                setLoading(null);
-            }, 900)
+                setLoading(false);
+            }, 900);
         }
     }
 
