@@ -263,16 +263,14 @@ const HomePage = () => {
                         <Typography variant="h6" sx={{ mb: 2 }}>
                             Expenditure by category
                         </Typography>
-                        <Box sx={{ width: { xs: '80%', md: '70%' }, mx: 'auto' }}>
-                            {loading ? (    
+                        <Box sx={{ width: { xs: '70%', md: '70%' }, mx: 'auto' }}>
+                            {loading ? (
                                 <CircularProgress />
-                            ) : (donutData && donutData.datasets && donutData.datasets[0] && donutData.datasets[0].data && donutData.datasets[0].data.length > 0) ? (
+                            ) : (expenses.length == 0 ? (
+                                <Typography variant="body1">No data available</Typography>
+                            ) : (
                                 <Pie data={donutData} options={donutOptions} />
-                            )  : (
-                                <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
-                                    No data available..
-                                </Typography>
-                            )}
+                            ))}
                         </Box>
                     </Paper>
                 </Grid>
@@ -314,7 +312,7 @@ const HomePage = () => {
                                                     ${expense.amount.toFixed(2)}
                                                 </Typography>
                                                 <Button onClick={() => handleOpenEdit(expense)} variant="contained" startIcon={<EditIcon />}
-                                                    sx={{ mr: 1, mb: { xs: 1, sm: 0 } }}>
+                                                    sx={{ mr: 1, mb: { sm: 0 } }}>
                                                     Update
                                                 </Button>
                                                 <Button onClick={() => handleOpenDelete(expense.id)} variant="contained" color="error"
