@@ -22,7 +22,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
-import { goodTime } from '../Components/GoodTime';
 
 const categories = ['Utility', 'Food', 'Fun', 'Shopping', 'Other'];
 
@@ -233,11 +232,23 @@ const HomePage = () => {
         cutout: '50%', 
     };
 
+    //greeting
+    const goodTime = () => {
+        const hr = new Date().getHours();
+
+        if (hr >= 0 && hr < 12) {
+            return "Good morning";
+        } else if (hr >= 12 && hr <= 15) {
+            return "Good afternoon";
+        } else {
+            return "Good evening";
+        }
+    };
     const greeting = goodTime();
     
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
-            <Typography variant="h4" gutterBottom sx={{ letterSpacing: '0.10em', textAlign: 'left' }}>
+            <Typography variant="h4" gutterBottom sx={{ letterSpacing: '0.1em', textAlign: 'left' }}>
                 {`${greeting}, ${Username}!`}
             </Typography>
             <Button
