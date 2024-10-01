@@ -157,13 +157,13 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
             <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                {loading ? <CircularProgress /> : (
                     <Box>
-                          <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-                            <Button onClick={() => setLogoutOpen(false)}>
+                        <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                            <Button variant="contained" onClick={() => setLogoutOpen(false)}>
                               Cancel
                             </Button>
-                            <Button variant="contained" color="primary" onClick={handleLogout}>
+                            <Button variant="outlined" color="error" onClick={handleLogout}>
                                Yes
-                              </Button>
+                            </Button>
                         </DialogActions>
                     </Box>
                )}
