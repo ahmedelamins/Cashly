@@ -4,6 +4,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.OpenApi.Models;
 using Cashly.Server.Services.AuthService;
 using Cashly.Server.Services.ExpenseService;
+using Cashly.Server.Services.ReportService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -66,6 +67,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 //registering services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
