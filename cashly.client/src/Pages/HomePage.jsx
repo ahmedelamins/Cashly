@@ -234,7 +234,6 @@ const HomePage = () => {
     };
 
     const greeting = goodTime();
-    console.log(greeting);
     
     return (
         <Box sx={{ mt: 1, mb: 2, p: 1 }} >
