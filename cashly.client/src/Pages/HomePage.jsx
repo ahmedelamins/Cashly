@@ -306,16 +306,17 @@ const HomePage = () => {
                                                 </Typography>
                                             </Box>
 
-                                            <Box display="flex" alignItems="center" justifyContent={{ xs: 'center', sm: 'flex-end' }} flexDirection={{ xs: 'column', sm: 'row' }}>
+                                            <Box display="flex" alignItems="center" justifyContent={{ xs: 'center', sm: 'flex-end' }} flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 0, sm: 2 }}>
                                                 <Typography variant="h6" color="primary" sx={{ mr: { sm: 2 }, mb: { xs: 1, sm: 0 } }}>
                                                     ${expense.amount.toFixed(2)}
                                                 </Typography>
                                                 <Button onClick={() => handleOpenEdit(expense)} variant="contained" startIcon={<EditIcon />}
-                                                    sx={{ mr: 1, mb: { sm: 0 } }}>
+                                                    sx={{ mr: { xs: 0, sm: 1 }, mb: { xs: 1, sm: 0 } }}>
                                                     Update
                                                 </Button>
                                                 <Button onClick={() => handleOpenDelete(expense.id)} variant="contained" color="error"
-                                                    startIcon={<DeleteIcon />}>
+                                                    startIcon={<DeleteIcon />}
+                                                    sx={{ mb: { xs: 1, sm: 0 } }}>
                                                     Delete
                                                 </Button>
                                             </Box>
