@@ -277,7 +277,7 @@ const HomePage = () => {
 
                 {/* expense history container */}
                 <Grid item xs={12} md={6}>
-                    <Paper elevation={3} sx={{ p: 2, maxHeight: '450px', overflowY: 'auto' }}>
+                    <Paper elevation={3} sx={{ p: 2, maxHeight: '460px', overflowY: 'auto' }}>
                         <Typography variant="h6" sx={{ position: 'sticky', mb: 2, textAlign: 'center' }}>
                             Expense History
                         </Typography>
