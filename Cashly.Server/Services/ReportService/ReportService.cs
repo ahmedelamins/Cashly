@@ -8,20 +8,18 @@ public class ReportService : IReportService
     {
         _context = context;
     }
-    public async Task<ServiceResponse<decimal>> GetTotalExpenses(int userId, DateOnly? startDate = null, DateOnly? endDate = null)
+    public async Task<ServiceResponse<decimal>> GetTotalExpenses(int userId)
     {
         var response = new ServiceResponse<decimal>();
 
         try
         {
             var totalExpenses = await _context.Expenses
-                .Where(e => e.UserId == userId &&
-                                 (!startDate.HasValue || e.Date >= startDate.Value) &&
-                                 (!endDate.HasValue || e.Date <= endDate.Value))
+                .Where(e => e.UserId == userId)
                 .SumAsync(e => e.Amount);
 
             response.Data = totalExpenses;
-
+            response.Message = totalExpenses == 0 ? "No expenses found." : "";
         }
         catch (Exception ex)
         {
@@ -31,16 +29,14 @@ public class ReportService : IReportService
 
         return response;
     }
-    public async Task<ServiceResponse<Dictionary<string, decimal>>> GetExpensesByCategory(int userId, DateOnly? startDate = null, DateOnly? endDate = null)
+    public async Task<ServiceResponse<Dictionary<string, decimal>>> GetExpensesByCategory(int userId)
     {
         var response = new ServiceResponse<Dictionary<string, decimal>>();
 
         try
         {
-            var expenseByCategory = await _context.Expenses
-                .Where(e => e.UserId == userId &&
-                                 (!startDate.HasValue || e.Date >= startDate.Value) &&
-                                 (!endDate.HasValue || e.Date <= endDate.Value))
+            var expensesByCategory = await _context.Expenses
+                .Where(e => e.UserId == userId)
                 .GroupBy(e => e.Category)
                 .Select(g => new
                 {
@@ -49,7 +45,8 @@ public class ReportService : IReportService
                 })
                .ToDictionaryAsync(g => g.Category, g => g.TotalAmount);
 
-            response.Data = expenseByCategory;
+            response.Data = expensesByCategory;
+            response.Message = expensesByCategory.Count < 1 ? "No expenses found." : "";
         }
         catch (Exception ex)
         {
