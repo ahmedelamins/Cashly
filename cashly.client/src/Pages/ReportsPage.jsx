@@ -35,7 +35,16 @@ const ReportsPage = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                
+
+                {/* Most Expensive Category Card */}
+                <Grid item xs={12} sm={4}>
+                    <Card sx={{ height: '100%' }}>
+                        <CardContent>
+                            <Typography variant="h5" gutterBottom>Most Expensive Category</Typography>
+                            <Typography variant="h4" color="success">{mostExpensiveCategory}</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
             </Grid>
         </Box>
     );
