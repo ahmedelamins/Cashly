@@ -1,4 +1,5 @@
-﻿namespace Cashly.Server.Services.ReportService;
+﻿
+namespace Cashly.Server.Services.ReportService;
 
 public class ReportService : IReportService
 {
@@ -90,6 +91,48 @@ public class ReportService : IReportService
             {
                 response.Data = "no expenses found";
             }
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<List<decimal>>> GetWeeklyExpenses(int userId)
+    {
+        var response = new ServiceResponse<List<decimal>>();
+
+        try
+        {
+            //get today's date
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var startOfWeek = today.AddDays(-(int)today.DayOfWeek); //sunday first day
+
+            var weeklyExpenses = await _context.Expenses
+                .Where(e => e.UserId == userId)      //fetch expenses for the current week
+                .GroupBy(e => e.Date)
+                .Select(group => new
+                {
+                    Day = group.Key,
+                    TotalAmount = group.Sum(e => e.Amount)
+                })
+                .ToListAsync();
+
+            //list of days
+            var expensesPerDay = new decimal[7];
+
+            //map results to matching day; 0: sunday, 6: saturday
+            foreach (var dayExpenses in weeklyExpenses)
+            {
+                int dayIndex = (int)dayExpenses.Day.DayOfWeek;
+                expensesPerDay[dayIndex] = dayExpenses.TotalAmount;
+            }
+
+            response.Data = expensesPerDay.ToList();
 
         }
         catch (Exception ex)
