@@ -49,7 +49,7 @@ const ReportsPage = () => {
             {
                 label: 'Expenses ($)',
                 data: weeklyExpenses,
-                backgroundColor: '#425f6e', // Red bars
+                backgroundColor: '#567787', // Red bars
                 borderColor: 'rgba(255, 99, 132, 1)',      // Red border
                 borderWidth: 1,
             },
@@ -87,7 +87,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Total Expenses</Typography>
-                            <Typography variant="h4" color="primary">${totalExpenses}</Typography>
+                            <Typography variant="h4" color="idk">${totalExpenses}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -97,7 +97,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Category with Most Expenses</Typography>
-                            <Typography variant="h5" color="secondary">{mostExpensiveCategory}</Typography>
+                            <Typography variant="h5" color="idk">{mostExpensiveCategory}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -107,7 +107,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Average Spending per Category</Typography>
-                            <Typography variant="h5" color="success">${averageSpending}</Typography>
+                            <Typography variant="h5" color="idk">${averageSpending}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
