@@ -39,7 +39,7 @@ public class reportController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("most-expensive"), Authorize]
+    [HttpGet("most-expensive-category/{userId:int}"), Authorize]
     public async Task<ActionResult<ServiceResponse<decimal>>> GetMosExpensiveCategory(int userId)
     {
         var response = await _reportService.GetMosExpensiveCategory(userId);
