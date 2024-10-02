@@ -12,7 +12,7 @@ const theme = createTheme({
             main: "#d32f2f"
         },
         idk: {
-            main: '#567787'
+            main: '#0e5375'
         },
         background: {
             default: '#fff', // White background
