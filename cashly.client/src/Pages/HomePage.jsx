@@ -19,7 +19,7 @@ import axiosInstance from '../utils/axiosInstance';
 import CircularProgress from '@mui/material/CircularProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
+import AddTaskRoundedIcon from '@mui/icons-material/AddTaskRounded';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 
@@ -254,7 +254,7 @@ const HomePage = () => {
             <Button
                 variant="contained"
                 onClick={handleOpenAddExpense}
-                startIcon={<AddIcon />}
+                startIcon={<AddTaskRoundedIcon />}
                 sx={{
                     mt: 2,
                     fontWeight: "540",
@@ -322,15 +322,27 @@ const HomePage = () => {
 
                                             <Box display="flex" alignItems="center" justifyContent={{ xs: 'center', sm: 'flex-end' }} flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 0, sm: 2 }}>
                                                 <Typography variant="h6" color="primary" sx={{ mr: { sm: 2 }, mb: { xs: 1, sm: 0 } }}>
-                                                    ${expense.amount.toFixed(2)}
+                                                   {expense.amount.toFixed(2)} SDG
                                                 </Typography>
                                                 <Button onClick={() => handleOpenEdit(expense)} variant="contained" startIcon={<EditIcon />}
-                                                    sx={{ mr: { xs: 0, sm: 1 }, mb: { xs: 1, sm: 0 } }}>
+                                                    sx={{
+                                                        mr: { xs: 0, sm: 1 },
+                                                        mb: { xs: 1, sm: 0 },
+                                                        transition: 'transform 0.3s ease',
+                                                        '&:hover': {
+                                                            transform: 'scale(1.1)',
+                                                        },
+                                                    }}>
                                                     Update
                                                 </Button>
                                                 <Button onClick={() => handleOpenDelete(expense.id)} variant="contained" color="error"
                                                     startIcon={<DeleteIcon />}
-                                                    sx={{ mb: { xs: 1, sm: 0 } }}>
+                                                    sx={{
+                                                        mb: { xs: 1, sm: 0 },
+                                                        transition: 'transform 0.3s ease',
+                                                        '&:hover': {
+                                                            transform: 'scale(1.1)',
+                                                        }, }}>
                                                     Delete
                                                 </Button>
                                             </Box>
