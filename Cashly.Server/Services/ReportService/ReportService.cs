@@ -29,24 +29,33 @@ public class ReportService : IReportService
 
         return response;
     }
-    public async Task<ServiceResponse<Dictionary<string, decimal>>> GetExpensesByCategory(int userId)
+    public async Task<ServiceResponse<decimal>> GetAverageSpendingPerCategory(int userId)
     {
-        var response = new ServiceResponse<Dictionary<string, decimal>>();
+        var response = new ServiceResponse<decimal>();
 
         try
         {
             var expensesByCategory = await _context.Expenses
-                .Where(e => e.UserId == userId)
+                .Where(e => e.Id == userId)
                 .GroupBy(e => e.Category)
-                .Select(g => new
+                .Select(group => new
                 {
-                    Category = g.Key,
-                    TotalAmount = g.Sum(e => e.Amount)
+                    Category = group.Key,
+                    totalAmount = group.Sum(e => e.Amount)
                 })
-               .ToDictionaryAsync(g => g.Category, g => g.TotalAmount);
+                .ToListAsync();
 
-            response.Data = expensesByCategory;
-            response.Message = expensesByCategory.Count < 1 ? "No expenses found." : "";
+            if (expensesByCategory.Count > 0)
+            {
+                var avgSpending = expensesByCategory.Average(e => e.totalAmount);
+                response.Data = avgSpending;
+            }
+            else
+            {
+                response.Data = 0;
+            }
+
+
         }
         catch (Exception ex)
         {
@@ -56,5 +65,4 @@ public class ReportService : IReportService
 
         return response;
     }
-
 }
