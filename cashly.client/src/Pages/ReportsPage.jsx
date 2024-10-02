@@ -147,7 +147,7 @@ const ReportsPage = () => {
 
     // Bar chart data for weekly expenses
     const barChartData = {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        labels: ['Sat', 'Sun', 'mon', 'Tue', 'Wed', 'Thu', 'Fri'],
         datasets: [
             {
                 label: 'Expenses (SDG)',
