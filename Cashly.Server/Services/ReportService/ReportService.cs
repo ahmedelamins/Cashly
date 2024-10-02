@@ -65,4 +65,39 @@ public class ReportService : IReportService
 
         return response;
     }
+
+    public async Task<ServiceResponse<string>> GetMosExpensiveCategory(int userId)
+    {
+        var response = new ServiceResponse<string>();
+
+        try
+        {
+            var mostExpensive = await _context.Expenses
+                .Where(e => e.Id == userId)
+                .GroupBy(e => e.Category)
+                .Select(group => new
+                {
+                    Category = group.Key,
+                    TotalAmount = group.Sum(e => e.Amount)
+                })
+                .OrderByDescending(e => e.TotalAmount)
+                .FirstOrDefaultAsync();
+            if (mostExpensive != null)
+            {
+                response.Data = mostExpensive.Category;
+            }
+            else
+            {
+                response.Data = "no expenses found";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
 }
