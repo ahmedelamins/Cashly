@@ -50,4 +50,16 @@ public class reportController : ControllerBase
         }
         return Ok(response);
     }
+
+    [HttpGet("weekly-expenses"), Authorize]
+    public async Task<ActionResult<ServiceResponse<decimal>>> GetWeeklyExpenses(int userId)
+    {
+        var response = await _reportService.GetWeeklyExpenses(userId);
+
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+        return Ok(response);
+    }
 }
