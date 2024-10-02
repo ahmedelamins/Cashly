@@ -28,15 +28,12 @@ ChartJS.register(
 );
 
 const ReportsPage = () => {
-    // Placeholder state for expenses
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [mostExpensiveCategory, setMostExpensiveCategory] = useState('');
     const [averageSpending, setAverageSpending] = useState(0);
     const [weeklyExpenses, setWeeklyExpenses] = useState([500, 700, 800, 600, 900, 750, 650]);
 
     useEffect(() => {
-        // Fetch the total expenses, most expensive category, and average spending here
-        // For now, we'll use mock data
         setTotalExpenses(3500);
         setMostExpensiveCategory('Food');
         setAverageSpending(500);
