@@ -80,14 +80,14 @@ const ReportsPage = () => {
         setLoading(false);
 
         try {
-            const userId = loacalStorage.getItem('userId');
+            const userId = localStorage.getItem('userId');
 
             const response = await axiosInstance.get(`report/most-expensive-category/${userId}`);
-
+            
             setTimeout(() => {
-                setLoading(fasle);
+                setLoading(false);
 
-                setAverageSpending(response.data.data);
+                setMostExpensiveCategory(response.data.data);
             }, 600);
         } catch (error) {
             toast.error(error.response.data || "Connection error");
