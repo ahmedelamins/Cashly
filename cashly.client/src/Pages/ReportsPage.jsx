@@ -33,25 +33,24 @@ ChartJS.register(
 const ReportsPage = () => {
     const [loading, setLoading] = useState(false);
     const [totalExpenses, setTotalExpenses] = useState();
+    const [averageSpending, setAverageSpending] = useState();
     const [mostExpensiveCategory, setMostExpensiveCategory] = useState('');
-    const [averageSpending, setAverageSpending] = useState(0);
     const [weeklyExpenses, setWeeklyExpenses] = useState([500, 700, 800, 600, 900, 750, 650]);
 
     //fetch total expenses
     const fetchTotalExpenses = async () => {
         setLoading(true);
-        const userId = localStorage.getItem('userId');
 
         try {
+            const userId = localStorage.getItem('userId');
+
             const response = await axiosInstance.get(`/report/total-expenses/${userId}`);
             setTimeout(() => {
                 setTotalExpenses(response.data.data);
                 setLoading(false);
             }, 600);
-
-            console.log(response.data);
+            
         } catch (error) {
-            console.log(error)
             toast.error(error.response.data || "Connection error");
             setTimeout(() => {
                 setLoading(false);
@@ -59,10 +58,31 @@ const ReportsPage = () => {
         }
     }
 
+    //fetch average spending
+    const fetchAverageSpending = async () => {
+        setLoading(true);
+
+        try {
+            const userId = localStorage.getItem('userId');
+
+            const response = await axiosInstance.get(`/report/average-expense/${userId}`);
+
+            setTimeout(() => {
+                setAverageSpending(response.data.data);
+                setLoading(false);
+            }, 600);
+        } catch (error) {
+            toast.error(error.response.data || "Connection error");
+            setTime(() => {
+                setLoading(false);
+            }, 600);
+        }
+    }
+
     useEffect(() => {
         fetchTotalExpenses();
         setMostExpensiveCategory('Food');
-        setAverageSpending(500);
+        fetchAverageSpending();
     }, []);
 
     // Bar chart data for weekly expenses
@@ -134,7 +154,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Average Spending per Category</Typography>
-                            <Typography variant="h3" color="idk">${averageSpending}</Typography>
+                            <Typography variant="h3" color="idk">{loading ? <CircularProgress /> : averageSpending} SDG</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
