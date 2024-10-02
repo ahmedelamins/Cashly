@@ -73,7 +73,7 @@ public class ReportService : IReportService
         try
         {
             var mostExpensive = await _context.Expenses
-                .Where(e => e.Id == userId)
+                .Where(e => e.UserId == userId)
                 .GroupBy(e => e.Category)
                 .Select(group => new
                 {
