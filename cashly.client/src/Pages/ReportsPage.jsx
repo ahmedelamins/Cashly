@@ -45,6 +45,16 @@ const ReportsPage = () => {
                         </CardContent>
                     </Card>
                 </Grid>
+
+                {/* Average Spending per Category Card */}
+                <Grid item xs={12} sm={4}>
+                    <Card sx={{ height: '100%' }}>
+                        <CardContent>
+                            <Typography variant="h5" gutterBottom>Average Spending per Category</Typography>
+                            <Typography variant="h5" color="success">${averageSpending}</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
             </Grid>
         </Box>
     );
