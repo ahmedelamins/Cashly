@@ -27,10 +27,10 @@ public class reportController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("expenses-by-category"), Authorize]
-    public async Task<ActionResult<ServiceResponse<Dictionary<string, decimal>>>> GetExpensesByCategory(int userId)
+    [HttpGet("average-expenses"), Authorize]
+    public async Task<ActionResult<ServiceResponse<decimal>>> GetAverageSpendingPerCategory(int userId)
     {
-        var response = await _reportService.GetExpensesByCategory(userId);
+        var response = await _reportService.GetAverageSpendingPerCategory(userId);
 
         if (!response.Success)
         {
