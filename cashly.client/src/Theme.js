@@ -11,6 +11,9 @@ const theme = createTheme({
         error: {
             main: "#d32f2f"
         },
+        idk: {
+            main: '#567787'
+        },
         background: {
             default: '#fff', // White background
         },
