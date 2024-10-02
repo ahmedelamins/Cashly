@@ -20,7 +20,7 @@ public class ReportService : IReportService
                 .SumAsync(e => e.Amount);
 
             response.Data = totalExpenses;
-            response.Message = totalExpenses == 0 ? "No expenses found." : "";
+            response.Message = totalExpenses == 0 ? "Nothing yet." : "";
         }
         catch (Exception ex)
         {
@@ -54,6 +54,7 @@ public class ReportService : IReportService
             else
             {
                 response.Data = 0;
+
             }
 
 
@@ -89,7 +90,7 @@ public class ReportService : IReportService
             }
             else
             {
-                response.Data = "no expenses found";
+                response.Data = "Nothing yet.";
             }
 
         }
