@@ -49,7 +49,7 @@ const ReportsPage = () => {
             {
                 label: 'Expenses ($)',
                 data: weeklyExpenses,
-                backgroundColor: '#567787', // Red bars
+                backgroundColor: '#29576e', // Red bars
                 borderColor: 'rgba(255, 99, 132, 1)',      // Red border
                 borderWidth: 1,
             },
@@ -58,7 +58,7 @@ const ReportsPage = () => {
 
     const barChartOptions = {
         responsive: true,
-        maintainAspectRatio: false, // This makes the chart adjust better to smaller screens
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top',
@@ -72,12 +72,16 @@ const ReportsPage = () => {
             y: {
                 beginAtZero: true,
             },
+            x: {
+                barThickness: 15,
+                maxBarThickness: 15,
+            },
         },
     };
 
     return (
-        <Box sx={{ mt: 3, mb: 2, p: 2 }}>
-            <Typography variant="h4" gutterBottom sx={{ letterSpacing: '0.08em', textAlign: 'left' }}>
+        <Box sx={{ mt: 2, mb: 2, p: 2 }}>
+            <Typography variant="h4" gutterBottom sx={{ letterSpacing: '0.08em', textAlign: 'left', mb: '2' }}>
                 Expense Analytics
             </Typography>
 
@@ -87,7 +91,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Total Expenses</Typography>
-                            <Typography variant="h4" color="idk">${totalExpenses}</Typography>
+                            <Typography variant="h3" color="idk">${totalExpenses}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -96,8 +100,8 @@ const ReportsPage = () => {
                 <Grid item xs={12} sm={4}>
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
-                            <Typography variant="h6" gutterBottom>Category with Most Expenses</Typography>
-                            <Typography variant="h5" color="idk">{mostExpensiveCategory}</Typography>
+                            <Typography variant="h6" gutterBottom>Most Expensive Category</Typography>
+                            <Typography variant="h3" color="idk">{mostExpensiveCategory}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -107,7 +111,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Average Spending per Category</Typography>
-                            <Typography variant="h5" color="idk">${averageSpending}</Typography>
+                            <Typography variant="h3" color="idk">${averageSpending}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
