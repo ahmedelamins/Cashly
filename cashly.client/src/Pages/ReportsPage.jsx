@@ -6,7 +6,6 @@ import {
     CardContent,
     Grid,
 } from '@mui/material';
-import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -16,6 +15,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -46,7 +46,13 @@ const ReportsPage = () => {
 
             setWeeklyExpenses(response.data.data);
         } catch (error) {
-            toast.error(error.response.data || "Connection error");
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable!");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
         }
     }
 
@@ -64,8 +70,16 @@ const ReportsPage = () => {
             }, 600);
             
         } catch (error) {
-            toast.error(error.response.data || "Connection error");
-            setLoading(false);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable!");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
+            setTimeout(() => {
+                setLoading(false);
+            }, 600)
         }
     }
 
@@ -83,8 +97,16 @@ const ReportsPage = () => {
                 setLoading(false);
             }, 600);
         } catch (error) {
-            toast.error(error.response.data || "Connection error");
-            setLoading(false);
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable!");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
+            setTimeout(() => {
+                setLoading(false);
+            }, 600)
         }
     }
 
@@ -103,9 +125,16 @@ const ReportsPage = () => {
                 setMostExpensiveCategory(response.data.data);
             }, 600);
         } catch (error) {
-            toast.error(error.response.data || "Connection error");
-            setLoading(false);
-            
+            if (error.response) {
+                toast.error(error.response.data);
+            } else if (error.request) {
+                toast.error("Server is unreachable!");
+            } else {
+                toast.error("An unexpected error occured.");
+            }
+            setTimeout(() => {
+                setLoading(false);
+            }, 600);            
         }
     }
 
@@ -121,7 +150,7 @@ const ReportsPage = () => {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [
             {
-                label: 'Expenses ($)',
+                label: 'Expenses (SDG)',
                 data: weeklyExpenses,
                 backgroundColor: '#29576e', 
                 borderColor: 'rgba(255, 99, 132, 1)',
