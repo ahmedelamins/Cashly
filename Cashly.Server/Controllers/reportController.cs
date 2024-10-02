@@ -27,7 +27,7 @@ public class reportController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("average-expenses"), Authorize]
+    [HttpGet("average-expenses/{userId:int}"), Authorize]
     public async Task<ActionResult<ServiceResponse<decimal>>> GetAverageSpendingPerCategory(int userId)
     {
         var response = await _reportService.GetAverageSpendingPerCategory(userId);
