@@ -35,7 +35,20 @@ const ReportsPage = () => {
     const [totalExpenses, setTotalExpenses] = useState();
     const [averageSpending, setAverageSpending] = useState();
     const [mostExpensiveCategory, setMostExpensiveCategory] = useState('');
-    const [weeklyExpenses, setWeeklyExpenses] = useState([500, 700, 800, 600, 900, 750, 650]);
+    const [weeklyExpenses, setWeeklyExpenses] = useState();
+
+    //fetch weekly expenses
+    const fetchWeeklyExpense = async () => {
+        try {
+            const userId = localStorage.getItem('userId');
+
+            const response = await axiosInstance.get(`report/weekly-expenses/${userId}`);
+
+            setWeeklyExpenses(response.data.data);
+        } catch (error) {
+            toast.error(error.response.data || "Connection error");
+        }
+    }
 
     //fetch total expenses
     const fetchTotalExpenses = async () => {
@@ -75,7 +88,7 @@ const ReportsPage = () => {
         }
     }
 
-    //most expensive category
+    //fetch most expensive category
     const fetchMostExpensive = async () => {
         setLoading(false);
 
