@@ -52,9 +52,7 @@ const ReportsPage = () => {
             
         } catch (error) {
             toast.error(error.response.data || "Connection error");
-            setTimeout(() => {
-                setLoading(false);
-            }, 600)
+            setLoading(false);
         }
     }
 
@@ -73,15 +71,34 @@ const ReportsPage = () => {
             }, 600);
         } catch (error) {
             toast.error(error.response.data || "Connection error");
-            setTime(() => {
-                setLoading(false);
+            setLoading(false);
+        }
+    }
+
+    //most expensive category
+    const fetchMostExpensive = async () => {
+        setLoading(false);
+
+        try {
+            const userId = loacalStorage.getItem('userId');
+
+            const response = await axiosInstance.get(`report/most-expensive-category/${userId}`);
+
+            setTimeout(() => {
+                setLoading(fasle);
+
+                setAverageSpending(response.data.data);
             }, 600);
+        } catch (error) {
+            toast.error(error.response.data || "Connection error");
+            setLoading(false);
+            
         }
     }
 
     useEffect(() => {
         fetchTotalExpenses();
-        setMostExpensiveCategory('Food');
+        fetchMostExpensive();
         fetchAverageSpending();
     }, []);
 
@@ -144,7 +161,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Most Expensive Category</Typography>
-                            <Typography variant="h3" color="idk">{mostExpensiveCategory}</Typography>
+                            <Typography variant="h3" color="idk">{loading ? <CircularProgress /> : mostExpensiveCategory}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
