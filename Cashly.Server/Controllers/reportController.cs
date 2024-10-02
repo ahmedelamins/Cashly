@@ -15,7 +15,7 @@ public class reportController : ControllerBase
         _reportService = reportService;
     }
 
-    [HttpGet("total-expenses"), Authorize]
+    [HttpGet("total-expenses/{userId:int}"), Authorize]
     public async Task<ActionResult<ServiceResponse<decimal>>> GetTotalExpenses(int userId)
     {
         var response = await _reportService.GetTotalExpenses(userId);
