@@ -16,6 +16,9 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import axiosInstance from '../utils/axiosInstance';
+import { toast } from 'react-toastify';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // Register the chart components
 ChartJS.register(
@@ -28,13 +31,36 @@ ChartJS.register(
 );
 
 const ReportsPage = () => {
-    const [totalExpenses, setTotalExpenses] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [totalExpenses, setTotalExpenses] = useState();
     const [mostExpensiveCategory, setMostExpensiveCategory] = useState('');
     const [averageSpending, setAverageSpending] = useState(0);
     const [weeklyExpenses, setWeeklyExpenses] = useState([500, 700, 800, 600, 900, 750, 650]);
 
+    //fetch total expenses
+    const fetchTotalExpenses = async () => {
+        setLoading(true);
+        const userId = localStorage.getItem('userId');
+
+        try {
+            const response = await axiosInstance.get(`/report/total-expenses/${userId}`);
+            setTimeout(() => {
+                setTotalExpenses(response.data.data);
+                setLoading(false);
+            }, 600);
+
+            console.log(response.data);
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data || "Connection error");
+            setTimeout(() => {
+                setLoading(false);
+            }, 600)
+        }
+    }
+
     useEffect(() => {
-        setTotalExpenses(3500);
+        fetchTotalExpenses();
         setMostExpensiveCategory('Food');
         setAverageSpending(500);
     }, []);
@@ -88,7 +114,7 @@ const ReportsPage = () => {
                     <Card sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Total Expenses</Typography>
-                            <Typography variant="h3" color="idk">${totalExpenses}</Typography>
+                            <Typography variant="h3" color="idk">{loading ? <CircularProgress /> : totalExpenses} SDG</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
