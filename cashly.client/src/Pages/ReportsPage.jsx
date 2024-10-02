@@ -113,6 +113,7 @@ const ReportsPage = () => {
         fetchTotalExpenses();
         fetchMostExpensive();
         fetchAverageSpending();
+        fetchWeeklyExpense();
     }, []);
 
     // Bar chart data for weekly expenses
@@ -122,8 +123,8 @@ const ReportsPage = () => {
             {
                 label: 'Expenses ($)',
                 data: weeklyExpenses,
-                backgroundColor: '#29576e', // Red bars
-                borderColor: 'rgba(255, 99, 132, 1)',      // Red border
+                backgroundColor: '#29576e', 
+                borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
         ],
