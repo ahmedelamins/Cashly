@@ -221,7 +221,7 @@ const ReportsPage = () => {
 
                 {/* Bar Chart for Weekly Expenses */}
                 <Grid item xs={12}>
-                    <Card sx={{ height: '100%' }}>
+                    <Card elevation={3} sx={{ height: '100%' }}>
                         <CardContent>
                             {/* Box to make the chart container responsive */}
                             <Box sx={{ height: { xs: 300, sm: 400, md: 500 }, width: '100%' }}>
