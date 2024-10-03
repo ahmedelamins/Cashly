@@ -191,7 +191,7 @@ const ReportsPage = () => {
             <Grid container spacing={3}>
                 {/* Total Expenses Card */}
                 <Grid item xs={12} sm={4}>
-                    <Card sx={{ height: '100%' }}>
+                    <Card elevation={2} sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Total Expenses</Typography>
                             <Typography variant="h3" color="idk">{loading ? <CircularProgress /> : totalExpenses} SDG</Typography>
@@ -201,7 +201,7 @@ const ReportsPage = () => {
 
                 {/* Most Expensive Category Card */}
                 <Grid item xs={12} sm={4}>
-                    <Card sx={{ height: '100%' }}>
+                    <Card elevation={2} sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Most Expensive Category</Typography>
                             <Typography variant="h3" color="idk">{loading ? <CircularProgress /> : mostExpensiveCategory}</Typography>
@@ -211,7 +211,7 @@ const ReportsPage = () => {
 
                 {/* Average Spending per Category Card */}
                 <Grid item xs={12} sm={4}>
-                    <Card sx={{ height: '100%' }}>
+                    <Card elevation={2} sx={{ height: '100%' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Average Spending per Category</Typography>
                             <Typography variant="h3" color="idk">{loading ? <CircularProgress /> : averageSpending} SDG</Typography>
@@ -221,7 +221,7 @@ const ReportsPage = () => {
 
                 {/* Bar Chart for Weekly Expenses */}
                 <Grid item xs={12}>
-                    <Card elevation={3} sx={{ height: '100%' }}>
+                    <Card elevation={2} sx={{ height: '100%' }}>
                         <CardContent>
                             {/* Box to make the chart container responsive */}
                             <Box sx={{ height: { xs: 300, sm: 400, md: 500 }, width: '100%' }}>
