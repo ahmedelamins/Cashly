@@ -49,6 +49,7 @@ public class ReportService : IReportService
             if (expensesByCategory.Count > 0)
             {
                 var avgSpending = expensesByCategory.Average(e => e.totalAmount);
+                avgSpending = Math.Truncate(avgSpending * 100) / 100;
                 response.Data = avgSpending;
             }
             else
