@@ -16,9 +16,9 @@ import {
   MenuItem,
   Box,
 } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import ReportIcon from "@mui/icons-material/Assessment";
-import SettingsIcon from "@mui/icons-material/Settings";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import SignalCellularAltRoundedIcon from '@mui/icons-material/SignalCellularAltRounded';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from "react-toastify";
@@ -61,7 +61,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           }}>
         
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
-            <HomeIcon fontSize="large" />
+            <HomeOutlinedIcon fontSize="large" />
           </ListItemIcon>
           <ListItemText
             primary="Home"
@@ -79,7 +79,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
           }}>
             
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
-            <ReportIcon fontSize="large" />
+            <SignalCellularAltRoundedIcon fontSize="large" />
           </ListItemIcon>
           <ListItemText
             primary="Reports"
@@ -96,7 +96,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
             my: 3, height: "60px"
           }}>
           <ListItemIcon sx={{ minWidth: "40px", color: "black" }}>
-            <SettingsIcon fontSize="large" />
+            <SettingsOutlinedIcon fontSize="large" />
           </ListItemIcon>
           <ListItemText
             primary="Settings"
