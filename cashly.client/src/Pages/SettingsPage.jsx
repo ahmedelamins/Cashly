@@ -123,13 +123,7 @@ const SettingsPage = () => {
 
     return (
         <Box sx={{ ml: 3 }} >
-            <Box sx={{
-                mt: 5,
-                animation: 'fadeSlideUp 0.9s ease-in-out',
-                '@keyframes fadeSlideUp': {
-                    '0%': { opacity: 0, transform: 'translateY(10px)' },
-                    '100%': { opacity: 1, transform: 'translateY(0)' },
-                } }}>                
+            <Box sx={{ mt: 3 }}>                
                 <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
                     Manage Your Account
                 </Typography>
