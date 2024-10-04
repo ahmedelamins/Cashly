@@ -112,7 +112,7 @@ public class ReportService : IReportService
         {
             //get today's date
             var today = DateOnly.FromDateTime(DateTime.UtcNow);
-            var last30Days = today.AddDays(-30);
+            var last30Days = today.AddDays(-29);
 
             //fetch expenses for the last 30 days
             var monthlyExpenses = await _context.Expenses
@@ -128,15 +128,14 @@ public class ReportService : IReportService
             var expensesPerDay = new decimal[30]; //expenses per day list
 
             //map expense to date
-            foreach (var dayExpenses in monthlyExpenses)
+            for (int i = 0; i < 30; i++)
             {
-                //calculating days between today and the expense date
-                int dayIndex = (today.DayNumber - dayExpenses.Day.DayNumber);
-                expensesPerDay[29 - dayIndex] = dayExpenses.TotalAmount;
+                var currentDate = today.AddDays(-i);
+                var dayExpense = monthlyExpenses.FirstOrDefault(e => e.Day == currentDate);
+                expensesPerDay[29 - i] = dayExpense?.TotalAmount ?? 0;
             }
 
             response.Data = expensesPerDay.ToList();
-
         }
         catch (Exception ex)
         {
