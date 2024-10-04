@@ -35,16 +35,16 @@ const ReportsPage = () => {
     const [totalExpenses, setTotalExpenses] = useState();
     const [averageSpending, setAverageSpending] = useState();
     const [mostExpensiveCategory, setMostExpensiveCategory] = useState('');
-    const [weeklyExpenses, setWeeklyExpenses] = useState();
+    const [monthlyExpenses, setMonthlyExpenses] = useState();
 
-    //fetch weekly expenses
-    const fetchWeeklyExpense = async () => {
+    //fetch monthly expenses
+    const fetchMonthlyExpense = async () => {
         try {
             const userId = localStorage.getItem('userId');
 
-            const response = await axiosInstance.get(`report/weekly-expenses/${userId}`);
+            const response = await axiosInstance.get(`report/monthly-expenses/${userId}`);
 
-            setWeeklyExpenses(response.data.data);
+            setMonthlyExpenses(response.data.data);
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
