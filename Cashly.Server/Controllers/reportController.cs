@@ -51,10 +51,10 @@ public class reportController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("weekly-expenses/{userId:int}"), Authorize]
-    public async Task<ActionResult<ServiceResponse<decimal>>> GetWeeklyExpenses(int userId)
+    [HttpGet("monthly-expenses/{userId:int}"), Authorize]
+    public async Task<ActionResult<ServiceResponse<decimal>>> GetMonthlyExpenses(int userId)
     {
-        var response = await _reportService.GetWeeklyExpenses(userId);
+        var response = await _reportService.GetMonthlyExpenses(userId);
 
         if (!response.Success)
         {
