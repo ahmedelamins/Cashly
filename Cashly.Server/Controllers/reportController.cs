@@ -52,7 +52,7 @@ public class reportController : ControllerBase
     }
 
     [HttpGet("monthly-expenses/{userId:int}"), Authorize]
-    public async Task<ActionResult<ServiceResponse<decimal>>> GetMonthlyExpenses(int userId)
+    public async Task<ActionResult<ServiceResponse<List<decimal>>>> GetMonthlyExpenses(int userId)
     {
         var response = await _reportService.GetMonthlyExpenses(userId);
 
