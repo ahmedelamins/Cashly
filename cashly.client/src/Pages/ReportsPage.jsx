@@ -15,7 +15,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -142,24 +142,26 @@ const ReportsPage = () => {
         fetchTotalExpenses();
         fetchMostExpensive();
         fetchAverageSpending();
-        fetchWeeklyExpense();
+        fetchMonthlyExpense();
     }, []);
 
-    // Bar chart data for weekly expenses
-    const barChartData = {
-        labels: ['Sun', 'mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    // line chart data for the last 30 days
+    const lineChartData = {
+        labels: Array.from({ length: 30 }, (_, index) => `Day ${index + 1}`), // Labels for the last 30 days
         datasets: [
             {
                 label: 'Expenses (SDG)',
-                data: weeklyExpenses,
-                backgroundColor: '#29576e', 
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1,
+                data: monthlyExpenses, // Assuming this is an array of 30 values
+                borderColor: '#29576e', // Line color
+                backgroundColor: 'rgba(41, 87, 110, 0.5)', // Area under the line
+                pointBackgroundColor: '#29576e', // Point color
+                fill: true, // Fill the area under the line
+                tension: 0.3, // Line tension for smooth curves
             },
         ],
     };
 
-    const barChartOptions = {
+    const lineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -168,16 +170,12 @@ const ReportsPage = () => {
             },
             title: {
                 display: true,
-                text: 'Weekly Expenses',
+                text: 'Expenses for the Last 30 Days',
             },
         },
         scales: {
             y: {
                 beginAtZero: true,
-            },
-            x: {
-                barThickness: 15,
-                maxBarThickness: 15,
             },
         },
     };
@@ -219,13 +217,13 @@ const ReportsPage = () => {
                     </Card>
                 </Grid>
 
-                {/* Bar Chart for Weekly Expenses */}
+                {/* Bar Chart for monthly Expenses */}
                 <Grid item xs={12}>
                     <Card elevation={2} sx={{ height: '100%' }}>
                         <CardContent>
                             {/* Box to make the chart container responsive */}
                             <Box sx={{ height: { xs: 300, sm: 400, md: 500 }, width: '100%' }}>
-                                <Bar data={barChartData} options={barChartOptions} />
+                                <Line data={lineChartData} option={lineChartOptions} />
                             </Box>
                         </CardContent>
                     </Card>
