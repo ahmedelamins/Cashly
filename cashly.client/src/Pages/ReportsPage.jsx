@@ -44,6 +44,7 @@ const ReportsPage = () => {
 
             const response = await axiosInstance.get(`report/monthly-expenses/${userId}`);
 
+            //ensuring correct response structure
             if (Array.isArray(response.data.data)) {
                 if (response.data.data.length > 0) {
                     setMonthlyExpenses(response.data.data);
