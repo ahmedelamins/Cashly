@@ -223,7 +223,7 @@ const ReportsPage = () => {
                         <CardContent>
                             {/* Box to make the chart container responsive */}
                             <Box sx={{ height: { xs: 300, sm: 400, md: 500 }, width: '100%' }}>
-                                <Line data={lineChartData} option={lineChartOptions} />
+                                <Line data={lineChartData} options={lineChartOptions} />
                             </Box>
                         </CardContent>
                     </Card>
