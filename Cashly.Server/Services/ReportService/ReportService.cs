@@ -104,6 +104,48 @@ public class ReportService : IReportService
         return response;
     }
 
+    public async Task<ServiceResponse<List<decimal>>> GetMonthlyExpenses(int userId)
+    {
+        var response = new ServiceResponse<List<decimal>>();
+
+        try
+        {
+            //get today's date
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var last30Days = today.AddDays(-30);
+
+            //fetch expenses for the last 30 days
+            var monthlyExpenses = await _context.Expenses
+                .Where(e => e.UserId == userId && e.Date >= last30Days && e.Date <= today)
+                .GroupBy(e => e.Date)
+                .Select(group => new
+                {
+                    Day = group.Key,
+                    TotalAmount = group.Sum(e => e.Amount)
+                })
+                .ToListAsync();
+
+            var expensesPerDay = new decimal[30]; //expenses per day list
+
+            //map expense to date
+            foreach (var dayExpenses in monthlyExpenses)
+            {
+                //calculating days between today and the expense date
+                int dayIndex = (today.DayNumber - dayExpenses.Day.DayNumber);
+                expensesPerDay[29 - dayIndex] = dayExpenses.TotalAmount;
+            }
+
+            response.Data = expensesPerDay.ToList();
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
     public async Task<ServiceResponse<List<decimal>>> GetWeeklyExpenses(int userId)
     {
         var response = new ServiceResponse<List<decimal>>();
