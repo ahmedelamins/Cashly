@@ -44,8 +44,19 @@ const ReportsPage = () => {
 
             const response = await axiosInstance.get(`report/monthly-expenses/${userId}`);
 
-            setMonthlyExpenses(response.data.data);
+            if (Array.isArray(response.data.data)) {
+                if (response.data.data.length > 0) {
+                    setMonthlyExpenses(response.data.data);
+                } else {
+                    toast.error("No monthly expense data available.");
+                }
+            } else {
+                toast.error("Unexpected data format.");
+            }
+          
         } catch (error) {
+            console.log(error.response.data.message)
+            toast.error(error.response.data.message);
             if (error.response) {
                 toast.error(error.response.data);
             } else if (error.request) {
@@ -54,7 +65,7 @@ const ReportsPage = () => {
                 toast.error("An unexpected error occured.");
             }
         }
-    }
+    };
 
     //fetch total expenses
     const fetchTotalExpenses = async () => {
