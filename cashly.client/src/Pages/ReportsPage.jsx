@@ -36,7 +36,6 @@ const ReportsPage = () => {
     const [averageSpending, setAverageSpending] = useState();
     const [mostExpensiveCategory, setMostExpensiveCategory] = useState('');
     const [monthlyExpenses, setMonthlyExpenses] = useState();
-    const [lineChartData, setLineChartData] = useState({});
 
     //fetch monthly expenses
     const fetchMonthlyExpense = async () => {
@@ -48,25 +47,7 @@ const ReportsPage = () => {
             //ensuring correct response structure
             if (Array.isArray(response.data.data)) {
                 if (response.data.data.length > 0) {
-                    setMonthlyExpenses(response.data.data);
-
-                    //extract real dates
-                    const dates = response.data.data.map(e => e.Date);
-
-                    setLineChartData({ // Update the line chart data state
-                        labels: dates,
-                        datasets: [
-                            {
-                                label: 'Expenses (SDG)',
-                                data: monthlyExpenses, // Use amounts here
-                                borderColor: '#29576e', // Line color
-                                backgroundColor: 'rgba(41, 87, 110, 0.5)', // Area under the line
-                                pointBackgroundColor: '#29576e', // Point color
-                                fill: true, // Fill the area under the line
-                                tension: 0.3,
-                            },
-                        ],
-                    });
+                    setMonthlyExpenses(response.data.data);                    
                 } else {
                     toast.error("No monthly expense data available.");
                 }
@@ -177,20 +158,20 @@ const ReportsPage = () => {
     }, []);
 
     // line chart data for the last 30 days
-    //const lineChartData = {
-    //    labels: Array.from({ length: 30 }, (_, index) => `Day ${index + 1}`), // Labels for the last 30 days
-    //    datasets: [
-    //        {
-    //            label: 'Expenses (SDG)',
-    //            data: monthlyExpenses,
-    //            borderColor: '#29576e', // Line color
-    //            backgroundColor: 'rgba(41, 87, 110, 0.5)', // Area under the line
-    //            pointBackgroundColor: '#29576e', // Point color
-    //            fill: true, // Fill the area under the line
-    //            tension: 0.3,
-    //        },
-    //    ],
-    //};
+    const lineChartData = {
+        labels: Array.from({ length: 30 }, (_, index) => `Day ${index + 1}`), // Labels for the last 30 days
+        datasets: [
+            {
+                label: 'Expenses (SDG)',
+                data: monthlyExpenses,
+                borderColor: '#29576e', // Line color
+                backgroundColor: 'rgba(41, 87, 110, 0.5)', // Area under the line
+                pointBackgroundColor: '#29576e', // Point color
+                fill: true, // Fill the area under the line
+                tension: 0.3,
+            },
+        ],
+    };
 
     const lineChartOptions = {
         responsive: true,
