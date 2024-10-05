@@ -20,7 +20,7 @@ import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
 
-// Register the chart components
+// Register chart components
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -76,10 +76,9 @@ const ReportsPage = () => {
             const userId = localStorage.getItem('userId');
 
             const response = await axiosInstance.get(`/report/total-expenses/${userId}`);
-            setTimeout(() => {
-                setTotalExpenses(response.data.data);
-                setLoading(false);
-            }, 600);
+
+            setTotalExpenses(response.data.data);
+            setLoading(false)
             
         } catch (error) {
             if (error.response) {
@@ -89,9 +88,7 @@ const ReportsPage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 600)
+            setLoading(false);
         }
     }
 
@@ -104,10 +101,9 @@ const ReportsPage = () => {
 
             const response = await axiosInstance.get(`/report/average-expense/${userId}`);
 
-            setTimeout(() => {
-                setAverageSpending(response.data.data);
-                setLoading(false);
-            }, 600);
+            setAverageSpending(response.data.data);
+            setLoading(false);
+
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -116,9 +112,7 @@ const ReportsPage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 600)
+            setLoading(false);
         }
     }
 
@@ -131,11 +125,10 @@ const ReportsPage = () => {
 
             const response = await axiosInstance.get(`report/most-expensive-category/${userId}`);
             
-            setTimeout(() => {
-                setLoading(false);
+            setLoading(false);
 
-                setMostExpensiveCategory(response.data.data);
-            }, 600);
+            setMostExpensiveCategory(response.data.data);
+
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data);
@@ -144,9 +137,7 @@ const ReportsPage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 600);            
+            setLoading(false);
         }
     }
 
@@ -157,22 +148,23 @@ const ReportsPage = () => {
         fetchMonthlyExpense();
     }, []);
 
-    // line chart data for the last 30 days
+    // line chart data 
     const lineChartData = {
-        labels: Array.from({ length: 30 }, (_, index) => `Day ${index + 1}`), // Labels for the last 30 days
+        labels: Array.from({ length: 30 }, (_, index) => `Day ${index + 1}`), 
         datasets: [
             {
                 label: 'Expenses (SDG)',
                 data: monthlyExpenses,
-                borderColor: '#29576e', // Line color
-                backgroundColor: 'rgba(41, 87, 110, 0.5)', // Area under the line
-                pointBackgroundColor: 'navy', // Point color
-                fill: true, // Fill the area under the line
+                borderColor: '#29576e',
+                backgroundColor: 'rgba(41, 87, 110, 0.7)', 
+                pointBackgroundColor: 'navy',
+                fill: true, 
                 tension: 0.3,
             },
         ],
     };
 
+    //chart options
     const lineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
