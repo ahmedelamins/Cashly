@@ -83,16 +83,12 @@ const HomePage = () => {
         try {
             const response = await axiosInstance.get('/expense');
 
-            setTimeout(() => {
-                setExpenses(response.data.data);
-                setLoading(false);
-            }, 600)
+            setExpenses(response.data.data);
+            setLoading(false);
 
         } catch (error) {
             toast.error(error.response.data || "Connection error");
-            setTimeout(() => {
-                setLoading(false);
-            }, 600)
+            setLoading(false);
         }
     }
 
@@ -244,6 +240,7 @@ const HomePage = () => {
             return "Good evening";
         }
     };
+
     const greeting = goodTime();
     
     return (
