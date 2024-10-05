@@ -166,7 +166,7 @@ const ReportsPage = () => {
                 data: monthlyExpenses,
                 borderColor: '#29576e', // Line color
                 backgroundColor: 'rgba(41, 87, 110, 0.5)', // Area under the line
-                pointBackgroundColor: '#29576e', // Point color
+                pointBackgroundColor: 'navy', // Point color
                 fill: true, // Fill the area under the line
                 tension: 0.3,
             },
