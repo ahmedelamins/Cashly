@@ -62,15 +62,13 @@ const LandingPage = () => {
                 localStorage.setItem('username', username); // Store username
                 localStorage.setItem('userId', userId); // Store id
 
-                setTimeout(() => {
-                    setLoginOpen(false);
-                    setLoading(false);
+                setLoginOpen(false);
+                setLoading(false);
 
-                    toast.success(response.data.message);
+                toast.success(response.data.message);
 
-                    navigate('/home');
-                }, 600);
-
+                navigate('/home');                
+               
                 
             } else {
                 throw new Error("No token returned from login!");
@@ -83,9 +81,7 @@ const LandingPage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 600);
+            setLoading(false);
         } 
     };
 
@@ -102,11 +98,9 @@ const LandingPage = () => {
             });
 
             toast.success(response.data.message);
-            setTimeout(() => {
-                setJoinOpen(false);
-                setLoading(false);
-                
-            }, 900);            
+            
+            setJoinOpen(false);
+            setLoading(false);
 
         } catch (error) {
             if (error.response) {
@@ -116,9 +110,7 @@ const LandingPage = () => {
             } else {
                 toast.error("An unexpected error occured.");
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 900);
+            setLoading(false); 
         }
     };
     
