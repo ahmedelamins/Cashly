@@ -7,7 +7,7 @@ Welcome to **Cashly**, a simple and intuitive expense tracker built using **Reac
 - 📊 **Dashboard**: Visualize your expenses with charts and get an overview of your spending habits.
 - 📝 **Expense History**: Track and manage your daily expenses.
 - 🗂 **Categories**: Organize your expenses into categories like food, utility, transport, and more.
-- 🔐 **JWT Authentication**: Secure login and registration system.
+- 🔐 **JWT Authentication**: Secure login and registration system, & advanced features like change password and delete account.
 - 📅 **Monthly Reports**: View a detailed breakdown of your expenses for the past 30 days.
 
 ## Tech Stack
@@ -20,7 +20,7 @@ Welcome to **Cashly**, a simple and intuitive expense tracker built using **Reac
 ## Screenshots
 
 ### Landing Page
-![Home](cashly.client/src/assets/landing-page.JPG)
+![landing](cashly.client/src/assets/landing-page.JPG)
 
 ### Home Page
 ![Home](cashly.client/src/assets/home-desktop.JPG)
@@ -32,6 +32,6 @@ Welcome to **Cashly**, a simple and intuitive expense tracker built using **Reac
 ![report](cashly.client/src/assets/reports-page.JPG)
 
 ### Settings Page
-![report](cashly.client/src/assets/settings.JPG)
+![settings](cashly.client/src/assets/settings.JPG)
 
 
