@@ -8,7 +8,7 @@ export default function ErrorPage() {
     return (
         <Box sx={{ textAlign: 'center', py: 6 }}>
             <h1>
-                Oops!
+                Oh Wow!
             </h1>
             <p>Sorry, an unexpected error has occurred.</p>
             <p>
