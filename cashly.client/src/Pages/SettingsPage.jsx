@@ -42,19 +42,15 @@ const SettingsPage = () => {
                 password: formData.password
             });
 
-            setTimeout(() => {
-                setLoading(false);
-                setPasswordOpen(false);
+            setLoading(false);
+            setPasswordOpen(false);
 
-                toast.success(response.data.message);
-            }, 700);
-                    
+            toast.success(response.data.message);
+            
             setFormData("");
         } catch (error) {
             toast.error(error.response.data.message);
-            setTimeout(() => {
-                setLoading(false);
-            }, 700);
+            setLoading(false);
         }
     };
 
@@ -74,21 +70,17 @@ const SettingsPage = () => {
             const response = await axiosInstance.post('/auth/change-username', {
                 username: formData.username
             });
-            
-            setTimeout(() => {
-                setLoading(false);
-                setUsernameOpen(false);
-             
-                toast.success(response.data.message);
-                setNewUsername(newUsername);
-            }, 700);
+
+            setLoading(false);
+            setUsernameOpen(false);
+
+            toast.success(response.data.message);
+            setNewUsername(newUsername);
 
             setFormData("");
         } catch (error) {
             toast.error(error.response.data.message);
-            setTimeout(() => {
-                setLoading(false);
-            }, 700);
+            setLoading(false);
         }
     }
 
@@ -113,10 +105,8 @@ const SettingsPage = () => {
             }, 700);       
 
         } catch (error) {
-            toast.error(error.response.data);
-            setTimeout(() => {
-                setLoading(false);
-            }, 7000);
+            toast.error(error.response.data);            
+            setLoading(false);                           
         }
     };
 
